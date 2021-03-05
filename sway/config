@@ -1,9 +1,3 @@
-# Default config for sway
-#
-# Copy this to ~/.config/sway/config and edit it to your liking.
-#
-# Read `man 5 sway` for a complete reference.
-
 ### Monitor
 output eDP-1 scale 1
 
@@ -29,6 +23,7 @@ set $menu wofi --show drun
 # Default wallpaper (more resolutions are available in /usr/share/backgrounds/sway/)
 #output * bg /usr/share/backgrounds/sway/Sway_Wallpaper_Blue_1920x1080.png fill
 output * bg /home/barnaby/Pictures/Wallpapers/Imacon\ Picture\ 392.jpg fill
+
 #
 # Example configuration:
 #
@@ -191,10 +186,10 @@ bindsym XF86MonBrightnessDown exec light -U 5
 # Resizing containers:
 #
 mode "resize" {
-    # left will shrink the containers width
-    # right will grow the containers width
-    # up will shrink the containers height
-    # down will grow the containers height
+    # left will shrink the container's width
+    # right will grow the container's width
+    # up will shrink the container's height
+    # down will grow the container's height
     bindsym $left resize shrink width 10px
     bindsym $down resize grow height 10px
     bindsym $up resize shrink height 10px
