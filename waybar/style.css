@@ -3,7 +3,7 @@
     border-radius: 0;
     /* `otf-font-awesome` is required to be installed for icons */
     font-family: JetBrains Mono, Roboto, Helvetica, Arial, sans-serif;
-    font-size: 12px;
+    font-size: 11px;
     min-height: 0;
 }
 
@@ -133,7 +133,8 @@ label:focus {
 
 #cpu {
     background-color: #2ecc71;
-    color: #000000;
+    color: #222222;
+    min-width: 45px; /* So that changes between single and double digits don't job the entire bar */
 }
 
 #memory {
@@ -178,6 +179,7 @@ label:focus {
 
 #temperature {
     background-color: #f0932b;
+    padding: 0 10px; /* For some reason, the temperature widget isn't picking up the generic widget L-R padding */
 }
 
 #temperature.critical {
