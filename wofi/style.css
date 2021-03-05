@@ -1,0 +1,28 @@
+window {
+    border: none;
+    background-color: #333333;
+    color: #efefef;
+}
+
+#input {
+    background-color: inherit;
+    border: none;
+    color: #efefef;
+}
+
+#input:selected {
+    border: none;
+}
+
+#outer-box {
+    margin: 20px;
+}
+
+#entry:selected {
+    background-color: #ff0088;
+    color: #efefef;
+}
+
+#text:selected {
+    border: none;
+}
