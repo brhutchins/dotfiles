@@ -173,6 +173,7 @@ shift + ctrl + alt + cmd - p : yabai -m config --space mouse layout float
 # open stuff
 shift + ctrl + alt + cmd - return : /Applications/kitty.app/Contents/MacOS/kitty --single-instance -d ~ 
 shift + ctrl + alt + cmd - b : open -a Safari.app
+shift + ctrl + alt + cmd - e : open -a Emacs.app
 
 # equalize size of windows
 shift + ctrl + alt + cmd - 0 : yabai -m space --balance
