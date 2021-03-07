@@ -229,6 +229,8 @@ client.focused_inactive #555555 #5F676A #ffffff #484e50
 client.unfocused        #333333 #424242 #888888 #292d2e 
 client.urgent           #C10004 #900000 #ffffff #900000
 
+### Floating defaults
+for_window [title="Picture in picture"] floating enable
 
 include /etc/sway/config.d/*
 exec mako
