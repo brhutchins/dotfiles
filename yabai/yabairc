@@ -45,12 +45,13 @@ yabai -m config right_padding                12
 yabai -m config window_gap                   06
 
 # Exclusions
-yabai -m rule --add app="^System Preferences$" manage=off
+yabai -m rule --add app="^Preferences$" manage=off
 yabai -m rule --add app="^Calendar$" manage=off
 yabai -m rule --add app="^Reminders$" manage=off
 yabai -m rule --add app="^Contacts$" manage=off
 yabai -m rule --add app="^Bitwarden$" manage=off
 yabai -m rule --add app="^About$" manage=off
+yabai -m rule --add app="^Digital Colour Meter$" manage=off
 
 # Spaces
 yabai -m space 3 --label Mail
