@@ -51,15 +51,18 @@ yabai -m rule --add app="^Reminders$" manage=off
 yabai -m rule --add app="^Contacts$" manage=off
 yabai -m rule --add app="^Bitwarden$" manage=off
 yabai -m rule --add app="^About$" manage=off
+yabai -m rule --add app="^JetBrains Toolbox$" manage=off
+yabai -m rule --add app="^Creative Cloud$" manage=off
 yabai -m rule --add app="^Digital Colour Meter$" manage=off
 
 # Spaces
-yabai -m space 3 --label Mail
+yabai -m space 1 --label WWW
 
 # Space settings
-yabai -m config --space Mail layout	stack
+#yabai -m config --space Mail layout	stack
+yabai -m config --space WWW layout stack
 
 # Window->space rules
-yabai -m rule --add app="^Mail$" space=Mail
+#yabai -m rule --add app="^Mail$" space=Mail
 
 echo "yabai configuration loaded.."
