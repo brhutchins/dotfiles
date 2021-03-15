@@ -68,6 +68,7 @@ exec swayidle -w timeout 900 'swaylock -f -c 000000' timeout 600 'swaymsg "outpu
 
     # Start your launcher
     bindsym $mod+d exec $menu
+    bindsym XF86LaunchB exec $menu
 
     # Drag floating windows by holding down $mod and left mouse button.
     # Resize them with right mouse button + $mod.
@@ -91,8 +92,8 @@ bindsym XF86AudioLowerVolume exec pactl set-sink-volume @DEFAULT_SINK@ -1000
 bindsym XF86AudioMute exec pactl set-sink-mute @DEFAULT_SINK@ toggle
 
 # Backlight
-bindsym XF86MonBrightnessUp exec light -A 5 
-bindsym XF86MonBrightnessDown exec light -U 5 
+bindsym XF86MonBrightnessUp exec light -A 2
+bindsym XF86MonBrightnessDown exec light -U 2
 
 #
 # Moving around:
