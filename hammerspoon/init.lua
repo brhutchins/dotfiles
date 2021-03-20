@@ -4,14 +4,25 @@ local hyper = { "cmd", "alt", "ctrl", "shift" }
 
 local myStackline = {
     appearance = { 
-      showIcons = false,       -- default is true
+      showIcons = false,
     },
     features = {
-        clickToFocus = false,  -- default is true
+        clickToFocus = false,
         fzyFrameDetect = {
-            fuzzFactor = 25    -- default is 30
+            fuzzFactor = 25
         },
     },
 }
 
 stackline:init(myStackline)
+
+local VimMode = hs.loadSpoon('VimMode')
+local vim = VimMode:new()
+
+vim
+  :disableForApp('Code')
+  :disableForApp('Emacs')
+  :disableForApp('kitty')
+  :disableForApp('zoom.us')
+  :enterWithSequence('jk')
+  :enableBetaFeature('block_cursor_overlay')
