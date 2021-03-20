@@ -54,7 +54,6 @@ yabai -m rule --add app="^About$" manage=off
 yabai -m rule --add app="^JetBrains Toolbox$" manage=off
 yabai -m rule --add app="^Creative Cloud$" manage=off
 yabai -m rule --add app="^Digital Colou?r Meter$" manage=off
-yabai -m rule --add app="^Emacs$" native-fullscreen=on
 
 # Spaces
 yabai -m space 1 --label WWW
