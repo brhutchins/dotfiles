@@ -50,3 +50,4 @@
 ;(unpin! t)
 
 (package! ox-reveal)
+(package! org-present)
