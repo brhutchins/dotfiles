@@ -84,3 +84,6 @@
 
 ;; Import custom stuff
 (load! "bindings")
+
+;; Org-reveal
+(require 'ox-reveal)
