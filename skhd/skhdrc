@@ -177,7 +177,7 @@ hyper - p : yabai -m config --space mouse layout float
 # open stuff
 hyper - return : /Applications/kitty.app/Contents/MacOS/kitty --single-instance -d ~
 hyper - b : open -a Safari.app
-hyper - e : emacs
+hyper - e : emacsclient --create-frame -a=
 hyper - g : open -a Finder.app
 
 # equalize size of windows
