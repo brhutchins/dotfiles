@@ -180,6 +180,7 @@ hyper - b : open -a Safari.app
 hyper - e : emacsclient --create-frame -a=
 hyper - g : open -a Finder.app
 hyper - z : zathura
+hyper - v : vimr
 
 # equalize size of windows
 hyper - 0 : yabai -m space --balance
