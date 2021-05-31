@@ -45,7 +45,7 @@ yabai -m config right_padding                12
 yabai -m config window_gap                   06
 
 # Exclusions
-yabai -m rule --add app="^Preferences$" manage=off
+yabai -m rule --add app="Preferences" manage=off
 yabai -m rule --add app="^Calendar$" manage=off
 yabai -m rule --add app="^Reminders$" manage=off
 yabai -m rule --add app="^Contacts$" manage=off
@@ -54,6 +54,7 @@ yabai -m rule --add app="^About$" manage=off
 yabai -m rule --add app="^JetBrains Toolbox$" manage=off
 yabai -m rule --add app="^Creative Cloud$" manage=off
 yabai -m rule --add app="^Digital Colou?r Meter$" manage=off
+yabai -m rule --add app="^VirtualBox$" manage=off
 
 # Spaces
 yabai -m space 1 --label WWW
