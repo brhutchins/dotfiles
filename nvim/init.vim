@@ -74,14 +74,17 @@ Plug 'neoclide/coc.nvim', {'branch': 'release'}
 " commentary
 Plug 'tpope/vim-commentary'
 
+" vim-lion
+Plug 'tommcdo/vim-lion'
+
+" elm.vim
+Plug 'andys8/vim-elm-syntax'
+
 " goyo
-Plug 'junegunn/goyo.vim'
+" Plug 'junegunn/goyo.vim'
 
 " limelight
-Plug 'junegunn/limelight.vim'
-
-" indentline
-" Plug 'Yggdroot/indentLine'
+" Plug 'junegunn/limelight.vim'
 
 " vim-indent-guides
 Plug 'nathanaelkane/vim-indent-guides'
