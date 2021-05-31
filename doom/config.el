@@ -111,3 +111,21 @@
 ;;   (setq lsp-ui-doc-max-height 30)
 ;;   (setq company-lsp-cache-candidates nil)
 ;;   )
+
+;; Key binding for inserting zero-width space in org-mode
+;; Taken from This Month in Org, May 2021
+(define-key org-mode-map (kbd "M-SPC M-SPC")
+  (lambda () (interactive) (insert "\u200b")))
+
+;; Remove zero-width spaces from org-mode output
+;; Taken from This Month in Org, May 2021
+(defun +org-export-remove-zero-width-space (text _backend _info)
+  "Remove zero width spaces from TEXT."
+  (unless (org-export-derived-backend-p 'org)
+    (replace-regexp-in-string "\u200b" "" text)))
+
+(add-to-list 'org-export-filter-final-output-functions #'+org-export-remove-zero-width-space t)
+
+;; Key binding for inserting section symbol in org-mode
+(define-key org-mode-map (kbd "M-S")
+  (lambda () (interactive) (insert "\u00a7")))
