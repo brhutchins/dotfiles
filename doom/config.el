@@ -88,29 +88,26 @@
 ;; Org-reveal
 (require 'ox-reveal)
 
-;; Org-mode youtube embedding from http://endlessparentheses.com/embedding-youtube-videos-with-org-mode-links.html
-(defvar yt-iframe-format
-  ;; You may want to change your width and height.
-  (concat "<iframe width=\"440\""
-          " height=\"335\""
-          " src=\"https://www.youtube.com/embed/%s\""
-          " frameborder=\"0\""
-          " allowfullscreen>%s</iframe>"))
-
-(org-add-link-type
- "yt"
- (lambda (handle)
-   (browse-url
-    (concat "https://www.youtube.com/embed/"
-            handle)))
- (lambda (path desc backend)
-   (cl-case backend
-     (html (format yt-iframe-format
-                   path (or desc "")))
-     (latex (format "\href{%s}{%s}"
-                    path (or desc "video"))))))
-
+;; Evil-lion
 (use-package evil-lion
 ;;  :ensure t
   :config
   (evil-lion-mode))
+
+;; Use pdf-tools with AucTeX
+(require 'pdf-tools)
+(setq TeX-view-program-list '(("PDF Tools" TeX-pdf-tools-sync-view))
+        TeX-view-program-selection '((output-pdf "PDF Tools"))
+        TeX-source-correlate-start-server t)
+
+(add-hook 'TeX-after-compilation-finished-functions
+        #'TeX-revert-document-buffer)
+
+;; (after! lsp
+;;   (setq lsp-enable-symbol-highlighting nil)
+;;   )
+;; (after! lsp-ui
+;;   (setq lsp-ui-doc-max-width 100)
+;;   (setq lsp-ui-doc-max-height 30)
+;;   (setq company-lsp-cache-candidates nil)
+;;   )
