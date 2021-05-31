@@ -2,6 +2,14 @@ stackline = require "stackline.stackline.stackline"
 
 local hyper = { "cmd", "alt", "ctrl", "shift" }
 
+--
+-- Reload config
+hs.hotkey.bind(hyper, ";", function()
+    hs.reload()
+end)
+
+--
+-- Stackline
 local myStackline = {
     appearance = { 
       showIcons = false,
