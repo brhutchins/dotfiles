@@ -112,6 +112,11 @@
 ;;   (setq company-lsp-cache-candidates nil)
 ;;   )
 
+;;
+;; Org-mode-specific config
+;;
+(require 'org)
+
 ;; Key binding for inserting zero-width space in org-mode
 ;; Taken from This Month in Org, May 2021
 (define-key org-mode-map (kbd "M-SPC M-SPC")
@@ -129,3 +134,11 @@
 ;; Key binding for inserting section symbol in org-mode
 (define-key org-mode-map (kbd "M-S")
   (lambda () (interactive) (insert "\u00a7")))
+
+;; org-mode LaTeX export
+(add-to-list 'org-latex-classes
+             '("simpleDoc"
+               "\\documentclass{simpleDoc}"
+               ("\\section{%s}" . "\\section*{%s}")
+               ("\\subsection{%s}" . "\\subsection*{%s}")
+               ("\\subsubsection{%s}" . "\\subsubsection*{%s}")))
