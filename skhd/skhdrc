@@ -142,6 +142,8 @@ hyper - d : yabai -m display --focus recent
 # ctrl + cmd - c  : yabai -m window --display next; yabai -m display --focus next
 # ctrl + cmd - 1  : yabai -m window --display 1; yabai -m display --focus 1
 hyper - m : yabai -m window --display recent; yabai -m display --focus recent
+cmd + shift + alt - 1 : yabai -m window --display 1; yabai -m display --focus 1
+cmd + shift + alt - 2 : yabai -m window --display 2; yabai -m display --focus 2
 
 # move floating window
 # shift + ctrl - a : yabai -m window --move rel:-20:0
