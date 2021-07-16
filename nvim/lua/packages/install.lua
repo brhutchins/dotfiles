@@ -15,7 +15,7 @@ require "paq" {
   "hrsh7th/vim-vsnip";
   "hrsh7th/vim-vsnip-integ";
   "hoob3rt/lualine.nvim";
-  {'kyazdani42/nvim-web-devicons', opt = true};
+  'kyazdani42/nvim-web-devicons';
   -- Themes
   "Shatur/neovim-ayu";
   "glepnir/zephyr-nvim";
