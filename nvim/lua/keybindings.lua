@@ -9,6 +9,9 @@ vim.g.mapleader = " "
 -- Toggle search highlighting
 km("n", "<Leader><Space>", ":set hlsearch!<CR>", {noremap = true, silent = true})
 
+-- Window management
+km("n", "<Leader>w", "<C-w>", {noremap = true, silent = true})
+
 -- Plugin-specific
 --
 
