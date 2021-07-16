@@ -16,5 +16,8 @@ require("keybindings")
 -- LSP
 require("lsp")
 
+-- Treesitter
+require("treesitter-config")
+
 -- Whitespace
 require("whitespace")
