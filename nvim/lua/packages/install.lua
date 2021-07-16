@@ -14,8 +14,11 @@ require "paq" {
   "windwp/nvim-autopairs";
   "hrsh7th/vim-vsnip";
   "hrsh7th/vim-vsnip-integ";
-  "Shatur/neovim-ayu";
   "hoob3rt/lualine.nvim";
   {'kyazdani42/nvim-web-devicons', opt = true};
+  -- Themes
+  "Shatur/neovim-ayu";
+  "glepnir/zephyr-nvim";
+  "mhartington/oceanic-next"
 }
 
