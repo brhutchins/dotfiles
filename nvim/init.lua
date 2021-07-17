@@ -21,3 +21,6 @@ require("treesitter-config")
 
 -- Whitespace
 require("whitespace")
+
+-- Terminal
+require("terminal")
