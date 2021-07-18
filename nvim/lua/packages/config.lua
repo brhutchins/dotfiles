@@ -42,18 +42,10 @@ require('lualine').setup{
             theme = "onedark",
             component_separators = "",
             section_separators = "",
-            -- icons_enabled = vim.fn.has("gui_running") and false or true,
-              -- For reasons I do not understand, devicons work fine with Hasklig
-              -- in terminal (Kitty) nvim, but not in guis. The above would
-              -- disable icons in guis, and works perfectly for VimR. Unfortunately,
-              -- no other nvim gui reports has("gui_running") accurately. And since
-              -- we're using gui colours in the terminal, &t_Co is no help here
-              -- either. So, no icons:
-            icons_enabled = false,
+            icons_enabled = true,
     },
 
     sections = {
-     -- lualine_x = {'encoding', 'fileformat', 'filetype'},
     }
 }
 
@@ -62,33 +54,22 @@ require("nvim-web-devicons").setup()
 
 -- Telescope
 
--- Because of the weird incompatibility between gui devicons and Hasklig,
--- we need to disable devicons in gui clients. Of course, only VimR is
--- going to work properly here, but if I'm in a gui, it's usually VimR.
--- Or, at least, putting up with broken icons in goneovim is the compromise.
-local no_gui_devicons = vim.fn.has("gui_running") == 1 and true or false
-
 require("telescope").setup {
   pickers = {
     find_files = {
-      disable_devicons = no_gui_devicons,
     },
 
     file_browser = {
-      disable_devicons = no_gui_devicons,
     },
 
     git_files = {
-      disable_devicons = no_gui_devicons,
     },
 
     buffers = {
-      disable_devicons = no_gui_devicons,
       theme = "dropdown",
     },
 
     live_grep = {
-      disable_devicons = no_gui_devicons,
     },
   }
 }

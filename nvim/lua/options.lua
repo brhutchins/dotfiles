@@ -16,6 +16,4 @@ vim.o.completeopt = "menuone,noselect"
 vim.cmd "au TextYankPost * lua vim.highlight.on_yank {on_visual = false}"
 
 -- GUI font
-if vim.fn.has("gui_running") then
-  vim.opt.guifont = "Hasklig"
-end
+  vim.opt.guifont = "Hasklug Nerd Font"
