@@ -17,6 +17,8 @@ require "paq" {
   "hoob3rt/lualine.nvim";
   "kyazdani42/nvim-web-devicons";
   "justinmk/vim-sneak";
+  "tpope/vim-surround";
+  "airblade/vim-gitgutter";
 
   -- Themes
   "Shatur/neovim-ayu";
