@@ -19,6 +19,7 @@ require "paq" {
   "justinmk/vim-sneak";
   "tpope/vim-surround";
   "airblade/vim-gitgutter";
+  "neovimhaskell/haskell-vim";
 
   -- Themes
   "Shatur/neovim-ayu";
