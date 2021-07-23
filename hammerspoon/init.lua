@@ -9,6 +9,12 @@ hs.hotkey.bind(hyper, ";", function()
 end)
 
 --
+-- Lock the screen
+hs.hotkey.bind(hyper, "l", function()
+  hs.caffeinate.lockScreen()
+end)
+
+--
 -- Stackline
 local myStackline = {
     appearance = { 
