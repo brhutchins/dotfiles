@@ -110,3 +110,10 @@ lspconfig.sumneko_lua.setup {
     },
   },
 }
+
+-- Nix
+lspconfig.rnix.setup {
+  on_attach = on_attach,
+  cmd = { "rnix-lsp" },
+  filetypes = { "nix" },
+}
