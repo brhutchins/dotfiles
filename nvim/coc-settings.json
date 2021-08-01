@@ -14,5 +14,7 @@
     }
   },
 
+  "metals.javaHome": "/usr/local/Cellar/openjdk@11/11.0.10",
+
   "codeLens.enable": true
 }

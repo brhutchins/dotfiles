@@ -18,8 +18,10 @@ require "paq" {
   "kyazdani42/nvim-web-devicons";
   "justinmk/vim-sneak";
   "tpope/vim-surround";
+  -- "blackCauldron7/surround.nvim";
   "airblade/vim-gitgutter";
   "neovimhaskell/haskell-vim";
+  "LnL7/vim-nix";
 
   -- Themes
   "Shatur/neovim-ayu";
