@@ -87,6 +87,11 @@
     userEmail = "bhutchins@gmail.com";
   };
 
+  programs.gh = {
+    enable = true;
+    gitProtocol = "ssh";
+  };
+
   programs.exa = {
     enable = true;
     enableAliases = true;
