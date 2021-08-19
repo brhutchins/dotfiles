@@ -25,6 +25,7 @@
     git
     bitwarden
     playerctl
+    neofetch
 
     # Language servers
     rnix-lsp
@@ -38,15 +39,17 @@
     swayidle
     wl-clipboard
     mako
+    bemenu
     alacritty
-    dmenu
-    wofi
+    hicolor-icon-theme
+    zathura
     brave
     firefox-wayland
 
     # Communication
     zoom-us
     teams
+    obs-studio
 
     # Fonts
     hasklig
@@ -180,7 +183,7 @@
     config = {
       modifier = "Mod4";
       terminal = "kitty";
-      menu = "dmenu_path | dmenu | xargs swaymsg exec --";
+      menu = "bemenu-run --fn 'Inter Medium 10' --nb '#1b2b34' --nf '#d8dee9' --fb '#1b2b34' --hb '#ec5f67' --hf '#1b2b34' --tb '#1b2b34' --tf '#6699cc' -p '⋮' -f";
 
       # Background
       output."*".bg = "#1b2b34 solid_color";
@@ -203,6 +206,7 @@
         "XF86AudioRaiseVolume" = "exec ${pkgs.pulseaudio}/bin/pactl set-sink-volume @DEFAULT_SINK@ +5%";
         "XF86AudioLowerVolume" = "exec ${pkgs.pulseaudio}/bin/pactl set-sink-volume @DEFAULT_SINK@ -5%";
         "XF86AudioPlay" = "exec ${pkgs.playerctl}/bin/playerctl play-pause";
+        "XF86AudioPause" = "exec ${pkgs.playerctl}/bin/playerctl play-pause";
         "XF86AudioNext" = "exec ${pkgs.playerctl}/bin/playerctl next";
         "XF86AudioPrev" = "exec ${pkgs.playerctl}/bin/playerctl previous";
 
@@ -246,7 +250,7 @@
         "${cfg.modifier}+Shift+9" = "move to workspace number 9; workspace number 9";
         "${cfg.modifier}+Shift+0" = "move to workspace number 10; workspace number 10";
 
-        # layout
+        # Layout
         "${cfg.modifier}+e" = "layout toggle split";
         "${cfg.modifier}+s" = "layout stacking";
         "${cfg.modifier}+t" = "layout tabbed";
@@ -293,6 +297,7 @@
           childBorder = background;
         };
       };
+
       bars = [
         {
           position = "top";
@@ -342,7 +347,7 @@
   gtk = {
     enable = true;
     font.name = "Inter Medium";
-    font.size = 11;
+    font.size = 9;
   };
 
   # kitty
