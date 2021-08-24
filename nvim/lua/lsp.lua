@@ -117,3 +117,6 @@ lspconfig.rnix.setup {
   cmd = { "rnix-lsp" },
   filetypes = { "nix" },
 }
+
+-- Purescript
+lspconfig.purescriptls.setup {}
