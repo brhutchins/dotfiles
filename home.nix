@@ -26,9 +26,12 @@
     bitwarden
     playerctl
     neofetch
+    alpine
 
     # Language servers
     rnix-lsp
+    haskell-language-server
+    nodePackages.purescript-language-server
 
     # nix-specific
     nix-prefetch-scripts
@@ -45,6 +48,7 @@
     zathura
     brave
     firefox-wayland
+    vieb
 
     # Communication
     zoom-us
@@ -132,6 +136,7 @@
         vim-gitgutter
         haskell-vim
         vim-nix
+        purescript-vim
         oceanic-next
       ];
 
@@ -183,7 +188,15 @@
     config = {
       modifier = "Mod4";
       terminal = "kitty";
-      menu = "bemenu-run --fn 'Inter Medium 10' --nb '#1b2b34' --nf '#d8dee9' --fb '#1b2b34' --hb '#ec5f67' --hf '#1b2b34' --tb '#1b2b34' --tf '#6699cc' -p '⋮' -f";
+      menu = ''
+        bemenu-run --fn 'Inter Medium 10' \
+        --nb '#1b2b34' --nf '#d8dee9' \
+        --fb '#1b2b34' \
+        --hb '#ec5f67' --hf '#1b2b34' \
+        --tb '#1b2b34' --tf '#6699cc' \
+        -p '⋮' \
+        -i
+      '';
 
       # Background
       output."*".bg = "#1b2b34 solid_color";
@@ -264,7 +277,6 @@
         # Resize mode
         "${cfg.modifier}+r" = "mode resize";
 
-
       };
 
       colors = {
@@ -297,6 +309,26 @@
           childBorder = background;
         };
       };
+
+      window.commands = [
+        {
+          command = "floating enable";
+          criteria.app_id = "zoom";
+          criteria.title="^(Zoom|About)$";
+        }
+
+        {
+          command = "floating enable";
+          criteria.app_id = "zoom";
+          criteria.title="Settings";
+        }
+        {
+          command = "floating_minimum_size 960 x 700";
+          criteria.app_id = "zoom";
+          criteria.title="Settings";
+        }
+      ];
+
 
       bars = [
         {
@@ -334,6 +366,8 @@
               text = "#ffffff";
             };
           };
+
+          statusCommand = "exec /nix/store/143m3a06vk1qcbr2lvszz24bibblmaq3-i3status-2.13/bin/i3status";
 
           mode = "hide";
 
