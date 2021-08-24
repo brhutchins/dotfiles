@@ -404,7 +404,7 @@
       bell_on_tab = "yes";
       # Window layout
       window_border_width = "1.0px";
-      draw_minimal_border = "yes";
+      draw_minimal_borders = "yes";
       window_margin_width = 0;
       window_padding_width = 10;
       active_border_color = "#ff0088";
