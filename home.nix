@@ -277,6 +277,12 @@
         # Resize mode
         "${cfg.modifier}+r" = "mode resize";
 
+        # Lock
+        "${cfg.modifier}+Control+l" = "exec swaylock -f -u -c 000000";
+
+        # Sleep
+        "${cfg.modifier}+Control+s" = "exec systemctl suspend -i && swaylock -f -c 000000";
+
       };
 
       colors = {
