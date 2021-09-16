@@ -212,6 +212,10 @@
       ## There are no gaps, but smart borders are in the gaps namespace
       gaps.smartBorders = "on";
 
+      input = {
+        "047d:2048" = { left_handed = "enable"; };
+      };
+
       keybindings = let cfg = config.wayland.windowManager.sway.config; in {
         # Basics
         "${cfg.modifier}+Return" = "exec ${cfg.terminal}";
@@ -275,6 +279,10 @@
         "${cfg.modifier}+t" = "layout tabbed";
         "${cfg.modifier}+f" = "fullscreen toggle";
         "${cfg.modifier}+Control+space" = "floating toggle";
+
+        # Scratchpad
+        "${cfg.modifier}+Shift+minus" = "move window to scratchpad";
+        "${cfg.modifier}+minus" = "scratchpad show";
 
         # Splits
         "${cfg.modifier}+b" = "splith";
