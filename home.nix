@@ -208,6 +208,10 @@
         size = 10.0;
       };
 
+      # Gaps
+      ## There are no gaps, but smart borders are in the gaps namespace
+      gaps.smartBorders = "on";
+
       keybindings = let cfg = config.wayland.windowManager.sway.config; in {
         # Basics
         "${cfg.modifier}+Return" = "exec ${cfg.terminal}";
@@ -215,6 +219,7 @@
         "${cfg.modifier}+d" = "exec ${cfg.menu}";
         "${cfg.modifier}+Shift+c" = "reload";
         "${cfg.modifier}+Shift+e" = "exec swaynag -t warning -m 'Exit Sway?' -b 'Yes' 'swaymsg exit'";
+
         # Multimedia keys
         "XF86AudioMute" = "exec ${pkgs.pulseaudio}/bin/pactl set-sink-mute @DEFAULT_SINK@ toggle";
         "XF86AudioRaiseVolume" = "exec ${pkgs.pulseaudio}/bin/pactl set-sink-volume @DEFAULT_SINK@ +5%";
