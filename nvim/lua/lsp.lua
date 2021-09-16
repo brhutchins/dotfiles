@@ -119,4 +119,11 @@ lspconfig.rnix.setup {
 }
 
 -- Purescript
-lspconfig.purescriptls.setup {}
+lspconfig.purescriptls.setup {
+  on_attach = on_attach,
+}
+
+-- Ruby
+lspconfig.solargraph.setup{
+  on_attach = on_attach,
+}
