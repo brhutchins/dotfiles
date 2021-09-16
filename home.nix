@@ -109,7 +109,8 @@
     plugins = with pkgs.vimPlugins;
       let
         kommentary = pkgs.vimUtils.buildVimPlugin {
-          name = "kommentary";
+          pname = "kommentary";
+          version = "a";
           src = pkgs.fetchFromGitHub {
             owner = "b3nj5m1n";
             repo = "kommentary";
