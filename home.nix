@@ -205,7 +205,7 @@
       fonts = {
         names = [ "inter" ];
         style = "medium";
-        size = 10.0;
+        size = 9.0;
       };
 
       # Gaps
@@ -301,15 +301,15 @@
 
       colors = {
         focused = rec {
-          border = "#ff0088 ";
-          background = "#ff0088 ";
-          text = "#00BAA7 ";
+          border = "#d8dee9";
+          background = "#d8dee9";
+          text = "#1b2b34";
           indicator = "#00DA8E";
           childBorder = background;
         };
         focusedInactive = rec {
           border = "#555555";
-          background = "#5F676A";
+          background = "#1b2b34";
           text = "#ffffff";
           indicator = "#484e50";
           childBorder = background;
@@ -360,29 +360,29 @@
           };
 
           colors = {
-            background = "#1b2b34";
+            background = "#111111"; # "#1b2b34";
 
             focusedWorkspace = {
-              background = "#1b2b34";
-              border = "#1b2b34";
+              background = "#111111"; # "#1b2b34";
+              border = "#111111"; # "#1b2b34";
               text = "#ffffff";
             };
 
             inactiveWorkspace = {
-              background = "#1b2b34";
-              border = "#1b2b34";
+              background = "#111111"; # "#1b2b34";
+              border = "#111111"; # "#1b2b34";
               text = "#56737e";
             };
 
             urgentWorkspace = {
               background = "#5fB3B3";
-              border = "#1b2b34";
+              border = "#111111"; # "#1b2b34";
               text = "#ffffff";
             };
 
             bindingMode = {
               background = "#5fB3B3";
-              border = "#1b2b34";
+              border = "#111111"; # "#1b2b34";
               text = "#ffffff";
             };
           };
@@ -398,11 +398,11 @@
   };
 
   # GTK
-  gtk = {
-    enable = true;
-    font.name = "Inter Medium";
-    font.size = 9;
-  };
+  # gtk = {
+  #   enable = true;
+  #   font.name = "Inter Medium";
+  #   font.size = 9;
+  # };
 
   # kitty
   programs.kitty = {
@@ -427,7 +427,7 @@
       draw_minimal_borders = "yes";
       window_margin_width = 0;
       window_padding_width = 10;
-      active_border_color = "#ff0088";
+      active_border_color = "#d8dee9";
       inactive_border_color = "#555555";
       inactive_text_alpha = "0.9";
       hide_window_decorations = "no";
