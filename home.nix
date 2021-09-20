@@ -43,6 +43,10 @@
     wl-clipboard
     mako
     bemenu
+    waybar
+    pavucontrol
+    jq
+    libappindicator-gtk3
     alacritty
     hicolor-icon-theme
     zathura
@@ -61,6 +65,7 @@
     noto-fonts-cjk
     noto-fonts-emoji
     inter
+    font-awesome
   ];
 
   programs.zsh = {
@@ -76,6 +81,7 @@
     oh-my-zsh = {
         plugins = [
         "ssh-agent"
+        "virtualenv"
       ];
     };
 
@@ -182,7 +188,6 @@
   home.sessionVariables = { EDITOR = "nvim"; };
 
   # Sway
- 
   wayland.windowManager.sway = {
     enable = true;
     wrapperFeatures.gtk = true;
@@ -196,8 +201,16 @@
         --hb '#ec5f67' --hf '#1b2b34' \
         --tb '#1b2b34' --tf '#6699cc' \
         -p '⋮' \
-        -i
+        -i \
+        -b
       '';
+      startup = [
+        { command = "waybar"; }
+        { command = "mako"; }
+      ];
+
+      # Workspaces
+      defaultWorkspace = "workspace number 1";
 
       # Background
       output."*".bg = "#1b2b34 solid_color";
@@ -208,12 +221,15 @@
         size = 9.0;
       };
 
+      # Borders
+      window.hideEdgeBorders = "smart";
+
       # Gaps
-      ## There are no gaps, but smart borders are in the gaps namespace
-      gaps.smartBorders = "on";
+      gaps = null;
 
       input = {
-        "047d:2048" = { left_handed = "enable"; };
+        "1149:8264:Primax_Kensington_Eagle_Trackball" = { left_handed = "enable"; };
+        "type:pointer" = { natural_scroll = "enabled"; };
       };
 
       keybindings = let cfg = config.wayland.windowManager.sway.config; in {
@@ -291,6 +307,9 @@
         # Resize mode
         "${cfg.modifier}+r" = "mode resize";
 
+        # Waybar
+        "${cfg.modifier}+space" = "exec pkill -SIGUSR1 waybar";
+
         # Lock
         "${cfg.modifier}+Control+l" = "exec swaylock -f -u -c 000000";
 
@@ -304,14 +323,14 @@
           border = "#d8dee9";
           background = "#d8dee9";
           text = "#1b2b34";
-          indicator = "#00DA8E";
+          indicator = "#5fb3b3";
           childBorder = background;
         };
         focusedInactive = rec {
           border = "#555555";
           background = "#1b2b34";
           text = "#ffffff";
-          indicator = "#484e50";
+          indicator = "#5fb3b3";
           childBorder = background;
         };
         unfocused = rec {
@@ -331,78 +350,56 @@
       };
 
       window.commands = [
+        # Zoom
         {
           command = "floating enable";
-          criteria.app_id = "zoom";
           criteria.title="^(Zoom|About)$";
         }
-
         {
           command = "floating enable";
-          criteria.app_id = "zoom";
-          criteria.title="Settings";
+          criteria.title = "zoom";
+        }
+        {
+          command = "border none";
+          criteria.title = "zoom";
         }
         {
           command = "floating_minimum_size 960 x 700";
           criteria.app_id = "zoom";
           criteria.title="Settings";
         }
-      ];
 
-
-      bars = [
+        # Picture-in-Picture
         {
-          position = "top";
-          fonts = {
-            names = [ "Inter" ];
-            style = "Medium";
-            size = 9.0;
-          };
+          command = "floating enable, border none, sticky enable";
+          criteria.title = "^Picture-in-Picture$";
+        }
 
-          colors = {
-            background = "#111111"; # "#1b2b34";
-
-            focusedWorkspace = {
-              background = "#111111"; # "#1b2b34";
-              border = "#111111"; # "#1b2b34";
-              text = "#ffffff";
-            };
-
-            inactiveWorkspace = {
-              background = "#111111"; # "#1b2b34";
-              border = "#111111"; # "#1b2b34";
-              text = "#56737e";
-            };
-
-            urgentWorkspace = {
-              background = "#5fB3B3";
-              border = "#111111"; # "#1b2b34";
-              text = "#ffffff";
-            };
-
-            bindingMode = {
-              background = "#5fB3B3";
-              border = "#111111"; # "#1b2b34";
-              text = "#ffffff";
-            };
-          };
-
-          statusCommand = "exec /nix/store/143m3a06vk1qcbr2lvszz24bibblmaq3-i3status-2.13/bin/i3status";
-
-          mode = "hide";
-
+        # pavucontrol
+        {
+          command = "floating enable";
+          criteria.app_id = "pavucontrol";
         }
       ];
+
+
+      bars = [];
 
     };
   };
 
+  # Waybar
+  home.file = {
+    ".config/waybar/config".source = ./waybar/config;
+    ".config/waybar/style.css".source = ./waybar/style.css;
+  };
+
   # GTK
-  # gtk = {
-  #   enable = true;
-  #   font.name = "Inter Medium";
-  #   font.size = 9;
-  # };
+  gtk = {
+    enable = true;
+    font.name = "Inter Medium";
+    font.size = 9;
+  };
 
   # kitty
   programs.kitty = {
