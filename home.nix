@@ -68,6 +68,12 @@
     font-awesome
   ];
 
+  programs.direnv = {
+    enable = true;
+    nix-direnv.enable = true;
+    nix-direnv.enableFlakes = true;
+  };
+
   programs.zsh = {
     enable = true;
     autocd = true;
@@ -185,7 +191,15 @@
   # kitty
   home.file.".config/kitty/theme.conf".source = ./kitty/themes/oceanic-next.conf;
 
-  home.sessionVariables = { EDITOR = "nvim"; };
+  home.sessionPath = [
+    "~/.emacs.d/bin"
+  ];
+
+  home.sessionVariables = {
+    EDITOR = "nvim";
+    XDG_CURRENT_DESKTOP = "Unity";
+    GTK_THEME = "Adwaita:dark";
+  };
 
   # Sway
   wayland.windowManager.sway = {
@@ -196,10 +210,10 @@
       terminal = "kitty";
       menu = ''
         bemenu-run --fn 'Inter Medium 10' \
-        --nb '#1b2b34' --nf '#d8dee9' \
-        --fb '#1b2b34' \
-        --hb '#ec5f67' --hf '#1b2b34' \
-        --tb '#1b2b34' --tf '#6699cc' \
+        --nb '#222222' --nf '#d8dee9' \
+        --fb '#222222' --ff '#5fb3b3' \
+        --hb '#5fb3b3' --hf '#222222' \
+        --tb '#222222' --tf '#5fb3b3' \
         -p '⋮' \
         -i \
         -b
@@ -229,7 +243,6 @@
 
       input = {
         "1149:8264:Primax_Kensington_Eagle_Trackball" = { left_handed = "enable"; };
-        "type:pointer" = { natural_scroll = "enabled"; };
       };
 
       keybindings = let cfg = config.wayland.windowManager.sway.config; in {
@@ -356,17 +369,17 @@
           criteria.title="^(Zoom|About)$";
         }
         {
+          command = "floating enable, border none";
+          criteria.title = "zoom";
+        }
+
+        # Generic Settings window
+        ## Because zoom reports no app_id 😠
+        ## And I guess it makes sense to float any window that's
+        ## just called 'Settings'
+        {
           command = "floating enable";
-          criteria.title = "zoom";
-        }
-        {
-          command = "border none";
-          criteria.title = "zoom";
-        }
-        {
-          command = "floating_minimum_size 960 x 700";
-          criteria.app_id = "zoom";
-          criteria.title="Settings";
+          criteria.title="^Settings$";
         }
 
         # Picture-in-Picture
@@ -399,6 +412,16 @@
     enable = true;
     font.name = "Inter Medium";
     font.size = 9;
+    theme.name = "Adwaita:dark";
+  };
+
+  services.gammastep = {
+    enable = true;
+    provider = "geoclue2";
+    # dawnTime = "6:00-7:45";
+    # duskTime = "19:30-20:45";
+    # latitude = 53.209211;
+    # longitude = 6.5490391;
   };
 
   # kitty
