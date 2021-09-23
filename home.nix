@@ -49,6 +49,7 @@
     libappindicator-gtk3
     alacritty
     hicolor-icon-theme
+    papirus-icon-theme
     zathura
     brave
     firefox-wayland
@@ -323,6 +324,9 @@
         # Waybar
         "${cfg.modifier}+space" = "exec pkill -SIGUSR1 waybar";
 
+        # Notifications
+        "${cfg.modifier}+x" = "exec makoctl dismiss";
+
         # Lock
         "${cfg.modifier}+Control+l" = "exec swaylock -f -u -c 000000";
 
@@ -418,10 +422,24 @@
   services.gammastep = {
     enable = true;
     provider = "geoclue2";
-    # dawnTime = "6:00-7:45";
-    # duskTime = "19:30-20:45";
-    # latitude = 53.209211;
-    # longitude = 6.5490391;
+  };
+
+  programs.mako = {
+    enable = true;
+    backgroundColor = "#161916EE";
+    borderSize = 0;
+    borderRadius = 4;
+    font = "Inter Light 10";
+    progressColor = "source #5fb3b3FF";
+    textColor = "#ddddddFF";
+    iconPath = "${pkgs.papirus-icon-theme}/share/icons/Papirus-Dark/";
+    padding = "8";
+    width = 280;
+    extraConfig = ''
+      [urgency=low]
+      background-color=#161916DD
+      text-color=#aaaaaaEE
+    '';
   };
 
   # kitty
