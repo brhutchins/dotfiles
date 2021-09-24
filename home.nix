@@ -252,7 +252,22 @@
         "${cfg.modifier}+Shift+q" = "kill";
         "${cfg.modifier}+d" = "exec ${cfg.menu}";
         "${cfg.modifier}+Shift+c" = "reload";
-        "${cfg.modifier}+Shift+e" = "exec swaynag -t warning -m 'Exit Sway?' -b 'Yes' 'swaymsg exit'";
+        "${cfg.modifier}+Shift+e" = ''
+          exec swaynag \
+          -t warning \
+          -m 'Exit Sway?' \
+          -b 'Yes' 'swaymsg exit' \
+          --background=5fb3b3 \
+          --border-bottom-size=0 \
+          -f 'Inter Semibold 10' \
+          --text=161916ee \
+          --button-background=5fb3b3 \
+          --button-border-size=0 \
+          --button-text=161916ee \
+          --button-gap=0 \
+          --button-margin-right=8 \
+          --button-padding=8
+        '';
 
         # Multimedia keys
         "XF86AudioMute" = "exec ${pkgs.pulseaudio}/bin/pactl set-sink-mute @DEFAULT_SINK@ toggle";
@@ -496,6 +511,12 @@
     package = pkgs.wrapFirefox pkgs.firefox-unwrapped {
       forceWayland = true;
     };
+  };
+
+  # Emacs
+  programs.emacs = {
+    enable = true;
+    extraPackages = epkgs: [ epkgs.vterm ];
   };
 
   # Fonts
