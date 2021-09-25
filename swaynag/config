@@ -1,0 +1,12 @@
+font=Inter Semibold 10
+
+[warning]
+background=5fb3b3
+border-bottom-size=0
+text=161916ee
+button-background=5fb3b3
+button-border-size=0
+button-text=161916ee
+button-gap=0
+button-margin-right=8
+button-padding=8

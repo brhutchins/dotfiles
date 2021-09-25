@@ -262,17 +262,7 @@
           exec swaynag \
           -t warning \
           -m 'Exit Sway?' \
-          -b 'Yes' 'swaymsg exit' \
-          --background=5fb3b3 \
-          --border-bottom-size=0 \
-          -f 'Inter Semibold 10' \
-          --text=161916ee \
-          --button-background=5fb3b3 \
-          --button-border-size=0 \
-          --button-text=161916ee \
-          --button-gap=0 \
-          --button-margin-right=8 \
-          --button-padding=8
+          -b 'Yes' 'swaymsg exit'
         '';
 
         # Multimedia keys
@@ -435,6 +425,11 @@
   # Swaylock
   home.file = {
     ".config/swaylock/config".source = ./swaylock/config;
+  };
+
+  # Swaynag
+  home.file = {
+    ".config/swaynag/config".source = ./swaynag/config;
   };
 
   # GTK
