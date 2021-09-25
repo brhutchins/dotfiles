@@ -348,9 +348,9 @@
         "${cfg.modifier}+Control+Shift+s" = ''
             exec swaynag \
               -t warning \
-              -m "System shutdown?" \
+              -m "Shut down system?" \
               -Z "Reboot" "reboot" \
-              -Z "Shutdown" "systemctl poweroff"
+              -Z "Shut down" "systemctl poweroff"
           '';
 
       };
