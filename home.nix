@@ -222,6 +222,12 @@
       startup = [
         { command = "waybar"; }
         { command = "mako"; }
+        { command = ''
+            exec swayidle -w \
+              timeout 600 "swaymsg 'output * dpms off'" \
+              timeout 1200 "swaylock -f" \
+              resume "swaymsg 'output * dpms on'"
+          ''; }
       ];
 
       # Workspaces
@@ -343,10 +349,10 @@
         "${cfg.modifier}+x" = "exec makoctl dismiss";
 
         # Lock
-        "${cfg.modifier}+Control+l" = "exec swaylock -f -u -c 000000";
+        "${cfg.modifier}+Control+l" = "exec swaylock -f";
 
         # Sleep
-        "${cfg.modifier}+Control+s" = "exec systemctl suspend -i && swaylock -f -c 000000";
+        "${cfg.modifier}+Control+s" = "exec systemctl suspend -i && swaylock -f";
 
       };
 
@@ -389,7 +395,7 @@
         }
         {
           command = "floating enable, border none";
-          criteria.title = "zoom";
+          criteria.title = "^zoom$";
         }
 
         # Generic Settings window
@@ -424,6 +430,11 @@
   home.file = {
     ".config/waybar/config".source = ./waybar/config;
     ".config/waybar/style.css".source = ./waybar/style.css;
+  };
+
+  # Swaylock
+  home.file = {
+    ".config/swaylock/config".source = ./swaylock/config;
   };
 
   # GTK

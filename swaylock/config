@@ -1,0 +1,29 @@
+# Base
+color=161916ff
+font=Inter Semibold
+font-size=12
+inside-color=161916
+line-uses-inside
+ring-color=5fb3b3
+separator-color=5fb3b3
+indicator-thickness=25
+text-color=bbbbbb
+
+# Keypresses
+key-hl-color=161916
+bs-hl-color=ec5f67
+
+# Clear
+inside-clear-color=161916
+ring-clear-color=f8f8f8
+text-clear-color=f8f8f8
+
+# Wrong
+inside-wrong-color=161916
+ring-wrong-color=ec5f67
+text-wrong-color=161916
+
+# Verifying
+inside-ver-color=161916
+ring-ver-color=6699cc
+text-ver-color=6699cc
