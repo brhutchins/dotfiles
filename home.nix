@@ -211,10 +211,10 @@
       terminal = "kitty";
       menu = ''
         bemenu-run --fn 'Inter Medium 10' \
-        --nb '#222222' --nf '#d8dee9' \
-        --fb '#222222' --ff '#5fb3b3' \
-        --hb '#5fb3b3' --hf '#222222' \
-        --tb '#222222' --tf '#5fb3b3' \
+        --nb '#161916' --nf '#82858c' \
+        --fb '#161916' --ff '#5fb3b3' \
+        --hb '#5fb3b3' --hf '#161916' \
+        --tb '#161916' --tf '#5fb3b3' \
         -p '⋮' \
         -i \
         -b
