@@ -344,6 +344,15 @@
         # Sleep
         "${cfg.modifier}+Control+s" = "exec systemctl suspend -i && swaylock -f";
 
+        # System shutdown/reboot
+        "${cfg.modifier}+Control+Shift+s" = ''
+            exec swaynag \
+              -t warning \
+              -m "System shutdown?" \
+              -Z "Reboot" "reboot" \
+              -Z "Shutdown" "systemctl poweroff"
+          '';
+
       };
 
       colors = {
