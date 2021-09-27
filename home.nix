@@ -344,6 +344,10 @@
         # Sleep
         "${cfg.modifier}+Control+s" = "exec systemctl suspend -i && swaylock -f";
 
+        # DPMS
+        "${cfg.modifier}+Shift+o" = "exec swaymsg 'output * dpms off'";
+        "${cfg.modifier}+Shift+Control+o" = "exec swaymsg 'output * dpms on'";
+
         # System shutdown/reboot
         "${cfg.modifier}+Control+Shift+s" = ''
             exec swaynag \
