@@ -13,7 +13,6 @@
   home.packages = with pkgs; [
     tmux
     pure-prompt
-    oh-my-zsh
     zoxide
     tldr
     fd
@@ -27,11 +26,12 @@
     playerctl
     neofetch
     alpine
+    unzip
 
     # Language servers
     rnix-lsp
     haskell-language-server
-    nodePackages.purescript-language-server
+    # nodePackages.purescript-language-server
 
     # nix-specific
     nix-prefetch-scripts
@@ -85,12 +85,13 @@
     defaultKeymap = "viins";
     shellAliases = {
     };
-    oh-my-zsh = {
-        plugins = [
-        "ssh-agent"
-        "virtualenv"
-      ];
-    };
+    # oh-my-zsh = {
+    #   enable = true;
+    #   plugins = [
+    #     "ssh-agent"
+    #   ];
+    #   theme = "";
+    # };
 
     initExtra = ''
     # Set prompt
@@ -193,7 +194,7 @@
   home.file.".config/kitty/theme.conf".source = ./kitty/themes/oceanic-next.conf;
 
   home.sessionPath = [
-    "~/.emacs.d/bin"
+    "$HOME/.emacs.d/bin"
   ];
 
   home.sessionVariables = {
@@ -435,6 +436,11 @@
     ".config/waybar/style.css".source = ./waybar/style.css;
   };
 
+  # Weather module
+  home.file = {
+    ".config/wayther/config.json".source = ./wayther/config.json;
+  };
+
   # Swaylock
   home.file = {
     ".config/swaylock/config".source = ./swaylock/config;
@@ -530,12 +536,6 @@
     package = pkgs.wrapFirefox pkgs.firefox-unwrapped {
       forceWayland = true;
     };
-  };
-
-  # Emacs
-  programs.emacs = {
-    enable = true;
-    extraPackages = epkgs: [ epkgs.vterm ];
   };
 
   # Fonts
