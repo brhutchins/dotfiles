@@ -14,6 +14,11 @@ window#waybar {
   transition-duration: .5s;
 }
 
+tooltip {
+  background-color: rgba(22, 25, 22, 0.94);
+  border:           none;
+}
+
 #workspaces button {
   padding:          0 3px;
   background-color: transparent;
@@ -79,7 +84,7 @@ window#waybar {
 }
 
 #clock {
-  color:       #fff;
+  color:       #5fb3b3;
   font-weight: bold;
   min-width:   30px;
   margin:      0;
@@ -87,7 +92,7 @@ window#waybar {
 
 #clock.day {
   font-weight: 400;
-  /* color:       #bbb; */
+  color:       #fff;
   min-width:   0;
   margin-left: 10px;
 }
@@ -151,6 +156,5 @@ label:focus {
 }
 
 #idle_inhibitor.activated {
-  background-color: #ecf0f1;
-  color:            #2d3436;
+  color: #5fb3b3;
 }
