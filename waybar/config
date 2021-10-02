@@ -4,7 +4,13 @@
   "output": ["HDMI-A-1"],
   "height": 25,
   "modules-left": ["sway/workspaces", "sway/mode", "custom/scratchpad-indicator"],
-  "modules-right": ["custom/media", "pulseaudio", "network", "temperature", "custom/weather", "tray", "clock#day", "clock"],
+  "modules-right": ["idle_inhibitor", "custom/media", "pulseaudio", "network", "temperature", "custom/weather", "tray", "clock#day", "clock"],
+
+  "custom/weather": {
+    "return-type": "json",
+    "exec": "~/.local/bin/wayther",
+    "interval": 600
+  },
 
   "clock": {
     "format": "{:%H:%M}",
@@ -34,11 +40,6 @@
     "on-click": "pavucontrol"
   },
 
-  "custom/weather": {
-    "exec": "curl 'http://wttr.in/?format=1'",
-    "interval": 3600,
-  },
-
   "custom/scratchpad-indicator": {
      "interval": 3,
      "exec": "swaymsg -t get_tree | jq 'recurse(.nodes[]) | first(select(.name==\"__i3_scratch\")) | .floating_nodes | length | select(. >= 1)'",
@@ -64,6 +65,14 @@
     "exec": "playerctl -a metadata --format '{\"text\": \"{{artist}} - {{markup_escape(title)}}\", \"tooltip\": \"{{playerName}} : {{markup_escape(title)}}\", \"alt\": \"{{status}}\", \"class\": \"{{status}}\"}' -F -s",
     "on-click": "playerctl play-pause",
   },
+
+  "idle_inhibitor": {
+      "format": "{icon}",
+      "format-icons": {
+          "activated": "",
+          "deactivated": ""
+      }
+  }
 
 
 }
