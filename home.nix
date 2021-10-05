@@ -54,6 +54,7 @@
     brave
     firefox-wayland
     vieb
+    google-chrome-beta
 
     # Communication
     zoom-us
