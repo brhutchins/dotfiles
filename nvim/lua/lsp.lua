@@ -76,7 +76,9 @@ require'lspconfig'.rust_analyzer.setup {
 
 
 -- Python/Pyright
-lspconfig.pyright.setup{}
+lspconfig.pyright.setup{
+  on_attach = on_attach
+}
 
 -- HTML
 lspconfig.html.setup{
