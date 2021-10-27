@@ -482,6 +482,9 @@
     font.name = "Inter Medium";
     font.size = 9;
     theme.name = "Adwaita:dark";
+    gtk3.extraConfig = {
+      gtk-application-prefer-dark-theme = true;
+    };
   };
 
   services.gammastep = {
