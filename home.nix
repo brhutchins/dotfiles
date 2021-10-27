@@ -142,26 +142,30 @@
           };
         };
       in [
-        nvim-lspconfig
-        nvim-compe
-        nvim-treesitter
-        popup-nvim
-        plenary-nvim
-        telescope-nvim
+        haskell-vim
+        # indent-blankline-nvim
         kommentary
-        vim-lion
-        nvim-autopairs
-        vim-vsnip
-        vim-vsnip-integ
         lualine-nvim
+        nvim-autopairs
+        nvim-compe
+        nvim-lightbulb
+        nvim-lspconfig
+        nvim-treesitter
         nvim-web-devicons
+        oceanic-next
+        plenary-nvim
+        popup-nvim
+        purescript-vim
+        vim-python-pep8-indent
+        telescope-nvim
+        trouble-nvim
+        vim-gitgutter
+        vim-lion
+        vim-nix
         vim-sneak
         vim-surround
-        vim-gitgutter
-        haskell-vim
-        vim-nix
-        purescript-vim
-        oceanic-next
+        vim-vsnip
+        vim-vsnip-integ
       ];
 
     extraConfig = ''
