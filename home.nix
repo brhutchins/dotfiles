@@ -69,6 +69,7 @@
     obs-studio
 
     # Fonts
+    (nerdfonts.override { fonts = [ "Hasklig" "IBMPlexMono"]; })
     hasklig
     noto-fonts
     noto-fonts-cjk
