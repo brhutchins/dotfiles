@@ -28,6 +28,7 @@
     alpine
     unzip
     ispell
+    mosh
 
     # Language servers
     rnix-lsp
