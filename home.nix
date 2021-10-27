@@ -94,13 +94,6 @@
     defaultKeymap = "viins";
     shellAliases = {
     };
-    # oh-my-zsh = {
-    #   enable = true;
-    #   plugins = [
-    #     "ssh-agent"
-    #   ];
-    #   theme = "";
-    # };
 
     initExtra = ''
     # Set prompt
@@ -110,6 +103,13 @@
     eval "$(zoxide init zsh)"
     '';
   };
+
+  # omz
+  programs.zsh.oh-my-zsh = {
+    enable = true;
+  };
+
+  programs.nix-index.enable = true;
 
   programs.git = {
     enable = true;
