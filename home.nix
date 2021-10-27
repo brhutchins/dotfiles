@@ -27,6 +27,7 @@
     neofetch
     alpine
     unzip
+    ispell
 
     # Language servers
     rnix-lsp
