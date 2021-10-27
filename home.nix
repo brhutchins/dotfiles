@@ -56,6 +56,7 @@
     firefox-wayland
     vieb
     google-chrome-beta
+    libnotify
 
     # Communication
     zoom-us
