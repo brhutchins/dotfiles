@@ -33,7 +33,6 @@
     # Language servers
     rnix-lsp
     haskell-language-server
-    # nodePackages.purescript-language-server
 
     # nix-specific
     nix-prefetch-scripts
