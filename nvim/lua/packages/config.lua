@@ -52,6 +52,9 @@ require('lualine').setup{
 -- dev-icons
 require("nvim-web-devicons").setup()
 
+-- nvim-lightbulb
+vim.cmd [[autocmd CursorHold,CursorHoldI * lua require'nvim-lightbulb'.update_lightbulb()]]
+
 -- Telescope
 
 require("telescope").setup {
