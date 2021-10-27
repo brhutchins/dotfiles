@@ -217,6 +217,16 @@
     GTK_THEME = "Adwaita:dark";
   };
 
+  # n3
+  programs.nnn = {
+    enable = true;
+    package = pkgs.nnn.override ({ withNerdIcons = true; });
+    bookmarks = {
+      h = "~";
+      d = "~/Development";
+    };
+  };
+
   # Sway
   wayland.windowManager.sway = {
     enable = true;
