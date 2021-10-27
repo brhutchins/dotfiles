@@ -212,7 +212,8 @@
 
   home.sessionVariables = {
     EDITOR = "nvim";
-    XDG_CURRENT_DESKTOP = "Unity";
+    XDG_CURRENT_DESKTOP = "sway";
+    XDG_SESSION_TYPE = "wayland";
     GTK_THEME = "Adwaita:dark";
   };
 
