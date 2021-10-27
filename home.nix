@@ -478,6 +478,7 @@
   # GTK
   gtk = {
     enable = true;
+    font.package = pkgs.inter;
     font.name = "Inter Medium";
     font.size = 9;
     theme.name = "Adwaita:dark";
