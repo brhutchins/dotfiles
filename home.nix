@@ -513,7 +513,7 @@
   # kitty
   programs.kitty = {
     enable = true;
-    font.name = "Hasklig";
+    font.name = "Hasklug Nerd Font";
     font.size = 10;
 
     keybindings = {
