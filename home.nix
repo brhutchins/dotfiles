@@ -58,6 +58,10 @@
     google-chrome-beta
     libnotify
 
+    ## Screen sharing
+    xdg-desktop-portal
+    xdg-desktop-portal-wlr
+    xdg-desktop-portal-gtk
     # Communication
     zoom-us
     teams
