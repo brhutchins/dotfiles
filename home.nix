@@ -137,8 +137,8 @@
           src = pkgs.fetchFromGitHub {
             owner = "b3nj5m1n";
             repo = "kommentary";
-            rev = "fe01018a490813a8d89c09947a7ca23fc0e9e728";
-            sha256 = "06shsdv92ykf3zx33a7v4xlqfi6jwdpvv9j6hx4n6alk4db02kgd";
+            rev = "8f1cd74ad28de7d7c4fda5d8e8557ff240904b42";
+            sha256 = "0avd7v0nzz31nf5vj29npw5g7c2rrlirvkyd042qlh5y2vas7b2g";
           };
         };
       in [
