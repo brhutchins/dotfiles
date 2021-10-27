@@ -76,3 +76,6 @@ require("telescope").setup {
     },
   }
 }
+
+-- Trouble
+require("trouble").setup()
