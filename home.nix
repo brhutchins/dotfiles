@@ -111,6 +111,9 @@
 
   programs.nix-index.enable = true;
 
+  # Lorri (nix-shell/direnv)
+  services.lorri.enable = true;
+
   programs.git = {
     enable = true;
     userName = "brhutchins";
