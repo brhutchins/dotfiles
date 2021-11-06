@@ -263,7 +263,7 @@
         { command = "mako"; }
         { command = ''
             exec swayidle -w \
-              timeout 600 "swaymsg 'output * dpms off'" \
+              timeout 900 "swaymsg 'output * dpms off'" \
               timeout 1200 "swaylock -f" \
               resume "swaymsg 'output * dpms on'"
           ''; }
