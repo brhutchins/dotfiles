@@ -55,7 +55,6 @@
     zathura
     brave
     firefox-wayland
-    vieb
     google-chrome-beta
     libnotify
 
