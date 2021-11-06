@@ -136,7 +136,7 @@
       let
         kommentary = pkgs.vimUtils.buildVimPlugin {
           pname = "kommentary";
-          version = "a";
+          version = "2021-10-13";
           src = pkgs.fetchFromGitHub {
             owner = "b3nj5m1n";
             repo = "kommentary";
