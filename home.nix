@@ -144,6 +144,16 @@
             sha256 = "0avd7v0nzz31nf5vj29npw5g7c2rrlirvkyd042qlh5y2vas7b2g";
           };
         };
+        nvim-ts-autotag = pkgs.vimUtils.buildVimPluginFrom2Nix {
+          pname = "nvim-ts-autotag";
+          version = "2021-10-09";
+          src = pkgs.fetchFromGitHub {
+            owner = "windwp";
+            repo = "nvim-ts-autotag";
+            rev = "80d427af7b898768c8d8538663d52dee133da86f";
+            sha256 = "1hcwppfqyl423lxp8i01dvn7szcfds6apcxjfq84kbhs384hs8pi";
+          };
+        };
       in [
         haskell-vim
         # indent-blankline-nvim
@@ -154,6 +164,7 @@
         nvim-lightbulb
         nvim-lspconfig
         nvim-treesitter
+        nvim-ts-autotag
         nvim-web-devicons
         oceanic-next
         plenary-nvim
