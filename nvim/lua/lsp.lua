@@ -83,16 +83,23 @@ lspconfig.pyright.setup{
 -- HTML
 lspconfig.html.setup{
   on_attach = on_attach,
-  cmd = { "html-languageserver", "--stdio" },
-  filetypes = { "html" },
-  init_options = {
-    configurationSection = { "html", "css", "javascript" },
-    embeddedLanguages = {
-      css = true,
-      javascript = true
-    }
-  },
-  settings = {}
+  capabilities = capabilities,
+  -- cmd = { "html-languageserver", "--stdio" },
+  -- filetypes = { "html" },
+  -- init_options = {
+  --   configurationSection = { "html", "css", "javascript" },
+  --   embeddedLanguages = {
+  --     css = true,
+  --     javascript = true
+  --   }
+  -- },
+  -- settings = {}
+}
+
+-- CSS
+require'lspconfig'.cssls.setup{
+  on_attach = on_attach,
+  capabilities = capabilities,
 }
 
 -- Typescript
