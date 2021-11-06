@@ -29,6 +29,7 @@
     unzip
     ispell
     mosh
+    httpie
 
     # Language servers
     rnix-lsp
