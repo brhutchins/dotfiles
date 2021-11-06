@@ -136,3 +136,8 @@ lspconfig.purescriptls.setup {
 lspconfig.solargraph.setup{
   on_attach = on_attach,
 }
+
+-- Golang
+require'lspconfig'.gopls.setup{
+  on_attach = on_attach,
+}
