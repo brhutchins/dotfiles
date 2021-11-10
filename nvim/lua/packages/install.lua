@@ -4,8 +4,11 @@ require "paq" {
   "savq/paq-nvim"; -- Let Paq manage itself
 
   "neovim/nvim-lspconfig";
+  "folke/trouble.nvim";
   "hrsh7th/nvim-compe";    -- Completion
+  "kosayoda/nvim-lightbulb";
   "nvim-treesitter/nvim-treesitter";
+  "windwp/nvim-ts-autotag";
   "nvim-lua/popup.nvim";   -- Requirement for telescope
   "nvim-lua/plenary.nvim"; -- Requirement for telescope
   "nvim-telescope/telescope.nvim";
@@ -22,6 +25,7 @@ require "paq" {
   "airblade/vim-gitgutter";
   "neovimhaskell/haskell-vim";
   "LnL7/vim-nix";
+  "Yggdroot/indentLine";
 
   -- Themes
   "Shatur/neovim-ayu";
