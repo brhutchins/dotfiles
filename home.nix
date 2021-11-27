@@ -55,7 +55,13 @@
     zathura
     brave
     firefox-wayland
-    google-chrome-beta
+    (google-chrome-beta.override {
+      commandLineArgs = [
+        "--enable-features=UseOzonePlatform"
+        "--ozone-platform=wayland"
+        "--force-dark-mode"
+      ];
+    })
     libnotify
 
     ## Screen sharing
