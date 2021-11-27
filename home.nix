@@ -102,7 +102,10 @@
 
     initExtra = ''
     # Set prompt
-    autoload -U promptinit && promptinit && prompt pure
+    if test "$TERM" != "linux"
+    then
+      autoload -U promptinit && promptinit && prompt pure
+    fi
 
     # zoxide
     eval "$(zoxide init zsh)"
