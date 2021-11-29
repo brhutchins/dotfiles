@@ -573,7 +573,7 @@
   programs.kitty = {
     enable = true;
     font.name = "Hasklug Nerd Font";
-    font.size = 10;
+    font.size = 11;
 
     keybindings = {
       "kitty_mod+equal" = "change_font_size all +1.0";
