@@ -122,6 +122,12 @@
   # Lorri (nix-shell/direnv)
   services.lorri.enable = true;
 
+  # GPG-agent
+  services.gpg-agent = {
+    enable = true;
+    enableSshSupport = true;
+  };
+
   programs.git = {
     enable = true;
     userName = "brhutchins";
