@@ -305,7 +305,11 @@
         "1149:8264:Primax_Kensington_Eagle_Trackball" = { left_handed = "enable"; };
       };
 
-      keybindings = let cfg = config.wayland.windowManager.sway.config; in {
+      keybindings =
+        let
+          cfg = config.wayland.windowManager.sway.config;
+          monitor = { main = "HDMI-A-1"; };
+        in {
         # Basics
         "${cfg.modifier}+Return" = "exec ${cfg.terminal}";
         "${cfg.modifier}+Shift+q" = "kill";
