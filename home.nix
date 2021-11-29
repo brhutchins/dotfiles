@@ -405,6 +405,11 @@
         "${cfg.modifier}+Shift+o" = "exec swaymsg 'output * dpms off'";
         "${cfg.modifier}+Shift+Control+o" = "exec swaymsg 'output * dpms on'";
 
+        # Screen rotation
+        "${cfg.modifier}+Shift+r" = "exec swaymsg 'output ${monitor.main} transform 90'";
+        "${cfg.modifier}+Control+Shift+r" = "exec swaymsg 'output ${monitor.main} transform 0'";
+
+
         # System shutdown/reboot
         "${cfg.modifier}+Control+Shift+s" = ''
             exec swaynag \
