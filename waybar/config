@@ -2,7 +2,7 @@
   "layer": "top",
   "exclusive": true,
   "output": ["HDMI-A-1"],
-  "height": 25,
+  "height": 30,
   "modules-left": ["sway/workspaces", "sway/mode", "custom/scratchpad-indicator"],
   "modules-right": ["idle_inhibitor", "custom/media", "pulseaudio", "network", "temperature", "custom/weather", "tray", "clock#day", "clock"],
 
