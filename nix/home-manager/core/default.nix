@@ -71,7 +71,7 @@ in
 
   config = {
 
-    nixpkgs.allowUnfree = true;
+    # nixpkgs.allowUnfree = true;
 
     home.packages =
          p.utils

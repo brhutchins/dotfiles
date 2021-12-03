@@ -22,6 +22,7 @@ with lib;
       swayidle
       swaylock
       waybar
+      wofi-emoji
     ];
 
     #####
@@ -290,18 +291,18 @@ with lib;
 
     # Waybar
     home.file = {
-      ".config/waybar/config".source = ../../../waybar/config;
-      ".config/waybar/style.css".source = ../../../waybar/style.css;
+      ".config/waybar/config".source = ../../../../waybar/config;
+      ".config/waybar/style.css".source = ../../../../waybar/style.css;
     };
 
     # Weather module
     home.file = {
-      ".config/wayther/config.json".source = ../../../wayther/config.json;
+      ".config/wayther/config.json".source = ../../../../wayther/config.json;
     };
 
     # Swaylock
     home.file = {
-      ".config/swaylock/config".source = ../../../swaylock/config;
+      ".config/swaylock/config".source = ../../../../swaylock/config;
     };
   };
 

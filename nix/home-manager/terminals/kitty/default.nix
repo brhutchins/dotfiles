@@ -14,7 +14,7 @@ in
 
     theme = mkOption {
       type = types.path;
-      default = ../../../kitty/themes/oceanic-next.conf;
+      default = ../../../../kitty/themes/oceanic-next.conf;
       description = "Absolute path to theme file for Kitty.";
     };
   };
@@ -64,7 +64,7 @@ in
       };
       # Colour scheme
       ## Applied through file
-      extraConfig = builtins.readFile ../../../kitty/themes/oceanic-next.conf;
+      extraConfig = builtins.readFile cfg.theme;
     };
 
     # Theme
