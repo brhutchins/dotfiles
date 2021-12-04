@@ -6,7 +6,6 @@ let
   cfg = config.local.linux.core;
 in
 {
-
   options.local.linux.core = {
     enable = mkOption {
       type = types.bool;
@@ -19,6 +18,8 @@ in
       enable = true;
       enableSshSupport = true;
     };
+
+    services.lorri.enable = true;
   };
 
 }
