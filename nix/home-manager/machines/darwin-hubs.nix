@@ -13,9 +13,9 @@ in
   home.homeDirectory = "/Users/barnaby";
 
   # Config modules
-  home.file.".config/home-manager".source = modulesPath;
+  home.file.".config/home-manager".source = ./nix/home-manager/modules;
 
-  imports = map (x: modulesPath + x) [
+  imports = map (x: ./nix/home-manager/modules + x) [
     "/core/"
   ];
 
