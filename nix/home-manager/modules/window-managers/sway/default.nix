@@ -15,6 +15,11 @@ in
       type = types.bool;
       default = false;
     };
+
+    dotfilesPath = mkOption {
+      type = types.path;
+      default = (import ../../data).dotfilesPath;
+    };
   };
 
   config = mkIf cfg.enable {
@@ -302,18 +307,18 @@ in
 
     # Waybar
     home.file = {
-      ".config/waybar/config".source = ../../../../../waybar/config;
-      ".config/waybar/style.css".source = ../../../../../waybar/style.css;
+      ".config/waybar/config".source = "${cfg.dotfilesPath}/waybar/config";
+      ".config/waybar/style.css".source = "${cfg.dotfilesPath}/waybar/style.css";
     };
 
     # Weather module
     home.file = {
-      ".config/wayther/config.json".source = ../../../../../wayther/config.json;
+      ".config/wayther/config.json".source = "${cfg.dotfilesPath}/wayther/config.json";
     };
 
     # Swaylock
     home.file = {
-      ".config/swaylock/config".source = ../../../../../swaylock/config;
+      ".config/swaylock/config".source = "${cfg.dotfilesPath}/swaylock/config";
     };
   };
 

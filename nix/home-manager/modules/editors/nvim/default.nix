@@ -11,6 +11,11 @@ in
       type = types.bool;
       default = false;
     };
+
+    dotfilesPath = mkOption {
+      type = types.path;
+      default = (import ../../data).dotfilesPath;
+    };
   };
 
   config = mkIf cfg.enable {
@@ -99,6 +104,6 @@ in
 
     # Raw configuration files
     # nvim
-    home.file.".config/nvim/lua".source = ../../../../../nvim/lua;
+    home.file.".config/nvim/lua".source = builtins.toPath "${cfg.dotfilesPath}/nvim/lua";
   };
 }

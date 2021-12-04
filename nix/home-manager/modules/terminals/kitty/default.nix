@@ -12,9 +12,14 @@ in
       default = false;
     };
 
+    dotfilesPath = mkOption {
+      type = types.path;
+      default = (import ../../data).dotfilesPath;
+    };
+
     theme = mkOption {
       type = types.path;
-      default = ../../../../../kitty/themes/oceanic-next.conf;
+      default = "${cfg.dotfilesPath}/kitty/themes/oceanic-next.conf";
       description = "Absolute path to theme file for Kitty.";
     };
   };
