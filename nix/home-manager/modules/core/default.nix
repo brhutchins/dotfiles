@@ -43,7 +43,6 @@ let
       inter
     ];
     gui = with gui-packages; [
-      firefox
     ];
   };
   mkGui = lists.optionals cfg.gui.enable;

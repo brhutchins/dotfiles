@@ -24,6 +24,7 @@ in
 
     home.packages = with pkgs; [
       bitwarden
+      firefox-wayland
       hicolor-icon-theme
       libappindicator-gtk3
       libnotify
