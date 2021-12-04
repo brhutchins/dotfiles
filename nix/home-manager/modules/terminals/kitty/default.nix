@@ -14,13 +14,13 @@ in
 
     theme = mkOption {
       type = types.path;
-      default = ../../../../kitty/themes/oceanic-next.conf;
+      default = ../../../../../kitty/themes/oceanic-next.conf;
       description = "Absolute path to theme file for Kitty.";
     };
   };
 
-  config = {
-    programs.kitty = mkIf cfg.enable {
+  config = mkIf cfg.enable {
+    programs.kitty = {
       enable = true;
       font.name = "Hasklug Nerd Font";
       font.size = 11;
@@ -68,6 +68,6 @@ in
     };
 
     # Theme
-    home.file.".config/kitty/theme.conf".source = mkIf cfg.enable cfg.theme;
+    home.file.".config/kitty/theme.conf".source = cfg.theme;
   };
 }

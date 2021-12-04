@@ -10,9 +10,9 @@
   home.homeDirectory = "/home/barnaby";
 
   # Config modules
-  home.file.".config/home-manager".source = ./nix/home-manager;
+  home.file.".config/home-manager".source = ./nix/home-manager/modules;
 
-  imports = map (x: ./nix/home-manager + x) [
+  imports = map (x: ./nix/home-manager/modules + x) [
     "/core/"
     "/window-managers/sway/"
   ];
