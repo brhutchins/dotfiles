@@ -9,10 +9,12 @@
   home.username = "barnaby";
   home.homeDirectory = "/home/barnaby";
 
-  # Config modules
-  home.file.".config/home-manager".source = ./nix/home-manager/modules;
+  nixpkgs.config.allowUnfree = true;
 
-  imports = map (x: ./nix/home-manager/modules + x) [
+  # Config modules
+  # home.file.".config/home-manager".source = ./modules;
+
+  imports = map (x: ../modules + x) [
     "/core/"
     "/window-managers/sway/"
   ];
