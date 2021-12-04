@@ -19,6 +19,7 @@
 
   local = {
     core.gui.enable = true;
+    window-managers.sway.enable = true;
   };
 
   # Packages to install

@@ -2,12 +2,22 @@
 
 with lib;
 
+let
+  cfg = config.local.window-managers.sway;
+in
 {
   imports = [
     ../../linux/gui
   ];
 
-  config = {
+  options.local.window-managers.sway = {
+    enable = mkOption {
+      type = types.bool;
+      default = false;
+    };
+  };
+
+  config = mkIf cfg.enable {
     # If we want Sway, we want the other gui stuff
     local.linux.gui.enable = true;
 
@@ -22,6 +32,7 @@ with lib;
       swayidle
       swaylock
       waybar
+      wofi
       wofi-emoji
     ];
 
