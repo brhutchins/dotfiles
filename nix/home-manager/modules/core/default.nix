@@ -187,7 +187,7 @@ in
     #
     # GUI
 
-    programs.firefox = {
+    programs.firefox = mkIf isLinux {
       enable = true;
       package = mkIf isLinux (
         wrapFirefox firefox-unwrapped {
