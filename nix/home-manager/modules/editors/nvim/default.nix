@@ -99,6 +99,6 @@ in
 
     # Raw configuration files
     # nvim
-    home.file.".config/nvim/lua".source = builtins.toPath "${config.home.homeDirectory}/.config/nvim/lua";
+    home.file.".config/nvim/lua".source = ../../../../../nvim/lua;
   };
 }
