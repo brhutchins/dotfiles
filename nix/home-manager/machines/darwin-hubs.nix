@@ -8,5 +8,6 @@
 
      home.file.".config/home-manager".source = ../.dotfiles/nix/home-manager/modules;
 
-     imports = [ ./home-manager/core ];
+     imports = [ ../.dotfiles/nix/home-manager/modules/core ];
+     local.core.gui.enable = true;
 }

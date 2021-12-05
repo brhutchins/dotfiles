@@ -49,6 +49,7 @@ let
 in
 {
   imports = [
+    ../darwin/core
     ../editors/nvim
     ../terminals/kitty
     ../linux/gui
@@ -197,6 +198,12 @@ in
     };
 
     local.terminals.kitty.enable = mkIf cfg.gui.enable true;
+
+
+    #####
+    #
+    # Darwin
+    local.darwin.core.enable = mkIf stdenv.isDarwin true;
 
   };
 }
