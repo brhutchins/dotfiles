@@ -23,6 +23,23 @@ in
       enable = true;
       plugins = with pkgs.vimPlugins;
         let
+          black-vim = pkgs.vimUtils.buildVimPlugin (rec {
+            pname = "black.vim";
+            version = "21.12b0";
+            # sourceRoot = "./plugin";
+            installPhase = ''
+              runHook preInstall
+
+              mkdir -p $out
+              cp ./plugin/* $out
+            '';
+            src = pkgs.fetchFromGitHub {
+              owner = "psf";
+              repo = "black";
+              rev = version;
+              sha256 = "sha256-qYf666gonRgxUw+SFe1ILpGQpdL5sjXFTr0Pepk5iog=";
+            };
+          });
           kommentary = pkgs.vimUtils.buildVimPlugin {
             pname = "kommentary";
             version = "2021-10-13";
@@ -43,11 +60,22 @@ in
               sha256 = "1hcwppfqyl423lxp8i01dvn7szcfds6apcxjfq84kbhs384hs8pi";
             };
           };
+          lualine = pkgs.vimUtils.buildVimPluginFrom2Nix {
+            pname = "lualine";
+            version = "2021-12-09";
+            src = pkgs.fetchFromGitHub {
+              owner = "nvim-lualine";
+              repo = "lualine.nvim";
+              rev = "d68631d2c02bd31d937349d739c625cc81dd9ac1";
+              sha256 = "sha256-5DYBCXS+DLsoK5yNlcGVcKUYd/gbAOYuLIQbUVd2YGw=";
+            };
+          };
         in [
+          black-vim
           haskell-vim
           # indent-blankline-nvim
           kommentary
-          lualine-nvim
+          lualine
           nvim-autopairs
           nvim-compe
           nvim-lightbulb

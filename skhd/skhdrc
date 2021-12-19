@@ -183,14 +183,15 @@ hyper - p : yabai -m config --space mouse layout float
 
 # open stuff
 hyper - return : /Applications/kitty.app/Contents/MacOS/kitty --single-instance -d ~
-hyper - b : open -a Safari.app
 hyper - e : emacsclient --create-frame -a=
 hyper - g : open -a Finder.app
-hyper - z : zathura
-hyper - v : vimr --cwd ~/
+hyper - 0x1B : open -a dmenu-mac.app
 
 # equalize size of windows
 hyper - 0 : yabai -m space --balance
+
+# Toggle split for focused window
+hyper - v : yabai -m window --toggle split
 
 # toggle border (useful for Safari fullscreen video with yabai…)
 hyper - h : yabai -m window --toggle border
@@ -200,7 +201,9 @@ hyper - j : yabai -m window --focus stack.next
 hyper - k : yabai -m window --focus stack.prev
 
 # Flip tree within current space
-hyper - z : yabai -m space --mirror y-axis
+hyper - 0x21 : yabai -m space --mirror y-axis
+hyper - 0x1E : yabai -m space --mirror x-axis
+hyper - 0x2A : yabai -m space --rotate 90
 
 
 # Add the active window  to the window or stack to the {direction}

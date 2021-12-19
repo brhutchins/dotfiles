@@ -11,6 +11,8 @@ stdenv.mkDerivation {
   };
 
   installPhase = ''
+    mkdir -p $out/bin
+    cp ./Contents/Resources/extensions/hs/ipc/bin/hs $out/bin
     mkdir -p $out/Applications/Hammerspoon.app
     mv ./* $out/Applications/Hammerspoon.app
     chmod +x "$out/Applications/Hammerspoon.app/Contents/MacOS/Hammerspoon";

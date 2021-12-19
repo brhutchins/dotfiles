@@ -50,4 +50,12 @@
 ;(unpin! t)
 
 (package! ox-reveal)
-(package! org-present)
+
+;; ebooks
+(package! nov)
+
+;; nix-haskell-mode
+;; (package! nix-haskell-mode)
+
+;; (package! haskell-mode)
+;; (package! lsp-haskell)

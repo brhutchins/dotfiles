@@ -4,6 +4,7 @@ with lib;
 
 let
   cfg = config.local.darwin.core;
+  stackline = pkgs.callPackage /Users/barnaby/.dotfiles/nix/packages/stackline {  };
 in
 {
   options.local.darwin.core = {
@@ -20,13 +21,15 @@ in
 
   config = mkIf cfg.enable {
     home.packages = with pkgs; [
+      stackline
     ];
 
     #####
     #
     # Hammerspoon
 
-    home.file.".hammerspoon".source = "${cfg.dotfilesPath}/hammerspoon";
+    home.file.".hammerspoon/init.lua".source = "${cfg.dotfilesPath}/hammerspoon/init.lua";
+    home.file.".hammerspoon/stackline".source = stackline;
 
 
     #####
@@ -34,5 +37,6 @@ in
     # skhd
 
     home.file.".config/skhd".source = "${cfg.dotfilesPath}/skhd";
+
   };
 }

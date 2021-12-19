@@ -19,42 +19,10 @@
 ;;
 ;; They all accept either a font-spec, font string ("Input Mono-12"), or xlfd
 ;; font string. You generally only need these two:
-;; (setq doom-font (font-spec :family "monospace" :size 12 :weight 'semi-light)
-;;       doom-variable-pitch-font (font-spec :family "sans" :size 13))
-(setq doom-font (font-spec :family "Hasklig" :size 11)
-     doom-variable-pitch-font (font-spec :family "Overpass" :size 12))
-;; There are two ways to load a theme. Both assume the theme is installed and
-;; available. You can either set `doom-theme' or manually load a theme with the
-;; `load-theme' function. This is the default:
-(setq doom-theme 'doom-oceanic-next)
+(setq doom-font (font-spec :family "Hasklug Nerd Font Mono" :size 11)
+      doom-variable-pitch-font (font-spec :family "Inter" :size 11))
 
-;; If you use `org' and don't want your org files in the default location below,
-;; change `org-directory'. It must be set before org loads!
-(setq org-directory "~/org/")
-
-;; This determines the style of line numbers in effect. If set to `nil', line
-;; numbers are disabled. For relative line numbers, set this to `relative'.
-(setq display-line-numbers-type t)
-
-
-;; Here are some additional functions/macros that could help you configure Doom:
-;;
-;; - `load!' for loading external *.el files relative to this one
-;; - `use-package!' for configuring packages
-;; - `after!' for running code after a package has loaded
-;; - `add-load-path!' for adding directories to the `load-path', relative to
-;;   this file. Emacs searches the `load-path' when you load packages with
-;;   `require' or `use-package'.
-;; - `map!' for binding new keys
-;;
-;; To get information about any of these functions/macros, move the cursor over
-;; the highlighted symbol at press 'K' (non-evil users must press 'C-c c k').
-;; This will open documentation for it, including demos of how they are used.
-;;
-;; You can also try 'gd' (or 'C-c c d') to jump to their definition and see how
-;; they are implemented.
-
-;; Ligatures support for JetBrains Mono
+;; Ligatures support
 (let ((alist '((?! . "\\(?:!\\(?:==\\|[!=]\\)\\)")
               (?# . "\\(?:#\\(?:###?\\|_(\\|[!#(:=?[_{]\\)\\)")
               (?$ . "\\(?:\\$>\\)")
@@ -82,8 +50,18 @@
    (set-char-table-range composition-function-table (car char-regexp)
                          `([,(cdr char-regexp) 0 font-shape-gstring]))));
 
-;; Import custom stuff
-(load! "bindings")
+;; There are two ways to load a theme. Both assume the theme is installed and
+;; available. You can either set `doom-theme' or manually load a theme with the
+;; `load-theme' function. This is the default:
+(setq doom-theme 'doom-oceanic-next)
+
+;; If you use `org' and don't want your org files in the default location below,
+;; change `org-directory'. It must be set before org loads!
+(setq org-directory "~/org/")
+
+;; This determines the style of line numbers in effect. If set to `nil', line
+;; numbers are disabled. For relative line numbers, set this to `relative'.
+(setq display-line-numbers-type t)
 
 ;; Org-reveal
 (require 'ox-reveal)
@@ -93,24 +71,6 @@
 ;;  :ensure t
   :config
   (evil-lion-mode))
-
-;; Use pdf-tools with AucTeX
-(require 'pdf-tools)
-(setq TeX-view-program-list '(("PDF Tools" TeX-pdf-tools-sync-view))
-        TeX-view-program-selection '((output-pdf "PDF Tools"))
-        TeX-source-correlate-start-server t)
-
-(add-hook 'TeX-after-compilation-finished-functions
-        #'TeX-revert-document-buffer)
-
-;; (after! lsp
-;;   (setq lsp-enable-symbol-highlighting nil)
-;;   )
-;; (after! lsp-ui
-;;   (setq lsp-ui-doc-max-width 100)
-;;   (setq lsp-ui-doc-max-height 30)
-;;   (setq company-lsp-cache-candidates nil)
-;;   )
 
 ;;
 ;; Org-mode-specific config
@@ -142,3 +102,37 @@
                ("\\section{%s}" . "\\section*{%s}")
                ("\\subsection{%s}" . "\\subsection*{%s}")
                ("\\subsubsection{%s}" . "\\subsubsection*{%s}")))
+
+;; Here are some additional functions/macros that could help you configure Doom:
+;;
+;; - `load!' for loading external *.el files relative to this one
+;; - `use-package!' for configuring packages
+;; - `after!' for running code after a package has loaded
+;; - `add-load-path!' for adding directories to the `load-path', relative to
+;;   this file. Emacs searches the `load-path' when you load packages with
+;;   `require' or `use-package'.
+;; - `map!' for binding new keys
+;;
+;; To get information about any of these functions/macros, move the cursor over
+;; the highlighted symbol at press 'K' (non-evil users must press 'C-c c k').
+;; This will open documentation for it, including demos of how they are used.
+;;
+;; You can also try 'gd' (or 'C-c c d') to jump to their definition and see how
+;; they are implemented.
+
+;; nov (ebook reader)
+(use-package! nov
+  ;; :mode ("\\.epub\\'" . nov-mode)
+  :init (add-to-list 'auto-mode-alist '("\\.epub\\'" . nov-mode))
+  :config
+  (setq nov-save-place-file (concat doom-cache-dir "nov-places"))
+  )
+
+;; Haskell
+;; (require 'haskell-mode)
+;; (setq haskell-process-type 'cabal-repl)
+;; (use-package! nix-haskell-mode
+  ;; :hook (haskell-mode . nix-haskell-mode))
+
+(general-auto-unbind-keys :off)
+(remove-hook 'doom-after-init-modules-hook #'general-auto-unbind-keys)

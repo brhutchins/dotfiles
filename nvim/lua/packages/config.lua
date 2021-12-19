@@ -68,6 +68,11 @@ npairs.add_rules {
 -- lualine.nvim
 require('lualine').setup{
     options = {
+      theme = "OceanicNext",
+      component_separators = "",
+      section_separators = "",
+    }
+    --[[ options = {
             theme = "onedark",
             component_separators = "",
             section_separators = "",
@@ -75,7 +80,7 @@ require('lualine').setup{
     },
 
     sections = {
-    }
+    } ]]
 }
 
 -- dev-icons

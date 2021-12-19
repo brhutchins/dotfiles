@@ -24,6 +24,7 @@ let
       jq
       mosh
       neofetch
+      procps
       pure-prompt
       ripgrep
       tldr
@@ -31,6 +32,7 @@ let
       unzip
       zenith
       zoxide
+      # zsh-nix-shell
     ];
     languageServers = [
       rnix-lsp
@@ -41,6 +43,7 @@ let
     fonts = [
       (nerdfonts.override { fonts = [ "Hasklig" "IBMPlexMono"]; })
       inter
+      emacs-all-the-icons-fonts
     ];
     gui = with gui-packages; [
     ];
@@ -50,6 +53,7 @@ in
 {
   imports = [
     ../darwin/core
+    ../editors/doom
     ../editors/nvim
     ../terminals/kitty
     ../linux/gui
@@ -102,6 +106,18 @@ in
       defaultKeymap = "viins";
       shellAliases = {
       };
+      plugins = with pkgs; [
+        # {
+        #   name = "zsh-nix-shell";
+        #   file = "nix-shell.plugin.zsh";
+        #   src = pkgs.fetchFromGitHub {
+        #     owner = "chisui";
+        #     repo = "zsh-nix-shell";
+        #     rev = "v0.4.0";
+        #     sha256 = "037wz9fqmx0ngcwl9az55fgkipb745rymznxnssr3rx9irb6apzg";
+        #   };
+        # }
+      ];
 
       initExtra = ''
       # Set prompt
@@ -176,6 +192,8 @@ in
       nvim.enable = true;
     };
 
+    local.editors.doom.enable = true;
+
 
     #####
     #
@@ -203,7 +221,7 @@ in
     #####
     #
     # Darwin
-    local.darwin.core.enable = mkIf stdenv.isDarwin true;
+    local.darwin.core.enable = stdenv.isDarwin;
 
   };
 }
