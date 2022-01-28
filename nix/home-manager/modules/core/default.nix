@@ -18,6 +18,7 @@ let
       fd
       fzf
       git
+      gnupg
       htop
       httpie
       ispell
