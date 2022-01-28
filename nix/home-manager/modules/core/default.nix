@@ -27,13 +27,13 @@ let
       neofetch
       procps
       pure-prompt
+      rclone
       ripgrep
       tldr
       tmux
       unzip
       zenith
       zoxide
-      # zsh-nix-shell
     ];
     languageServers = [
       rnix-lsp
