@@ -178,6 +178,9 @@ in
       enable = true;
       userName = "brhutchins";
       userEmail = data.email.personal;
+      extraConfig = {
+        init.defaultBranch = "main";
+      };
     };
 
     programs.gh = {
