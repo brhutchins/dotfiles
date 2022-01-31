@@ -136,3 +136,6 @@
 
 (general-auto-unbind-keys :off)
 (remove-hook 'doom-after-init-modules-hook #'general-auto-unbind-keys)
+
+;; Browser
+(setq browse-url-browser-function `eww-browse-url)
