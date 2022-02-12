@@ -34,7 +34,6 @@ in
     home.packages = with pkgs; [
       bemenu
       mako
-      swayidle
       swaylock
       waybar
       wofi
@@ -68,12 +67,6 @@ in
         startup = [
           { command = "waybar"; }
           { command = "mako"; }
-          { command = ''
-              exec swayidle -w \
-                timeout 900 "swaymsg 'output * dpms off'" \
-                timeout 1200 "swaylock -f" \
-                resume "swaymsg 'output * dpms on'"
-            ''; }
         ];
 
         # Workspaces
@@ -303,6 +296,17 @@ in
           };
         };
       };
+    };
+
+    services.swayidle = {
+      enable = true;
+      timeouts = [
+        { timeout = 900; command = "swaymsg 'output * dpms off'"; }
+        { timeout = 1200; command = "swaylock -f"; }
+      ];
+      extraArgs = [
+        "resume 'swaymsg \"output * dpms on\"'"
+      ];
     };
 
     # Waybar
