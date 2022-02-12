@@ -89,6 +89,7 @@ in
 
         input = {
           "1149:8264:Primax_Kensington_Eagle_Trackball" = { left_handed = "enable"; };
+          "type:keyboard" = { xkb_options = "caps:escape"; };
         };
 
         keybindings =
