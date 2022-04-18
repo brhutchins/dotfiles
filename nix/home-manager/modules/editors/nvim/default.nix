@@ -46,8 +46,8 @@ in
             src = pkgs.fetchFromGitHub {
               owner = "b3nj5m1n";
               repo = "kommentary";
-              rev = "8f1cd74ad28de7d7c4fda5d8e8557ff240904b42";
-              sha256 = "0avd7v0nzz31nf5vj29npw5g7c2rrlirvkyd042qlh5y2vas7b2g";
+              rev = "12ecde4ed3ecb39964000a5fd034ae4c1d307388";
+              sha256 = "6YNKYMxaKi02TLa+ebt97XGREnmTjdJAA3bSHFC4yX0=";
             };
           };
           nvim-ts-autotag = pkgs.vimUtils.buildVimPluginFrom2Nix {
