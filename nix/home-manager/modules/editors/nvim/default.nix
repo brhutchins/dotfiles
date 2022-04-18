@@ -62,37 +62,63 @@ in
           };
           lualine = pkgs.vimUtils.buildVimPluginFrom2Nix {
             pname = "lualine";
-            version = "2021-12-09";
+            version = "2022-03-27";
             src = pkgs.fetchFromGitHub {
               owner = "nvim-lualine";
               repo = "lualine.nvim";
-              rev = "d68631d2c02bd31d937349d739c625cc81dd9ac1";
-              sha256 = "sha256-5DYBCXS+DLsoK5yNlcGVcKUYd/gbAOYuLIQbUVd2YGw=";
+              rev = "f14175e142825c69c5b39e8f1564b9945a97d4aa";
+              sha256 = "sha256-DL/m1ef6XO7TbrPta13R2DuPKNbFozagLa2b1SNCznQ=";
+            };
+          };
+          nvim-rg = pkgs.vimUtils.buildVimPluginFrom2Nix {
+            pname = "nvim-rg";
+            version = "2021-05-21";
+            src = pkgs.fetchFromGitHub {
+              owner = "duane9";
+              repo = "nvim-rg";
+              rev = "cd8c70e4456ff6ee6f72fa4aaf428db10e91a139";
+              sha256 = "sha256-RMjfjjx1DRrxG52VMh05csJgMiBm//Q5vzxro4IQ/Z4=";
+            };
+          };
+          kmonad-vim = pkgs.vimUtils.buildVimPluginFrom2Nix {
+            pname = "kmonad-vim";
+            version = "2021-05-17";
+            src = pkgs.fetchFromGitHub {
+              owner = "kmonad";
+              repo = "kmonad-vim";
+              rev = "e09bea67ea18feb4f5d12173e70ce556128012bc";
+              sha256 = "sha256-nW3sOXjTvlm7H73V9MEB8HJG3/lgMPHEDIP8ygJozE4";
             };
           };
         in [
           black-vim
+          diffview-nvim
           haskell-vim
-          # indent-blankline-nvim
+          idris2-vim
           kommentary
           lualine
+          neogit
           nvim-autopairs
           nvim-compe
+          nvim-dap
           nvim-lightbulb
           nvim-lspconfig
+          nvim-rg
           nvim-treesitter
-          nvim-ts-autotag
+          # nvim-ts-autotag
           nvim-web-devicons
           oceanic-next
           plenary-nvim
           popup-nvim
           purescript-vim
-          vim-python-pep8-indent
+          telescope-file-browser-nvim
           telescope-nvim
           trouble-nvim
+          vim-choosewin
           vim-gitgutter
           vim-lion
           vim-nix
+          vim-python-pep8-indent
           vim-sneak
           vim-surround
           vim-vsnip
@@ -119,6 +145,9 @@ in
 
         -- Treesitter
         require("treesitter-config")
+
+        -- Debugging
+        require("debugging")
 
         -- Whitespace
         require("whitespace")
