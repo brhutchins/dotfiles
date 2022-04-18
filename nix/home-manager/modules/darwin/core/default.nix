@@ -38,5 +38,12 @@ in
 
     home.file.".config/skhd".source = "${cfg.dotfilesPath}/skhd";
 
+
+    #####
+    #
+    # Karabiner Elements
+
+    home.file.".config/karabiner/karabiner.json".source = "${cfg.dotfilesPath}/karabiner/karabiner.json";
+
   };
 }
