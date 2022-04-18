@@ -18,7 +18,18 @@ let
   });
   hammerspoon = pkgs.callPackage /Users/barnaby/.dotfiles/nix/packages/hammerspoon {  };
   bitwarden = pkgs.callPackage /Users/barnaby/.dotfiles/nix/packages/bitwarden {  };
-  dmenu-mac = pkgs.callPackage /Users/barnaby/.dotfiles/nix/packages/dmenu-mac {  };
+  emacs-mac = ((pkgs.emacsPackagesFor pkgs.emacsGcc).emacsWithPackages (epkgs: [
+        epkgs.vterm
+  ])).overrideAttrs (super: {
+    patches = [
+      (pkgs.fetchpatch {
+        name = "fix-window-role.patch";
+        url = "https://raw.githubusercontent.com/d12frosted/homebrew-emacs-plus/master/patches/emacs-28/fix-window-role.patch";
+        sha256 = "0c41rgpi19vr9ai740g09lka3nkjk48ppqyqdnncjrkfgvm2710z";
+      })
+    ];
+  });
+
 in
 {
   imports = [ <home-manager/nix-darwin> ];
@@ -36,15 +47,9 @@ in
       docker
       docker-compose
       openssl
-      # python39Full
       iterm2
-      # slack
-      # Emacs
-      ((emacsPackagesNgGen emacsPgtkGcc).emacsWithPackages (epkgs: [
-        epkgs.vterm
-      ]))
+      emacs-mac
       bitwarden
-      # dmenu-mac
       hammerspoon
       yabai
     ];
@@ -65,8 +70,8 @@ in
 
   nixpkgs.overlays = [
     (import (builtins.fetchTarball {
-      url = https://github.com/nix-community/emacs-overlay/archive/90e1419696ac7f13f2a5be35fddd85af8068cabb.tar.gz;
-      sha256 = "14chrj7f5la6na0gcbhwp0h4rwjp5xzvl7b7srl0n6h1lrrag2cq";
+      url = https://github.com/nix-community/emacs-overlay/archive/99213036745e73ccefe40fe75338a44ecc41d69c.tar.gz;
+      sha256 = "0bdsv4891i5zbxc3bxpc0g19p8zw2ch76hf3p77wfbs1fy026rpb";
     }))
   ];
 
@@ -104,6 +109,8 @@ in
       yabai -m rule --add app="^Contacts$" manage=off
       yabai -m rule --add app="^Installer$" manage=off
       yabai -m rule --add app="^System Preferences$" manage=off
+
+      yabai -m rule --add app=Emacs manage=on
     '';
   };
 
