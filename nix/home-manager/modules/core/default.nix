@@ -25,6 +25,7 @@ let
       jq
       mosh
       neofetch
+      pandoc
       procps
       pure-prompt
       rclone
@@ -55,6 +56,7 @@ in
   imports = [
     ../darwin/core
     ../editors/doom
+    ../editors/helix
     ../editors/nvim
     ../terminals/kitty
     ../linux/gui
@@ -104,7 +106,7 @@ in
       enableAutosuggestions = true;
       enableCompletion = true;
       enableSyntaxHighlighting = true;
-      defaultKeymap = "viins";
+      defaultKeymap = "vicmd";
       shellAliases = {
       };
       plugins = with pkgs; [
@@ -194,6 +196,7 @@ in
     # Editors
     local.editors = {
       nvim.enable = true;
+      helix.enable = true;
     };
 
     local.editors.doom.enable = true;
