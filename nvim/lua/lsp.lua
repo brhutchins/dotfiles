@@ -84,7 +84,7 @@ lspconfig.pyright.setup{
 lspconfig.html.setup{
   on_attach = on_attach,
   capabilities = capabilities,
-  -- cmd = { "html-languageserver", "--stdio" },
+  cmd = { "html-languageserver", "--stdio" },
   -- filetypes = { "html" },
   -- init_options = {
   --   configurationSection = { "html", "css", "javascript" },
@@ -100,6 +100,7 @@ lspconfig.html.setup{
 require'lspconfig'.cssls.setup{
   on_attach = on_attach,
   capabilities = capabilities,
+  cmd = { "css-languageserver", "--stdio" },
 }
 
 -- Typescript

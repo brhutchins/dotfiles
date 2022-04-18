@@ -90,7 +90,6 @@ require("nvim-web-devicons").setup()
 vim.cmd [[autocmd CursorHold,CursorHoldI * lua require'nvim-lightbulb'.update_lightbulb()]]
 
 -- Telescope
-
 require("telescope").setup {
   pickers = {
     find_files = {
@@ -108,8 +107,31 @@ require("telescope").setup {
 
     live_grep = {
     },
+
+    lsp_references = {
+    },
+
+    lsp_workspace_symbols = {
+    },
   }
 }
 
+
+require("telescope").load_extension "file_browser"
+
+
 -- Trouble
 require("trouble").setup()
+
+
+-- Git
+require("neogit").setup{
+    integrations = {
+        diffview = true,
+    },
+    use_magit_keybindings = true,
+}
+
+
+-- vim-choosewin
+vim.g.choosewin_overlay_enable = 1

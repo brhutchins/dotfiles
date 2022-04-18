@@ -12,6 +12,10 @@ km("n", "<Leader><Space>", ":set hlsearch!<CR>", {noremap = true, silent = true}
 -- Window management
 km("n", "<Leader>w", "<C-w>", {noremap = true, silent = true})
 
+-- Tab management
+km("n", "<Leader><Tab>c", ":tabclose<CR>", {noremap = true, silent = true})
+km("n", "<Leader><Tab>n", ":tabnew<CR>", {noremap = true, silent = true})
+
 -- Plugin-specific
 --
 
@@ -20,12 +24,14 @@ require("kommentary.config").use_extended_mappings()
 
 -- Telescope
 km("n", "<Leader>ff", [[<Cmd>lua require("telescope.builtin").find_files()<CR>]], {noremap = true, silent = true})
-km("n", "<Leader>.", [[<Cmd>lua require("telescope.builtin").file_browser()<CR>]], {noremap = true, silent = true})
+km("n", "<Leader>.", [[<Cmd>Telescope file_browser path=%:p:h<CR>]], {noremap = true, silent = true})
 km("n", "<Leader>fg", [[<Cmd>lua require("telescope.builtin").live_grep()<CR>]], {noremap = true, silent = true})
 km("n", "<Leader>fb", [[<Cmd>lua require("telescope.builtin").buffers()<CR>]], {noremap = true, silent = true})
 km("n", "<Leader>,", [[<Cmd>lua require("telescope.builtin").buffers()<CR>]], {noremap = true, silent = true})
 km("n", "<Leader>fh", [[<Cmd>lua require("telescope.builtin").help_tags()<CR>]], {noremap = true, silent = true})
 km("n", "<Leader>/", [[<Cmd>lua require("telescope.builtin").git_files()<CR>]], {noremap = true, silent = true})
+km("n", "<Leader>lr", [[<Cmd>lua require("telescope.builtin").lsp_references()<CR>]], {noremap = true, silent = true})
+km("n", "<Leader>ls", [[<Cmd>lua require("telescope.builtin").lsp_workspace_symbols()<CR>]], {noremap = true, silent = true})
 
 -- Compe
 km("i", "<C-Space>", "compe#complete()", { noremap = true, silent = true, expr = true })
@@ -95,3 +101,11 @@ vim.api.nvim_set_keymap("n", "<leader>xq", "<cmd>Trouble quickfix<cr>",
 vim.api.nvim_set_keymap("n", "gR", "<cmd>Trouble lsp_references<cr>",
   {silent = true, noremap = true}
 )
+
+-- Git
+km("n", "<leader>gg", [[<Cmd> lua require("neogit").open() <CR>]],
+   {noremap = trus, silent = true}
+)
+
+-- Choose window
+km("n", "<leader>wp", "<Plug>(choosewin)", {})
