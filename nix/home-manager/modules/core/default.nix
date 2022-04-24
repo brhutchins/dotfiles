@@ -26,6 +26,7 @@ let
       mosh
       neofetch
       pandoc
+      pomerium-cli
       procps
       pure-prompt
       rclone
