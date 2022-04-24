@@ -34,7 +34,7 @@ in
   config = mkIf cfg.enable {
     programs.helix = {
       enable = true;
-      package = helix-22-03;
+      package = pkgs.helix;
       settings = {
         theme = "monokai_pro_machine";
         editor = {
@@ -43,12 +43,6 @@ in
           };
         };
       };
-      # languages = [
-      #   {
-      #     name = "python";
-      #     language-server = { command = "pyright"; };
-      #   }
-      # ];
     };
   };
 }
