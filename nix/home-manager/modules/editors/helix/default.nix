@@ -20,7 +20,6 @@ let
         inherit src;
         outputHash = "sha256-55QzA44HAS9X6J5fQjL5mTGOqXALxzQeJ+Fy+YfDg/g=";
       });
-      # cargoSha256 = "sha256-zJQ+KvO+6iUIb0eJ+LnMbitxaqTxfqgu7XXj3j0GiX4=";
     }
   );
 in
