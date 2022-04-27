@@ -109,8 +109,7 @@ in
       yabai -m rule --add app="^Contacts$" manage=off
       yabai -m rule --add app="^Installer$" manage=off
       yabai -m rule --add app="^System Preferences$" manage=off
-
-      yabai -m rule --add app=Emacs manage=on
+      yabai -m rule --add app="^[Ee]macs$" manage=on
     '';
   };
 
