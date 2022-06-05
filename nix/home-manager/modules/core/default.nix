@@ -12,6 +12,22 @@ let
     firefox = if isLinux then firefox-wayland else firefox;
     kitty = ../terminals/kitty;
   };
+  mosh-git = mosh.overrideAttrs (super: {
+    version = "git";
+    src = fetchFromGitHub {
+      owner = "mobile-shell";
+      repo = "mosh";
+      rev = "2f90add";
+      sha256 = "sha256-0Ofdzym7CFiU6uG5yiSF+lIDBYYOiIVu+5tyIYHS6kk=";
+    };
+    patches = [];
+    postPatch = ''
+      substituteInPlace scripts/mosh.pl \
+      --subst-var-by ssh "${openssh}/bin/ssh" \
+      --subst-var-by mosh-client "$out/bin/mosh-client"
+    '';
+    configureFlags = [];
+  });
   p = {
     utils = [
       bat
@@ -23,7 +39,7 @@ let
       httpie
       ispell
       jq
-      mosh
+      mosh-git
       neofetch
       pandoc
       pomerium-cli
