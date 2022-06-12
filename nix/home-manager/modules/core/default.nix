@@ -47,6 +47,7 @@ let
       pure-prompt
       rclone
       ripgrep
+      slides
       tldr
       tmux
       unzip
@@ -123,28 +124,15 @@ in
       enableAutosuggestions = true;
       enableCompletion = true;
       enableSyntaxHighlighting = true;
-      defaultKeymap = "vicmd";
       shellAliases = {
       };
-      plugins = with pkgs; [
-        # {
-        #   name = "zsh-nix-shell";
-        #   file = "nix-shell.plugin.zsh";
-        #   src = pkgs.fetchFromGitHub {
-        #     owner = "chisui";
-        #     repo = "zsh-nix-shell";
-        #     rev = "v0.4.0";
-        #     sha256 = "037wz9fqmx0ngcwl9az55fgkipb745rymznxnssr3rx9irb6apzg";
-        #   };
-        # }
-      ];
 
       initExtra = ''
-      # Set prompt
-      if test "$TERM" != "linux"
-      then
-        autoload -U promptinit && promptinit && prompt pure
-      fi
+    #   # Set prompt
+    #   if test "$TERM" != "linux"
+    #   then
+    #     autoload -U promptinit && promptinit && prompt pure
+    #   fi
 
       # zoxide
       eval "$(zoxide init zsh)"
@@ -153,6 +141,19 @@ in
 
     programs.zsh.oh-my-zsh = {
       enable = true;
+      plugins = [
+        "vi-mode"
+      ];
+    };
+
+
+    #####
+    #
+    # prompt
+
+    programs.starship = {
+      enable = true;
+      enableZshIntegration = true;
     };
 
 
