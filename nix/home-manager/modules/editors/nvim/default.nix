@@ -96,6 +96,7 @@ in
           haskell-vim
           idris2-vim
           kommentary
+          lean-nvim
           lualine
           neogit
           nvim-autopairs
