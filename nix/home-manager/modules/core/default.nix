@@ -54,6 +54,9 @@ let
       zenith
       zoxide
     ];
+    languages = [
+      agda
+    ];
     languageServers = [
       rnix-lsp
     ];
@@ -100,6 +103,7 @@ in
 
     home.packages =
          p.utils
+      ++ p.languages
       ++ p.languageServers
       ++ p.nixSpecific
       ++ mkGui p.fonts

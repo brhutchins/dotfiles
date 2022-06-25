@@ -91,7 +91,7 @@ in
             };
           };
         in [
-          black-vim
+          agda-vim
           diffview-nvim
           haskell-vim
           idris2-vim
