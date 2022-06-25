@@ -28,7 +28,9 @@ in
     libjpeg
     zlib
     cairo
+    kubectl
     pango
+    pgcli
     libxml2
     python39Packages.pip
     python39Packages.setuptools
