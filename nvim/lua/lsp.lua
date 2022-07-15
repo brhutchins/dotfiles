@@ -1,7 +1,11 @@
 local lspconfig = require("lspconfig")
 
 local on_attach = function(client,bufnr)
-  vim.api.nvim_command [[autocmd CursorMoved <buffer> lua vim.lsp.buf.clear_references()]]
+  vim.api.nvim_create_autocmd("CursorMoved", {
+    command = "lua vim.lsp.buf.clear_references()",
+    pattern = "<buffer>",
+  })
+
 
   local function buf_set_keymap(...) vim.api.nvim_buf_set_keymap(bufnr, ...) end
   local function buf_set_option(...) vim.api.nvim_buf_set_option(bufnr, ...) end
@@ -30,7 +34,6 @@ local on_attach = function(client,bufnr)
   buf_set_keymap('n', ']d', '<cmd>lua vim.lsp.diagnostic.goto_next()<CR>', opts)
   buf_set_keymap('n', '<space>q', '<cmd>lua vim.lsp.diagnostic.set_loclist()<CR>', opts)
   buf_set_keymap("n", "<space>f", "<cmd>lua vim.lsp.buf.formatting()<CR>", opts)
-  -- buf_set_keymap("n", "<space>e", "<cmd>lua vim.lsp.diagnostic.show_line_diagnostics()<CR>", { noremap = true, silent = true})
 end
 
 -- Snippets
@@ -85,15 +88,6 @@ lspconfig.html.setup{
   on_attach = on_attach,
   capabilities = capabilities,
   cmd = { "html-languageserver", "--stdio" },
-  -- filetypes = { "html" },
-  -- init_options = {
-  --   configurationSection = { "html", "css", "javascript" },
-  --   embeddedLanguages = {
-  --     css = true,
-  --     javascript = true
-  --   }
-  -- },
-  -- settings = {}
 }
 
 -- CSS
@@ -106,6 +100,7 @@ require'lspconfig'.cssls.setup{
 -- Typescript
 lspconfig.tsserver.setup{
   on_attach = on_attach,
+  cmd = { "typescript-language-server", "--stdio" },
 }
 
 -- Lua
