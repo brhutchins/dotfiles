@@ -37,7 +37,7 @@ end
 local capabilities = vim.lsp.protocol.make_client_capabilities()
 capabilities.textDocument.completion.completionItem.snippetSupport = true
 
--- 
+--
 -- LANGUAGES
 --
 
@@ -141,4 +141,12 @@ lspconfig.solargraph.setup{
 -- Golang
 require'lspconfig'.gopls.setup{
   on_attach = on_attach,
+}
+
+-- lean
+require('lean').setup{
+  abbreviations = { builtin = true },
+  lsp = { on_attach = on_attach },
+  lsp3 = { on_attach = on_attach },
+  mappings = true,
 }

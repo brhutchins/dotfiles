@@ -3,8 +3,9 @@ local km = vim.api.nvim_set_keymap
 -- General
 --
 
--- Leader key
+-- Leaders
 vim.g.mapleader = " "
+vim.g.maplocalleader = "  "
 
 -- Toggle search highlighting
 km("n", "<Leader><Space>", ":set hlsearch!<CR>", {noremap = true, silent = true})
@@ -104,7 +105,7 @@ vim.api.nvim_set_keymap("n", "gR", "<cmd>Trouble lsp_references<cr>",
 
 -- Git
 km("n", "<leader>gg", [[<Cmd> lua require("neogit").open() <CR>]],
-   {noremap = trus, silent = true}
+   {noremap = true, silent = true}
 )
 
 -- Choose window
