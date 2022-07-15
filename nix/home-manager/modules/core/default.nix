@@ -132,14 +132,18 @@ in
       };
 
       initExtra = ''
-    #   # Set prompt
-    #   if test "$TERM" != "linux"
-    #   then
-    #     autoload -U promptinit && promptinit && prompt pure
-    #   fi
-
       # zoxide
       eval "$(zoxide init zsh)"
+
+      # functions
+      gch () {
+        if [[ -z $1 ]]; then
+          SEARCH=("fzf")
+        else
+          SEARCH=("fzf" "--query" "$1")
+        fi
+        git checkout "$(git branch --all | {$SEARCH[@]} | tr -d ' ')"
+      }
       '';
     };
 
