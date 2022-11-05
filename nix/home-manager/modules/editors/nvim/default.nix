@@ -100,6 +100,16 @@ in
                     sha256 = "sha256-MGtvAtZ4VgZczalMlbftdTtPr6Ofxdkudpo6PmaVhtQ=";
                 };
             });
+          vim-koka = with pkgs; vimUtils.buildVimPluginFrom2Nix {
+            pname = "vim-koka";
+            version = "2018-09-17";
+            src = fetchFromGitHub {
+              owner = "Nymphium";
+              repo = "vim-koka";
+              rev = "a7a61e7eae12e5a60463a32e0b8fbd92f9c41fb7";
+              sha256 = "sha256-8IPyOvzr6NbXT5hl6tNnJi4CNY094ivSAj+DYOBNt2g=";
+            };
+          };
         in [
           agda-vim
           diffview-nvim
@@ -127,6 +137,7 @@ in
           trouble-nvim
           vim-choosewin
           vim-gitgutter
+          vim-koka
           vim-lion
           vim-nix
           vim-python-pep8-indent
