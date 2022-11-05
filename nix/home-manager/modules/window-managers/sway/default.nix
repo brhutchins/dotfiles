@@ -104,6 +104,7 @@ in
           "${cfg.modifier}+Return" = "exec ${cfg.terminal}";
           "${cfg.modifier}+Shift+q" = "kill";
           "${cfg.modifier}+d" = "exec ${cfg.menu}";
+          "${cfg.modifier}+Shift+b" = "exec firefox";
           "${cfg.modifier}+Shift+c" = "reload";
           "${cfg.modifier}+Shift+e" = ''
             exec swaynag \
