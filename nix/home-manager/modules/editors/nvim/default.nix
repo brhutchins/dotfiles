@@ -90,6 +90,16 @@ in
               sha256 = "sha256-nW3sOXjTvlm7H73V9MEB8HJG3/lgMPHEDIP8ygJozE4";
             };
           };
+          nvim-treesitter-latest = (nvim-treesitter.withPlugins (plugins: pkgs.tree-sitter.allGrammars))
+            .overrideAttrs (old: {
+                version = "2022-08-31";
+                src = pkgs.fetchFromGitHub {
+                    owner = "nvim-treesitter";
+                    repo = "nvim-treesitter";
+                    rev = "501db1459a7a46cb0766b3c56e9a6904bbcbcc97";
+                    sha256 = "sha256-MGtvAtZ4VgZczalMlbftdTtPr6Ofxdkudpo6PmaVhtQ=";
+                };
+            });
         in [
           agda-vim
           diffview-nvim
@@ -105,7 +115,7 @@ in
           nvim-lightbulb
           nvim-lspconfig
           nvim-rg
-          nvim-treesitter
+          nvim-treesitter-latest
           # nvim-ts-autotag
           nvim-web-devicons
           oceanic-next
