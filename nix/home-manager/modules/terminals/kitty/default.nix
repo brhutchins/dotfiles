@@ -72,7 +72,6 @@ in
       extraConfig = builtins.readFile cfg.theme;
 
       darwinLaunchOptions = mkIf pkgs.stdenv.isDarwin [
-          "--single-instance"
           "--directory=/tmp/my-dir"
           "--listen-on=unix:/tmp/my-socket"
         ];
