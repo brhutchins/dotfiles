@@ -19,7 +19,7 @@ in
 
     theme = mkOption {
       type = types.path;
-      default = "${cfg.dotfilesPath}/kitty/themes/oceanic-next.conf";
+      default = "${cfg.dotfilesPath}/kitty/themes/oh-lucy.conf";
       description = "Absolute path to theme file for Kitty.";
     };
   };
@@ -64,12 +64,17 @@ in
         tab_title_template = "\"{index}: {title[:21]}\"";
         tab_activity_symbol = "⋮";
         active_tab_font_style = "bold-italic";
+        active_tab_background = "#2E3440";
+        active_tab_foreground = "#81A1C1";
         inactive_tab_font_style = "bold";
+        inactive_tab_background = "#2E3440";
+        inactive_tab_foreground = "#4C566A";
 
       };
       # Colour scheme
       ## Applied through file
       extraConfig = builtins.readFile cfg.theme;
+      # theme = "Nord";
 
       darwinLaunchOptions = mkIf pkgs.stdenv.isDarwin [
           "--directory=/tmp/my-dir"
@@ -78,6 +83,6 @@ in
     };
 
     # Theme
-    home.file.".config/kitty/theme.conf".source = cfg.theme;
+    home.file.".config/kitty/themes/".source = "${cfg.dotfilesPath}/kitty/themes/";
   };
 }
