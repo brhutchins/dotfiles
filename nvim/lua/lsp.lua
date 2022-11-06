@@ -47,7 +47,7 @@ capabilities.textDocument.completion.completionItem.snippetSupport = true
 -- Haskell
 lspconfig.hls.setup{
   on_attach = on_attach,
-  cmd = {  "haskell-language-server-wrapper", "--lsp" },
+  cmd = {  "haskell-language-server", "--lsp" },
   rootPatterns = { "*.cabal", "stack.yaml", "cabal.project", "package.yaml", "hie.yaml" },
   filetypes = { "haskell", "lhaskell" }
 }
