@@ -110,6 +110,16 @@ in
               sha256 = "sha256-8IPyOvzr6NbXT5hl6tNnJi4CNY094ivSAj+DYOBNt2g=";
             };
           };
+          nvim-oh-lucy-theme = with pkgs; vimUtils.buildVimPluginFrom2Nix {
+            pname = "oh-lucy.nvim";
+            version = "2022-11-04";
+            src = fetchFromGitHub {
+              owner = "Yazeed1s";
+              repo = "oh-lucy.nvim";
+              rev = "b0fbfaf966ce0e61945cd783cfbec3a4a5808f20";
+              sha256 = "sha256-qMxw6QyFf+HN/ul4+GTTOYghAlMf0GKbUF0rXKy4R04=";
+            };
+          };
         in [
           agda-vim
           diffview-nvim
@@ -124,6 +134,7 @@ in
           nvim-dap
           nvim-lightbulb
           nvim-lspconfig
+          nvim-oh-lucy-theme
           nvim-rg
           nvim-treesitter-latest
           # nvim-ts-autotag
