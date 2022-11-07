@@ -2,11 +2,10 @@
 
 let
   yabai = pkgs.yabai.overrideAttrs (old: rec {
-    version = "4.0.0";
+    version = "5.0.1";
     src = builtins.fetchTarball {
-      # url = "https://github.com/koekeishiya/yabai/releases/download/v${version}/yabai-v${version}.tar.gz";
-      url = "https://github.com/koekeishiya/yabai/files/7570537/yabai-v4.0.0.tar.gz";
-      sha256 = "sha256:1kpgnc2fwf45zrnw54vg1yfqvpg2m6w191lpvvhwsx6f5410b92y";
+      url = "https://github.com/koekeishiya/yabai/releases/download/v${version}/yabai-v${version}.tar.gz";
+      sha256 = "03kkjgq1kdaic7hbqhlgmr6vcvcdpsyivdh87492sgp5l71i0hvl";
     };
 
     installPhase = ''
