@@ -17,7 +17,7 @@ let
   });
   hammerspoon = pkgs.callPackage /Users/barnaby/.dotfiles/nix/packages/hammerspoon {  };
   bitwarden = pkgs.callPackage /Users/barnaby/.dotfiles/nix/packages/bitwarden {  };
-  emacs-mac = ((pkgs.emacsPackagesFor pkgs.emacsGcc).emacsWithPackages (epkgs: [
+  emacs-mac = ((pkgs.emacsPackagesFor pkgs.emacsNativeComp).emacsWithPackages (epkgs: [
         epkgs.vterm
   ])).overrideAttrs (super: {
     patches = [
@@ -47,7 +47,7 @@ in
       docker-compose
       openssl
       iterm2
-      emacs-mac
+      emacsMacport
       bitwarden
       hammerspoon
       yabai
@@ -69,8 +69,8 @@ in
 
   nixpkgs.overlays = [
     (import (builtins.fetchTarball {
-      url = https://github.com/nix-community/emacs-overlay/archive/99213036745e73ccefe40fe75338a44ecc41d69c.tar.gz;
-      sha256 = "0bdsv4891i5zbxc3bxpc0g19p8zw2ch76hf3p77wfbs1fy026rpb";
+      url = https://github.com/nix-community/emacs-overlay/archive/master.tar.gz;
+      sha256 = "09m6dpkzp4qhmva48czrb3i5j0lxsar08aly4kn14b451y6yv57g";
     }))
   ];
 
