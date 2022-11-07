@@ -81,8 +81,6 @@ in
   };
 
   home-manager.users.barnaby = { pkgs, ... }: {
-    # home.file.".config/home.nix".source = builtins.toPath "${config.users.users.barnaby.home}/.dotfiles/nix/home-manager/machines/darwin-hubs.nix";
-
     imports = [ ./home-manager/machines/darwin-hubs.nix ];
 
     home.packages = with pkgs; [ ];
