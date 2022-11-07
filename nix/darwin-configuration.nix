@@ -104,6 +104,9 @@ in
       right_padding = "12";
       window_gap = "10";
       mouse_follows_focus = "on";
+      mouse_modifier = "fn";
+      mouse_action1 = "move";
+      mouse_action2 = "resize";
     };
     extraConfig = ''
       yabai -m rule --add app="^Digital Colou?r Meter$" manage=off
