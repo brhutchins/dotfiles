@@ -1,7 +1,29 @@
 { config, pkgs, ... }:
 
 let
-  python-with-packages = pkgs.python37.withPackages (p: with p; [
+  legacyPkgs = import (builtins.fetchTarball "channel:nixos-21.11") {  };
+  current-packages = with pkgs; [
+    libjpeg
+    zlib
+    cairo
+    kubectl
+    pango
+    libxml2
+    python39Packages.pip
+    python39Packages.setuptools
+    postgresql
+    alembic
+    libpqxx
+    libffi
+    virtualenv
+    xmlsec
+  ];
+
+  legacy-packages = with legacyPkgs; [
+    pgcli
+  ];
+
+  python-with-packages = legacyPkgs.python37.withPackages (p: with p; [
     # pillow
     pip
     # psycopg2
@@ -24,37 +46,21 @@ in
     core.gui.enable = true;
   };
 
-  home.packages = with pkgs; [
-    libjpeg
-    zlib
-    cairo
-    kubectl
-    pango
-    pgcli
-    libxml2
-    python39Packages.pip
-    python39Packages.setuptools
-    postgresql
-    alembic
-    libpqxx
-    libffi
-    virtualenv
-    xmlsec
-  ];
+  home.packages = current-packages ++ legacy-packages;
 
   # programs.zsh.envExtra = ''
   #   export AWS_CONFIG_FILE=$HOME/Hubs/devops/config/aws-vault.cfg
   # '';
 
   programs.zsh = {
-    profileExtra = ''
-      eval "$(pyenv init --path)"
-    '';
-    initExtra = ''
-      eval "$(pyenv init -)"
+    # profileExtra = ''
+    #   eval "$(pyenv init --path)"
+    # '';
+    # initExtra = ''
+    #   eval "$(pyenv init -)"
 
-      source ${pkgs.python37Packages.virtualenvwrapper}/bin/virtualenvwrapper.sh
-    '';
+    #   source ${pkgs.python37Packages.virtualenvwrapper}/bin/virtualenvwrapper.sh
+    # '';
   };
 
   home.sessionVariables = {
