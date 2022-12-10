@@ -120,6 +120,16 @@ in
               sha256 = "sha256-qMxw6QyFf+HN/ul4+GTTOYghAlMf0GKbUF0rXKy4R04=";
             };
           };
+          oxocarbon-nvim = with pkgs; vimUtils.buildVimPluginFrom2Nix {
+            pname = "oxocarbon.nvim";
+            version = "2022-12-10";
+            src = fetchFromGitHub {
+              owner = "nyoom-engineering";
+              repo = "oxocarbon.nvim";
+              rev = "749562ce8ffbcc5c4f69ec0dab4f4cdd0a8d2e47";
+              sha256 = "sha256-gttooz2DXTOiFJswldMWaR+Kzeeeqt4+m4YzS1oI11I=";
+            };
+          };
         in [
           agda-vim
           diffview-nvim
@@ -134,12 +144,10 @@ in
           nvim-dap
           nvim-lightbulb
           nvim-lspconfig
-          nvim-oh-lucy-theme
           nvim-rg
           nvim-treesitter-latest
           # nvim-ts-autotag
           nvim-web-devicons
-          oceanic-next
           plenary-nvim
           popup-nvim
           purescript-vim
@@ -156,6 +164,11 @@ in
           vim-surround
           vim-vsnip
           vim-vsnip-integ
+
+          # Colour schemes
+          oxocarbon-nvim
+          nvim-oh-lucy-theme
+          oceanic-next
         ];
 
       extraConfig = ''
