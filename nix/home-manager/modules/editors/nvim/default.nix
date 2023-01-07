@@ -112,12 +112,12 @@ in
           };
           nvim-oh-lucy-theme = with pkgs; vimUtils.buildVimPluginFrom2Nix {
             pname = "oh-lucy.nvim";
-            version = "2022-11-04";
+            version = "2023-01-07";
             src = fetchFromGitHub {
               owner = "Yazeed1s";
               repo = "oh-lucy.nvim";
-              rev = "b0fbfaf966ce0e61945cd783cfbec3a4a5808f20";
-              sha256 = "sha256-qMxw6QyFf+HN/ul4+GTTOYghAlMf0GKbUF0rXKy4R04=";
+              rev = "706c74fe8dcc2014dc17bbc861a05d27623e06e3";
+              sha256 = "sha256-DY40tabglFYGXB2NwCpTM5QHUt+uoO8Ti6XBfN3ocAU=";
             };
           };
           oxocarbon-nvim = with pkgs; vimUtils.buildVimPluginFrom2Nix {
