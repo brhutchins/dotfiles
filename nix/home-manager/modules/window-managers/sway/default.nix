@@ -73,7 +73,7 @@ in
         defaultWorkspace = "workspace number 1";
 
         # Background
-        output."*".bg = "#1b2b34 solid_color";
+        output."*".bg = "#161916 solid_color";
 
         fonts = {
           names = [ "inter" ];
