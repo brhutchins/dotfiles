@@ -51,7 +51,6 @@ let
       tldr
       tmux
       unzip
-      zenith
       zoxide
     ];
     languages = [
@@ -263,7 +262,7 @@ in
     #
     # GUI
 
-    programs.firefox = mkIf isLinux {
+    programs.firefox = mkIf (cfg.gui.enable && isLinux) {
       enable = true;
       package = mkIf isLinux (
         wrapFirefox firefox-unwrapped {
