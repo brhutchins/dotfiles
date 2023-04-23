@@ -20,6 +20,7 @@ in
   };
 
   config = mkIf cfg.enable {
+    # Temporary workaround for https://github.com/NixOS/nixpkgs/issues/196651
     home.packages = with pkgs; [
       stackline
     ];

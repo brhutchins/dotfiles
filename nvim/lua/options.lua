@@ -8,7 +8,7 @@ vim.opt.splitright    = true
 vim.opt.termguicolors = true
 vim.opt.list          = true
 vim.opt.hidden        = true
-vim.opt.mouse         = "a"
+-- vim.opt.mouse         = "a"
 vim.opt.cursorline    = true
 
 vim.o.completeopt = "menuone,noselect"

@@ -182,7 +182,7 @@ hyper - o : yabai -m config --space mouse layout stack
 hyper - p : yabai -m config --space mouse layout float
 
 # open stuff
-hyper - return : /Applications/kitty.app/Contents/MacOS/kitty --single-instance -d ~
+hyper - return : /Applications/kitty.app/Contents/MacOS/kitty -d ~
 hyper - e : emacsclient --create-frame -a=
 hyper - g : open -a Finder.app
 hyper - 0x1B : open -a dmenu-mac.app

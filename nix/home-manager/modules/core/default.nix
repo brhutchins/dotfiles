@@ -28,6 +28,19 @@ let
     '';
     configureFlags = [];
   });
+  zellij-head = zellij.overrideAttrs (old: rec {
+    # version = "2022-07-16";
+    # src = fetchFromGitHub {
+    #   owner  = "zellij-org";
+    #   repo = "zellij";
+    #   rev = " b78ecdf";
+    #   sha256 = "";
+    # };
+    # cargoDeps = old.cargoDeps.overrideAttrs (_: {
+    #   inherit src;
+    #   outputHash = "";
+    # });
+  });
   p = {
     utils = [
       bat
@@ -44,7 +57,6 @@ let
       pandoc
       pomerium-cli
       procps
-      pure-prompt
       rclone
       ripgrep
       slides
@@ -132,9 +144,13 @@ in
       enableCompletion = true;
       enableSyntaxHighlighting = true;
       shellAliases = {
+        kill_bg = "kill $(jobs -l | sed -r 's/\[([0-9]+)\].+/%\1/')";
       };
 
       initExtra = ''
+      # disable syntax highlighting on paste, to avoid speed issues
+      zle_highlight+=(paste:none)
+
       # zoxide
       eval "$(zoxide init zsh)"
 
@@ -204,6 +220,7 @@ in
 
     programs.zellij = {
       enable = true;
+      package = zellij-head;
       settings = {
         pane_frames = false;
         simplified_ui = true;

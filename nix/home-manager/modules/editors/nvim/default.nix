@@ -70,6 +70,16 @@ in
               sha256 = "sha256-DL/m1ef6XO7TbrPta13R2DuPKNbFozagLa2b1SNCznQ=";
             };
           };
+          neogit-head = pkgs.vimUtils.buildVimPluginFrom2Nix {
+            pname = "neogit";
+            version = "2022-11-07";
+            src = pkgs.fetchFromGitHub {
+              owner = "TimUntersberger";
+              repo = "neogit";
+              rev = "fcf630bc6deeb9e0d15239d2a7fc4cf132ff252d";
+              sha256 = "sha256-+mda7goVr6lghabIEYBcxU/Qet2rhNyh5otquL2Ic48=";
+            };
+          };
           nvim-rg = pkgs.vimUtils.buildVimPluginFrom2Nix {
             pname = "nvim-rg";
             version = "2021-05-21";
@@ -130,6 +140,16 @@ in
               sha256 = "sha256-gttooz2DXTOiFJswldMWaR+Kzeeeqt4+m4YzS1oI11I=";
             };
           };
+          nvim-dev-container = with pkgs; vimUtils.buildVimPlugin rec{
+            pname = "nvim-dev-container";
+            version = "0.2.0";
+            src = fetchFromGitHub {
+              owner = "esensar";
+              repo = "nvim-dev-container";
+              rev = "4d01b653069ae00dcb8161b86ef337eca02b0bae";
+              sha256 = "sha256-nBz627vWdXZMhFvkIxmncqYFsQbrFTROO4P4JMRPpQU=";
+            };
+          };
         in [
           agda-vim
           diffview-nvim
@@ -138,15 +158,15 @@ in
           kommentary
           lean-nvim
           lualine
-          neogit
+          neogit-head
           nvim-autopairs
           nvim-compe
           nvim-dap
+          nvim-dev-container
           nvim-lightbulb
           nvim-lspconfig
           nvim-rg
           nvim-treesitter-latest
-          # nvim-ts-autotag
           nvim-web-devicons
           plenary-nvim
           popup-nvim
@@ -166,9 +186,10 @@ in
           vim-vsnip-integ
 
           # Colour schemes
-          oxocarbon-nvim
+          nightfox-nvim
           nvim-oh-lucy-theme
           oceanic-next
+          oxocarbon-nvim
         ];
 
       extraConfig = ''

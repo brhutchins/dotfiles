@@ -35,7 +35,7 @@ in
 
   nixpkgs.config.allowUnfree = true;
 
-  nix.package = pkgs.nixFlakes;
+  # nix.package = pkgs.nixFlakes;
   nix.extraOptions =
     lib.optionalString (config.nix.package == pkgs.nixFlakes)
     "experimental-features = nix-command flakes";
@@ -66,7 +66,7 @@ in
 
   # Auto upgrade nix package and the daemon service.
   services.nix-daemon.enable = true;
-  # nix.package = pkgs.nix;
+  nix.package = pkgs.nix;
 
   # Create /etc/bashrc that loads the nix-darwin environment.
   programs.zsh.enable = true;  # default shell on catalina

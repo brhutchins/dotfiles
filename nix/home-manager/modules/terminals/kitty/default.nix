@@ -50,11 +50,12 @@ in
         active_border_color = "#d8dee9";
         inactive_border_color = "#555555";
         inactive_text_alpha = "0.9";
-        hide_window_decorations = "no";
+        hide_window_decorations = "yes";
         confirm_os_window_close = 1;
         # OS-specific
         macos_titlebar_color = "background";
         macos_option_as_alt = "left";
+        macos_thicken_font = "0.5";
         # Tab bar
         tab_bar_edge = "top";
         tab_bar_margin_width = "8.0";

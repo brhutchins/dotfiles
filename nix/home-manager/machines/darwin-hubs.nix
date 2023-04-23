@@ -9,23 +9,34 @@ let
     kubectl
     pango
     libxml2
-    python39Packages.pip
-    python39Packages.setuptools
     postgresql
     alembic
     libpqxx
     libffi
     virtualenv
     xmlsec
+    nodePackages.pyright
+  ];
+
+  python-stuff = with pkgs.python310Packages; [
+    pkgs.python310Full
+    pip
+    setuptools
+    # psycopg2
+    # setuptools
+    virtualenv
+    virtualenvwrapper
+    wheel
   ];
 
   legacy-packages = with legacyPkgs; [
     pgcli
   ];
 
-  python-with-packages = legacyPkgs.python37.withPackages (p: with p; [
+  python-with-packages = pkgs.python310.withPackages (p: with p; [
     # pillow
     pip
+    setuptools
     # psycopg2
     # setuptools
     virtualenv
@@ -46,7 +57,7 @@ in
     core.gui.enable = true;
   };
 
-  home.packages = current-packages ++ legacy-packages;
+  home.packages = current-packages ++ legacy-packages ++ python-stuff;
 
   # programs.zsh.envExtra = ''
   #   export AWS_CONFIG_FILE=$HOME/Hubs/devops/config/aws-vault.cfg
@@ -56,20 +67,27 @@ in
     # profileExtra = ''
     #   eval "$(pyenv init --path)"
     # '';
-    # initExtra = ''
+    initExtra = ''
     #   eval "$(pyenv init -)"
 
-    #   source ${pkgs.python37Packages.virtualenvwrapper}/bin/virtualenvwrapper.sh
-    # '';
+    #   source ${pkgs.python39Packages.virtualenvwrapper}/bin/virtualenvwrapper.sh
+    export CPATH=`xcrun --show-sdk-path`/usr/include
+
+    export LIBRARY_PATH=$LIBRARY_PATH:/usr/local/opt/openssl/lib/
+
+    export VIRTUALENVWRAPPER_PYTHON=${pkgs.python39}/bin/python3.9
+    source ${pkgs.python39Packages.virtualenvwrapper}/bin/virtualenvwrapper.sh
+    '';
   };
 
   home.sessionVariables = {
     AWS_CONFIG_FILE = "${config.home.homeDirectory}/Hubs/devops/config/aws-vault.cfg";
-    VIRTUALENVWRAPPER_PYTHON="${pkgs.python37}/bin/python3.7";
+    # VIRTUALENVWRAPPER_PYTHON="${pkgs.python39}/bin/python3.9";
   };
 
   home.sessionPath = [
     "$HOME/.emacs.d/bin"
   ];
 
+  home.stateVersion = "21.11";
 }
