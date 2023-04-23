@@ -71,6 +71,10 @@ let
     ];
   };
   mkGui = lists.optionals cfg.gui.enable;
+  sessionVariablesForLinux = mkIf isLinux {
+    MOZ_ENABLE_WAYLAND = 1;
+    XDG_CURRENT_DESKTOP = "sway"; 
+  };
 in
 {
   imports = [
@@ -171,7 +175,8 @@ in
 
     home.sessionVariables = {
       EDITOR = "nvim";
-    };
+    }
+    // sessionVariablesForLinux;
 
     programs.direnv = {
       enable = true;
@@ -231,6 +236,12 @@ in
       userEmail = data.email.personal;
       extraConfig = {
         init.defaultBranch = "main";
+        core = {
+          editor = "nvim";
+        };
+      };
+      diff-so-fancy = {
+        enable = true;
       };
     };
 
@@ -264,11 +275,6 @@ in
 
     programs.firefox = mkIf (cfg.gui.enable && isLinux) {
       enable = true;
-      package = mkIf isLinux (
-        wrapFirefox firefox-unwrapped {
-          forceWayland = true;
-        }
-      );
     };
 
     local.terminals.kitty.enable = mkIf cfg.gui.enable true;
