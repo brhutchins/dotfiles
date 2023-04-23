@@ -74,7 +74,7 @@ in
       provider = "geoclue2";
     };
 
-    programs.mako = {
+    services.mako = {
       enable = true;
       backgroundColor = "#161916EE";
       borderSize = 0;
