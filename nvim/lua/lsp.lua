@@ -151,3 +151,9 @@ require('lean').setup{
   lsp3 = { on_attach = on_attach },
   mappings = true,
 }
+
+-- Java
+lspconfig.java_language_server.setup{
+  on_attach = on_attach,
+  cmd = { "java-language-server" }
+}
