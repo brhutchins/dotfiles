@@ -69,13 +69,15 @@ let
       agda
     ];
     languageServers = [
-      rnix-lsp
+      nil
     ];
     nixSpecific = [
       nix-prefetch-scripts
     ];
     fonts = [
-      (nerdfonts.override { fonts = [ "Hasklig" "IBMPlexMono"]; })
+      (nerdfonts.override { fonts = [ "NerdFontsSymbolsOnly" ]; })
+      hasklig
+      ibm-plex
       inter
       emacs-all-the-icons-fonts
     ];
@@ -256,6 +258,11 @@ in
         core = {
           editor = "nvim";
         };
+        # Sign all commits using ssh key
+        commit.gpgsign = true;
+        gpg.format = "ssh";
+        gpg.ssh.allowedSignersFile = "~/.config/git/allowed_signers";
+        user.signingkey = "~/.ssh/id_ed25519.pub";
       };
       diff-so-fancy = {
         enable = true;
@@ -266,6 +273,9 @@ in
       enable = true;
       settings.gitProtocol = "ssh";
     };
+
+    home.file.".config/git/allowed_signers".text =
+      "${data.email.personal} ${builtins.readFile /Users/barnaby/.ssh/id_ed25519.pub}";
 
 
     #####

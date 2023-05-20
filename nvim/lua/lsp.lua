@@ -123,10 +123,8 @@ lspconfig.lua_ls.setup {
 }
 
 -- Nix
-lspconfig.rnix.setup {
+lspconfig.nil_ls.setup {
   on_attach = on_attach,
-  cmd = { "rnix-lsp" },
-  filetypes = { "nix" },
 }
 
 -- Purescript

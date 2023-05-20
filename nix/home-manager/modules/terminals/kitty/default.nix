@@ -27,7 +27,7 @@ in
   config = mkIf cfg.enable {
     programs.kitty = {
       enable = true;
-      font.name = "Hasklug Nerd Font";
+      font.name = "Hasklig";
       font.size = 11;
 
       keybindings = {
@@ -55,7 +55,6 @@ in
         # OS-specific
         macos_titlebar_color = "background";
         macos_option_as_alt = "left";
-        macos_thicken_font = "0.5";
         # Tab bar
         tab_bar_edge = "top";
         tab_bar_margin_width = "8.0";

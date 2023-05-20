@@ -1,20 +1,20 @@
 { config, pkgs, lib,... }:
 
 let
-  yabai = pkgs.yabai.overrideAttrs (old: rec {
-    version = "5.0.1";
-    src = builtins.fetchTarball {
-      url = "https://github.com/koekeishiya/yabai/releases/download/v${version}/yabai-v${version}.tar.gz";
-      sha256 = "03kkjgq1kdaic7hbqhlgmr6vcvcdpsyivdh87492sgp5l71i0hvl";
-    };
+  # yabai = pkgs.yabai.overrideAttrs (old: rec {
+  #   version = "5.0.4";
+  #   src = builtins.fetchTarball {
+  #     url = "https://github.com/koekeishiya/yabai/releases/download/v${version}/yabai-v${version}.tar.gz";
+  #     sha256 = "";
+  #   };
 
-    installPhase = ''
-      mkdir -p $out/bin
-      mkdir -p $out/share/man/man1/
-      cp ./bin/yabai $out/bin/yabai
-      cp ./doc/yabai.1 $out/share/man/man1/yabai1
-    '';
-  });
+  #   installPhase = ''
+  #     mkdir -p $out/bin
+  #     mkdir -p $out/share/man/man1/
+  #     cp ./bin/yabai $out/bin/yabai
+  #     cp ./doc/yabai.1 $out/share/man/man1/yabai1
+  #   '';
+  # });
   hammerspoon = pkgs.callPackage /Users/barnaby/.dotfiles/nix/packages/hammerspoon {  };
   bitwarden = pkgs.callPackage /Users/barnaby/.dotfiles/nix/packages/bitwarden {  };
   emacs-mac = ((pkgs.emacsPackagesFor pkgs.emacsNativeComp).emacsWithPackages (epkgs: [
@@ -55,7 +55,7 @@ in
       emacsMacport
       bitwarden
       hammerspoon
-      yabai
+      # yabai
     ];
 
 
@@ -75,7 +75,7 @@ in
   nixpkgs.overlays = [
     (import (builtins.fetchTarball {
       url = https://github.com/nix-community/emacs-overlay/archive/master.tar.gz;
-      sha256 = "09m6dpkzp4qhmva48czrb3i5j0lxsar08aly4kn14b451y6yv57g";
+      sha256 = "sha256:12dgyas7r3cmhip7rifzy3ydryl3gnkn39csywp7xriazpws5ms9";
     }))
   ];
 
@@ -93,7 +93,7 @@ in
 
   services.yabai = {
     enable = true;
-    package = yabai;
+    # package = yabai;
     config = {
       window_placement = "second_child";
       window_border = "off";

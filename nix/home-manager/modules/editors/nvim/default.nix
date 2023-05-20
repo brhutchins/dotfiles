@@ -102,12 +102,12 @@ in
           };
           nvim-treesitter-latest = (nvim-treesitter.withPlugins (plugins: pkgs.tree-sitter.allGrammars))
             .overrideAttrs (old: {
-                version = "2022-08-31";
+                version = "2023-5-19";
                 src = pkgs.fetchFromGitHub {
                     owner = "nvim-treesitter";
                     repo = "nvim-treesitter";
-                    rev = "501db1459a7a46cb0766b3c56e9a6904bbcbcc97";
-                    sha256 = "sha256-MGtvAtZ4VgZczalMlbftdTtPr6Ofxdkudpo6PmaVhtQ=";
+                    rev = "05df88ebaa94d30d682d076244615786d9e7c1a5";
+                    sha256 = "sha256-dmGLJHTWFCMg2+0QvxUjOM0jW4npu386ycsaY4uPurY=";
                 };
             });
           vim-koka = with pkgs; vimUtils.buildVimPluginFrom2Nix {
@@ -157,8 +157,8 @@ in
           idris2-vim
           kommentary
           lean-nvim
-          lualine
-          neogit-head
+          lualine-nvim
+          neogit
           nvim-autopairs
           nvim-compe
           nvim-dap

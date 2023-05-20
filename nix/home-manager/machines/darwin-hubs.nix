@@ -22,8 +22,6 @@ let
     pkgs.python310Full
     pip
     setuptools
-    # psycopg2
-    # setuptools
     virtualenv
     virtualenvwrapper
     wheel
@@ -34,11 +32,8 @@ let
   ];
 
   python-with-packages = pkgs.python310.withPackages (p: with p; [
-    # pillow
     pip
     setuptools
-    # psycopg2
-    # setuptools
     virtualenv
     virtualenvwrapper
     wheel
@@ -75,8 +70,8 @@ in
 
     export LIBRARY_PATH=$LIBRARY_PATH:/usr/local/opt/openssl/lib/
 
-    export VIRTUALENVWRAPPER_PYTHON=${pkgs.python39}/bin/python3.9
-    source ${pkgs.python39Packages.virtualenvwrapper}/bin/virtualenvwrapper.sh
+    export VIRTUALENVWRAPPER_PYTHON=${pkgs.python310}/bin/python3.10
+    source ${pkgs.python310Packages.virtualenvwrapper}/bin/virtualenvwrapper.sh
     '';
   };
 
