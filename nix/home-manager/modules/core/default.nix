@@ -261,8 +261,8 @@ in
         # Sign all commits using ssh key
         commit.gpgsign = true;
         gpg.format = "ssh";
-        gpg.ssh.allowedSignersFile = "~/.config/git/allowed_signers";
-        user.signingkey = "~/.ssh/id_ed25519.pub";
+        gpg.ssh.allowedSignersFile = config.home.homeDirectory + "/.config/git/allowed_signers";
+        user.signingkey = config.home.homeDirectory + "/.ssh/id_ed25519.pub";
       };
       diff-so-fancy = {
         enable = true;
@@ -275,7 +275,7 @@ in
     };
 
     home.file.".config/git/allowed_signers".text =
-      "${data.email.personal} ${builtins.readFile /Users/barnaby/.ssh/id_ed25519.pub}";
+      "${data.email.personal} ${builtins.readFile (config.home.homeDirectory + "/.ssh/id_ed25519.pub")}";
 
 
     #####
