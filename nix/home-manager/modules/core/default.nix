@@ -191,6 +191,16 @@ in
 
     #####
     #
+    # bash
+
+    programs.bash = {
+      enable = true;
+      enableCompletion = true;
+    };
+
+
+    #####
+    #
     # prompt
 
     programs.starship = {

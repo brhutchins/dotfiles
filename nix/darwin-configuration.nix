@@ -68,9 +68,14 @@ in
   services.nix-daemon.enable = true;
   nix.package = pkgs.nix;
 
+  environment.shells = [ pkgs.bashInteractive pkgs.zsh ];
+
   # Create /etc/bashrc that loads the nix-darwin environment.
   programs.zsh.enable = true;  # default shell on catalina
+  programs.bash.enable = true;
   # programs.fish.enable = true;
+
+  environment.pathsToLink = [ "/share/bash-completion" ];
 
   nixpkgs.overlays = [
     (import (builtins.fetchTarball {
