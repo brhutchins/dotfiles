@@ -106,8 +106,8 @@ in
                 src = pkgs.fetchFromGitHub {
                     owner = "nvim-treesitter";
                     repo = "nvim-treesitter";
-                    rev = "05df88ebaa94d30d682d076244615786d9e7c1a5";
-                    sha256 = "sha256-dmGLJHTWFCMg2+0QvxUjOM0jW4npu386ycsaY4uPurY=";
+                    rev = "b75f79bc5f68b552743d2136b80fe545871d5501";
+                    sha256 = "sha256-zvX3cL6gw6WaCN9/ArIui5mNx5vyR2Qz+yKeoOfWn2I=";
                 };
             });
           vim-koka = with pkgs; vimUtils.buildVimPluginFrom2Nix {
@@ -151,6 +151,8 @@ in
             };
           };
         in [
+          # nvim-treesitter-latest
+          nvim-treesitter.withAllGrammars
           agda-vim
           diffview-nvim
           haskell-vim
@@ -166,7 +168,6 @@ in
           nvim-lightbulb
           nvim-lspconfig
           nvim-rg
-          nvim-treesitter-latest
           nvim-web-devicons
           plenary-nvim
           popup-nvim
