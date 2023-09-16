@@ -19,6 +19,8 @@ in
       enableSshSupport = true;
     };
 
+    services.ssh-agent.enable = true;
+
     services.lorri.enable = true;
   };
 

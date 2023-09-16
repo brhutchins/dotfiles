@@ -97,6 +97,7 @@ in
     ../editors/helix
     ../editors/nvim
     ../terminals/kitty
+    ../terminals/wezterm
     ../linux/gui
   ];
 
@@ -328,6 +329,7 @@ in
     };
 
     local.terminals.kitty.enable = mkIf cfg.gui.enable true;
+    local.terminals.wezterm.enable = mkIf cfg.gui.enable true;
 
 
     #####
@@ -337,3 +339,5 @@ in
 
   };
 }
+
+
