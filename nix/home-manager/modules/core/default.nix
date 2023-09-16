@@ -97,6 +97,7 @@ in
     ../editors/helix
     ../editors/nvim
     ../terminals/kitty
+    ../terminals/wezterm
     ../linux/gui
   ];
 
@@ -144,7 +145,7 @@ in
       dotDir = ".config/zsh";
       enableAutosuggestions = true;
       enableCompletion = true;
-      enableSyntaxHighlighting = true;
+      syntaxHighlighting.enable = true;
       shellAliases = {
         kill_bg = "kill $(jobs -l | sed -r 's/\[([0-9]+)\].+/%\1/')";
       };
@@ -229,7 +230,7 @@ in
     #
     # CLI utilities
 
-    programs.exa = {
+    programs.eza = {
       enable = true;
       enableAliases = true;
     };
@@ -328,6 +329,7 @@ in
     };
 
     local.terminals.kitty.enable = mkIf cfg.gui.enable true;
+    local.terminals.wezterm.enable = mkIf cfg.gui.enable true;
 
 
     #####
@@ -337,3 +339,5 @@ in
 
   };
 }
+
+
