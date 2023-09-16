@@ -154,6 +154,9 @@ in
       # disable syntax highlighting on paste, to avoid speed issues
       zle_highlight+=(paste:none)
 
+      # Not deterministic, but the Nix option doesn't seem to work.
+      export EDITOR=nvim
+
       # zoxide
       eval "$(zoxide init zsh)"
 
@@ -197,6 +200,9 @@ in
     programs.bash = {
       enable = true;
       enableCompletion = true;
+      bashrcExtra = ''
+      set -o vi
+      '';
     };
 
 
