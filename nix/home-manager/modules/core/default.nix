@@ -144,7 +144,7 @@ in
       dotDir = ".config/zsh";
       enableAutosuggestions = true;
       enableCompletion = true;
-      enableSyntaxHighlighting = true;
+      syntaxHighlighting.enable = true;
       shellAliases = {
         kill_bg = "kill $(jobs -l | sed -r 's/\[([0-9]+)\].+/%\1/')";
       };
@@ -229,7 +229,7 @@ in
     #
     # CLI utilities
 
-    programs.exa = {
+    programs.eza = {
       enable = true;
       enableAliases = true;
     };

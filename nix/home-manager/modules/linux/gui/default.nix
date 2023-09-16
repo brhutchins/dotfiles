@@ -39,6 +39,7 @@ in
           "--force-dark-mode"
         ];
       })
+      zathura
 
       ## Screen sharing
       xdg-desktop-portal
@@ -53,7 +54,7 @@ in
       # Fonts
       hasklig
       noto-fonts
-      noto-fonts-cjk
+      # noto-fonts-cjk
       noto-fonts-emoji
       font-awesome
     ];
