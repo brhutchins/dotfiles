@@ -155,3 +155,6 @@ lspconfig.java_language_server.setup{
   on_attach = on_attach,
   cmd = { "java-language-server" }
 }
+
+-- OCaml
+require'lspconfig'.ocamllsp.setup{}
