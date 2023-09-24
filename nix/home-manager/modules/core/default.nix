@@ -50,18 +50,13 @@ let
       gnupg
       htop
       httpie
-      ispell
       jq
-      mosh-git
       neofetch
       pandoc
-      pomerium-cli
       procps
-      rclone
       ripgrep
       slides
       tldr
-      tmux
       unzip
       zoxide
     ];

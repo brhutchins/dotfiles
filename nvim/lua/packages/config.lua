@@ -135,22 +135,3 @@ require("neogit").setup{
 
 -- vim-choosewin
 vim.g.choosewin_overlay_enable = 1
-
-
--- nvim-dev-container
-require("devcontainer").setup{
-  attach_mounts = {
-    neovim_config = {
-      enabled = true,
-      options = { "readonly" }
-    },
-    neovim_data = {
-      enabled = true,
-      options = {}
-    },
-    neovim_state = {
-      enabled = true,
-      options = {}
-    },
-  },
-}

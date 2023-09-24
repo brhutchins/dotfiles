@@ -20,8 +20,10 @@ in
       return {
         font = wezterm.font_with_fallback { "Hasklig", "Symbols Nerd Font Mono" },
         font_size = 10.0,
-        color_scheme = "Firewatch",
+        color_scheme = "Panda (Gogh)",
         hide_tab_bar_if_only_one_tab = true,
+        native_macos_fullscreen_mode = true,
+        window_decorations="RESIZE",
       }
       '';
 

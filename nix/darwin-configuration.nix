@@ -140,18 +140,13 @@ in
   # $ nix-env -qaP | grep wget
   environment.systemPackages = with pkgs;
     [ vim
-      alacritty
       amazon-ecr-credential-helper
       awscli
       aws-vault
       docker
-      docker-compose
       openssl
-      iterm2
-      emacsMacport
       bitwarden
       hammerspoon
-      # yabai
     ];
 
 
