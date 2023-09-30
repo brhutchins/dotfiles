@@ -74,7 +74,7 @@
         '';
             };
 
-            services.skhd = {
+      services.skhd = {
         enable = true;
         skhdConfig = ''
         # focus window
@@ -232,6 +232,12 @@
 
       users.users.barnaby.home = "/Users/barnaby";
     };
+    work-config = { pkgs, ... }: {
+      homebrew.casks = [
+        "slack"
+        "1password-cli"
+      ];
+    };
   in
   {
     # Build darwin flake using:
@@ -239,6 +245,7 @@
     darwinConfigurations."Barnaby-MBP-M2" = nix-darwin.lib.darwinSystem {
       modules = [
       configuration
+      work-config
       home-manager.darwinModules.home-manager
       ../home-manager/machines/darwin-hubs-2.nix
       ];
