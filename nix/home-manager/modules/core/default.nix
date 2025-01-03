@@ -56,6 +56,7 @@ let
       procps
       ripgrep
       slides
+      tailscale
       tldr
       unzip
       zoxide
@@ -70,13 +71,14 @@ let
       nix-prefetch-scripts
     ];
     fonts = [
-      (nerdfonts.override { fonts = [ "NerdFontsSymbolsOnly" ]; })
+      nerd-fonts.symbols-only
       hasklig
       ibm-plex
       inter
       emacs-all-the-icons-fonts
     ];
     gui = with gui-packages; [
+      anki-bin
     ];
   };
   mkGui = lists.optionals cfg.gui.enable;
@@ -138,7 +140,7 @@ in
       enable = true;
       autocd = true;
       dotDir = ".config/zsh";
-      enableAutosuggestions = true;
+      autosuggestion.enable = true;
       enableCompletion = true;
       syntaxHighlighting.enable = true;
       shellAliases = {
@@ -233,7 +235,6 @@ in
 
     programs.eza = {
       enable = true;
-      enableAliases = true;
     };
 
     programs.nnn = {

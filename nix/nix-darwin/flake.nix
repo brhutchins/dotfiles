@@ -71,6 +71,7 @@
           yabai -m rule --add app="^Installer$" manage=off
           yabai -m rule --add app="^System Settings$" manage=off
           yabai -m rule --add app="^[Ee]macs$" manage=on
+          yabai -m rule --add app="^Little Arc —" manage=off
         '';
             };
 
@@ -201,6 +202,8 @@
 
       services.karabiner-elements.enable = true;
 
+      services.tailscale.enable = true;
+
       homebrew = {
         enable = true;
         casks = [
@@ -242,7 +245,7 @@
   {
     # Build darwin flake using:
     # $ darwin-rebuild build --flake .#simple
-    darwinConfigurations."Barnaby-MBP-M2" = nix-darwin.lib.darwinSystem {
+    darwinConfigurations."PLN-JGY4PVV0H0" = nix-darwin.lib.darwinSystem {
       modules = [
       configuration
       work-config
@@ -253,6 +256,6 @@
     };
 
     # Expose the package set, including overlays, for convenience.
-    darwinPackages = self.darwinConfigurations."Barnaby-MBP-M2".pkgs;
+    darwinPackages = self.darwinConfigurations."PLN-JGY4PVV0H0".pkgs;
   };
 }

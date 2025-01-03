@@ -23,23 +23,6 @@ in
       enable = true;
       plugins = with pkgs.vimPlugins;
         let
-          black-vim = pkgs.vimUtils.buildVimPlugin (rec {
-            pname = "black.vim";
-            version = "21.12b0";
-            # sourceRoot = "./plugin";
-            installPhase = ''
-              runHook preInstall
-
-              mkdir -p $out
-              cp ./plugin/* $out
-            '';
-            src = pkgs.fetchFromGitHub {
-              owner = "psf";
-              repo = "black";
-              rev = version;
-              sha256 = "sha256-qYf666gonRgxUw+SFe1ILpGQpdL5sjXFTr0Pepk5iog=";
-            };
-          });
           kommentary = pkgs.vimUtils.buildVimPlugin {
             pname = "kommentary";
             version = "2021-10-13";
@@ -151,7 +134,6 @@ in
             };
           };
         in [
-          # nvim-treesitter-latest
           nvim-treesitter.withAllGrammars
           agda-vim
           diffview-nvim
@@ -162,7 +144,7 @@ in
           lualine-nvim
           neogit
           nvim-autopairs
-          nvim-compe
+          nvim-cmp
           nvim-dap
           nvim-dev-container
           nvim-lightbulb
