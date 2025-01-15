@@ -8,7 +8,7 @@ local on_attach = function(client,bufnr)
 
 
   local function buf_set_keymap(...) vim.api.nvim_buf_set_keymap(bufnr, ...) end
-  local function buf_set_option(...) vim.api.nvim_buf_set_option(bufnr, ...) end
+  local function buf_set_option(a,b) vim.api.nvim_set_option_value(a, b, { buf = bufnr }) end
 
   --Enable completion triggered by <c-x><c-o>
   buf_set_option('omnifunc', 'v:lua.vim.lsp.omnifunc')
@@ -98,7 +98,7 @@ require'lspconfig'.cssls.setup{
 }
 
 -- Typescript
-lspconfig.tsserver.setup{
+lspconfig.ts_ls.setup{
   on_attach = on_attach,
   cmd = { "typescript-language-server", "--stdio" },
 }

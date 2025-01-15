@@ -14,6 +14,18 @@
   outputs = inputs@{ self, nix-darwin, nixpkgs, home-manager, ... }:
   let
     configuration = { pkgs, ... }: {
+      nixpkgs.overlays = [
+        (self: super: {
+          karabiner-elements = super.karabiner-elements.overrideAttrs (old: {
+            version = "14.13.0";
+
+            src = super.fetchurl {
+              inherit (old.src) url;
+              hash = "sha256-gmJwoht/Tfm5qMecmq1N6PSAIfWOqsvuHU8VDJY8bLw=";
+            };
+          });
+        })
+      ];
       # List packages installed in system profile. To search by name, run:
       # $ nix-env -qaP | grep wget
       environment.systemPackages =
@@ -247,10 +259,10 @@
     # $ darwin-rebuild build --flake .#simple
     darwinConfigurations."PLN-JGY4PVV0H0" = nix-darwin.lib.darwinSystem {
       modules = [
-      configuration
-      work-config
-      home-manager.darwinModules.home-manager
-      ../home-manager/machines/darwin-hubs-2.nix
+        configuration
+        work-config
+        home-manager.darwinModules.home-manager
+        ../home-manager/machines/darwin-hubs-2.nix
       ];
       specialArgs = { inherit inputs; };
     };

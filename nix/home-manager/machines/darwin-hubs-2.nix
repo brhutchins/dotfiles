@@ -1,4 +1,3 @@
-{ pkgs, ... }:
 {
   home-manager.useGlobalPkgs = true;
   home-manager.useUserPackages = true;
@@ -7,7 +6,11 @@
     home = {
       stateVersion = "23.05";
       packages = with pkgs; [
+        colima
+        docker
+        docker-buildx
         pgcli
+        zed-editor
       ];
     };
 
@@ -17,4 +20,3 @@
     };
   };
 }
-

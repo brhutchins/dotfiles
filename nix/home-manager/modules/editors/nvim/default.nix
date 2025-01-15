@@ -33,37 +33,7 @@ in
               sha256 = "6YNKYMxaKi02TLa+ebt97XGREnmTjdJAA3bSHFC4yX0=";
             };
           };
-          nvim-ts-autotag = pkgs.vimUtils.buildVimPluginFrom2Nix {
-            pname = "nvim-ts-autotag";
-            version = "2021-10-09";
-            src = pkgs.fetchFromGitHub {
-              owner = "windwp";
-              repo = "nvim-ts-autotag";
-              rev = "80d427af7b898768c8d8538663d52dee133da86f";
-              sha256 = "1hcwppfqyl423lxp8i01dvn7szcfds6apcxjfq84kbhs384hs8pi";
-            };
-          };
-          lualine = pkgs.vimUtils.buildVimPluginFrom2Nix {
-            pname = "lualine";
-            version = "2022-03-27";
-            src = pkgs.fetchFromGitHub {
-              owner = "nvim-lualine";
-              repo = "lualine.nvim";
-              rev = "f14175e142825c69c5b39e8f1564b9945a97d4aa";
-              sha256 = "sha256-DL/m1ef6XO7TbrPta13R2DuPKNbFozagLa2b1SNCznQ=";
-            };
-          };
-          neogit-head = pkgs.vimUtils.buildVimPluginFrom2Nix {
-            pname = "neogit";
-            version = "2022-11-07";
-            src = pkgs.fetchFromGitHub {
-              owner = "TimUntersberger";
-              repo = "neogit";
-              rev = "fcf630bc6deeb9e0d15239d2a7fc4cf132ff252d";
-              sha256 = "sha256-+mda7goVr6lghabIEYBcxU/Qet2rhNyh5otquL2Ic48=";
-            };
-          };
-          nvim-rg = pkgs.vimUtils.buildVimPluginFrom2Nix {
+          nvim-rg = pkgs.vimUtils.buildVimPlugin {
             pname = "nvim-rg";
             version = "2021-05-21";
             src = pkgs.fetchFromGitHub {
@@ -73,27 +43,7 @@ in
               sha256 = "sha256-RMjfjjx1DRrxG52VMh05csJgMiBm//Q5vzxro4IQ/Z4=";
             };
           };
-          kmonad-vim = pkgs.vimUtils.buildVimPluginFrom2Nix {
-            pname = "kmonad-vim";
-            version = "2021-05-17";
-            src = pkgs.fetchFromGitHub {
-              owner = "kmonad";
-              repo = "kmonad-vim";
-              rev = "e09bea67ea18feb4f5d12173e70ce556128012bc";
-              sha256 = "sha256-nW3sOXjTvlm7H73V9MEB8HJG3/lgMPHEDIP8ygJozE4";
-            };
-          };
-          nvim-treesitter-latest = (nvim-treesitter.withPlugins (plugins: pkgs.tree-sitter.allGrammars))
-            .overrideAttrs (old: {
-                version = "2023-5-19";
-                src = pkgs.fetchFromGitHub {
-                    owner = "nvim-treesitter";
-                    repo = "nvim-treesitter";
-                    rev = "b75f79bc5f68b552743d2136b80fe545871d5501";
-                    sha256 = "sha256-zvX3cL6gw6WaCN9/ArIui5mNx5vyR2Qz+yKeoOfWn2I=";
-                };
-            });
-          vim-koka = with pkgs; vimUtils.buildVimPluginFrom2Nix {
+          vim-koka = with pkgs; vimUtils.buildVimPlugin {
             pname = "vim-koka";
             version = "2018-09-17";
             src = fetchFromGitHub {
@@ -103,7 +53,7 @@ in
               sha256 = "sha256-8IPyOvzr6NbXT5hl6tNnJi4CNY094ivSAj+DYOBNt2g=";
             };
           };
-          nvim-oh-lucy-theme = with pkgs; vimUtils.buildVimPluginFrom2Nix {
+          nvim-oh-lucy-theme = with pkgs; vimUtils.buildVimPlugin {
             pname = "oh-lucy.nvim";
             version = "2023-01-07";
             src = fetchFromGitHub {
@@ -113,47 +63,23 @@ in
               sha256 = "sha256-DY40tabglFYGXB2NwCpTM5QHUt+uoO8Ti6XBfN3ocAU=";
             };
           };
-          oxocarbon-nvim = with pkgs; vimUtils.buildVimPluginFrom2Nix {
-            pname = "oxocarbon.nvim";
-            version = "2022-12-10";
-            src = fetchFromGitHub {
-              owner = "nyoom-engineering";
-              repo = "oxocarbon.nvim";
-              rev = "749562ce8ffbcc5c4f69ec0dab4f4cdd0a8d2e47";
-              sha256 = "sha256-gttooz2DXTOiFJswldMWaR+Kzeeeqt4+m4YzS1oI11I=";
-            };
-          };
-          nvim-dev-container = with pkgs; vimUtils.buildVimPlugin rec{
-            pname = "nvim-dev-container";
-            version = "0.2.0";
-            src = fetchFromGitHub {
-              owner = "esensar";
-              repo = "nvim-dev-container";
-              rev = "4d01b653069ae00dcb8161b86ef337eca02b0bae";
-              sha256 = "sha256-nBz627vWdXZMhFvkIxmncqYFsQbrFTROO4P4JMRPpQU=";
-            };
-          };
         in [
           nvim-treesitter.withAllGrammars
           agda-vim
+          comment-nvim
           diffview-nvim
           haskell-vim
-          idris2-vim
-          kommentary
           lean-nvim
           lualine-nvim
           neogit
           nvim-autopairs
           nvim-cmp
-          nvim-dap
-          nvim-dev-container
           nvim-lightbulb
           nvim-lspconfig
           nvim-rg
           nvim-web-devicons
           plenary-nvim
           popup-nvim
-          purescript-vim
           telescope-file-browser-nvim
           telescope-nvim
           trouble-nvim
@@ -175,38 +101,61 @@ in
           oxocarbon-nvim
         ];
 
-      extraConfig = ''
-        lua << EOF
+        extraLuaConfig = ''
+            -- Options
+            require("options")
 
-        -- Options
-        require("options")
+            -- Package config
+            require("packages.config")
 
-        -- Package config
-        require("packages.config")
+            -- Theme
+            require("theme")
 
-        -- Theme
-        require("theme")
+            -- Keybindings
+            require("keybindings")
 
-        -- Keybindings
-        require("keybindings")
+            -- LSP
+            require("lsp")
 
-        -- LSP
-        require("lsp")
+            -- Treesitter
+            require("treesitter-config")
 
-        -- Treesitter
-        require("treesitter-config")
+            -- Whitespace
+            require("whitespace")
+        '';
 
-        -- Debugging
-        require("debugging")
+      # extraConfig = ''
+      #   lua << EOF
 
-        -- Whitespace
-        require("whitespace")
+      #   -- Options
+      #   require("options")
 
-        -- Terminal
-        require("terminal")
+      #   -- Package config
+      #   require("packages.config")
 
-        EOF
-      '';
+      #   -- Theme
+      #   require("theme")
+
+      #   -- Keybindings
+      #   require("keybindings")
+
+      #   -- LSP
+      #   require("lsp")
+
+      #   -- Treesitter
+      #   require("treesitter-config")
+
+      #   -- Debugging
+      #   require("debugging")
+
+      #   -- Whitespace
+      #   require("whitespace")
+
+      #   -- Terminal
+      #   require("terminal")
+
+      #   EOF
+      # '';
     };
 
     # Raw configuration files
