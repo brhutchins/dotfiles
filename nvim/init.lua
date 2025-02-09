@@ -13,6 +13,9 @@ require("theme")
 -- Keybindings
 require("keybindings")
 
+-- Completion
+require("blink")
+
 -- LSP
 require("lsp")
 

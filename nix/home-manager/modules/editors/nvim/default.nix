@@ -65,15 +65,17 @@ in
           };
         in [
           nvim-treesitter.withAllGrammars
+          blink-cmp
           agda-vim
           comment-nvim
           diffview-nvim
           haskell-vim
           lean-nvim
           lualine-nvim
+          luasnip
           neogit
           nvim-autopairs
-          nvim-cmp
+          # nvim-cmp
           nvim-lightbulb
           nvim-lspconfig
           nvim-rg
@@ -116,6 +118,9 @@ in
 
             -- LSP
             require("lsp")
+
+            -- Completion
+            require("blink")
 
             -- Treesitter
             require("treesitter-config")

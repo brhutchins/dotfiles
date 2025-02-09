@@ -1,4 +1,5 @@
 local lspconfig = require("lspconfig")
+local capabilities = require('blink.cmp').get_lsp_capabilities()
 
 local on_attach = function(client,bufnr)
   vim.api.nvim_create_autocmd("CursorMoved", {
@@ -33,12 +34,12 @@ local on_attach = function(client,bufnr)
   buf_set_keymap('n', '[d', '<cmd>lua vim.lsp.diagnostic.goto_prev()<CR>', opts)
   buf_set_keymap('n', ']d', '<cmd>lua vim.lsp.diagnostic.goto_next()<CR>', opts)
   buf_set_keymap('n', '<space>q', '<cmd>lua vim.lsp.diagnostic.set_loclist()<CR>', opts)
-  buf_set_keymap("n", "<space>f", "<cmd>lua vim.lsp.buf.formatting()<CR>", opts)
+  buf_set_keymap("n", "<space>f", "<cmd>lua vim.lsp.buf.format()<CR>", opts)
 end
 
 -- Snippets
-local capabilities = vim.lsp.protocol.make_client_capabilities()
-capabilities.textDocument.completion.completionItem.snippetSupport = true
+-- local capabilities = vim.lsp.protocol.make_client_capabilities()
+-- capabilities.textDocument.completion.completionItem.snippetSupport = true
 
 --
 -- LANGUAGES
@@ -49,7 +50,8 @@ lspconfig.hls.setup{
   on_attach = on_attach,
   cmd = {  "haskell-language-server", "--lsp" },
   rootPatterns = { "*.cabal", "stack.yaml", "cabal.project", "package.yaml", "hie.yaml" },
-  filetypes = { "haskell", "lhaskell" }
+  filetypes = { "haskell", "lhaskell" },
+  capabilities = capabilities,
 }
 
 -- Rust
@@ -73,14 +75,16 @@ require'lspconfig'.rust_analyzer.setup {
       checkOnSave = {
           command = "clippy"
       },
-    }
+    },
+    capabilities = capabilities,
   }
 }
 
 
 -- Python/Pyright
 lspconfig.pyright.setup{
-  on_attach = on_attach
+  on_attach = on_attach,
+  capabilities = capabilities,
 }
 
 -- HTML
@@ -120,11 +124,13 @@ lspconfig.lua_ls.setup {
       },
     },
   },
+  capabilities = capabilities,
 }
 
 -- Nix
 lspconfig.nil_ls.setup {
   on_attach = on_attach,
+  capabilities = capabilities,
 }
 
 -- Purescript
@@ -140,6 +146,7 @@ lspconfig.solargraph.setup{
 -- Golang
 require'lspconfig'.gopls.setup{
   on_attach = on_attach,
+  capabilities = capabilities,
 }
 
 -- lean
