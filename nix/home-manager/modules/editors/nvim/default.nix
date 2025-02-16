@@ -66,8 +66,10 @@ in
         in [
           nvim-treesitter.withAllGrammars
           blink-cmp
+          blink-copilot
           agda-vim
           comment-nvim
+          copilot-lua
           diffview-nvim
           haskell-vim
           lean-nvim

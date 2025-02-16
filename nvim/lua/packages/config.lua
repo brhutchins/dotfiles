@@ -31,6 +31,14 @@
 -- comment.nvim
 require('Comment').setup()
 
+-- copilot
+require("copilot").setup({
+  suggestion = {
+    enabled = true,
+  }
+})
+require("blink-copilot")
+
 -- nvim-autopairs
 require("nvim-autopairs").setup()
 
