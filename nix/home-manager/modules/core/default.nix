@@ -51,6 +51,7 @@ let
       htop
       httpie
       jq
+      nodejs_23
       neofetch
       pandoc
       procps

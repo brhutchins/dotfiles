@@ -20,6 +20,12 @@ in
   };
 
   config = mkIf cfg.enable {
+
+    home.shellAliases = {
+      fw = "aerospace list-windows --all | fzf --bind 'enter:execute(bash -c \"aerospace focus --window-id {1}\")+abort'";
+      nds = "nix run nix-darwin -- switch --flake ~/.dotfiles/nix/nix-darwin/ --impure";
+    };
+
     # Temporary workaround for https://github.com/NixOS/nixpkgs/issues/196651
     home.packages = with pkgs; [
       stackline

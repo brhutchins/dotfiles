@@ -45,6 +45,7 @@
           appswitcher-all-displays = true;
           autohide = true;
           mru-spaces = false;
+          expose-group-apps = true;
         };
         finder = {
           AppleShowAllExtensions = true;
@@ -54,14 +55,210 @@
           ShowPathbar = true;
         };
         trackpad = {
-          Dragging = true;
+          Dragging = false;
           TrackpadRightClick = true;
           TrackpadThreeFingerDrag = true;
         };
       };
 
-      services.yabai = {
+      services.aerospace = {
         enable = true;
+        settings = {
+          default-root-container-layout = "tiles";
+          default-root-container-orientation = "auto";
+          on-focused-monitor-changed = [ "move-mouse monitor-lazy-center" ];
+          gaps = {
+            outer.left = 10;
+            outer.bottom = 10;
+            outer.top = 10;
+            outer.right = 10;
+            inner.horizontal = 10;
+            inner.vertical = 10;
+          };
+          key-mapping = {
+            key-notation-to-key-code = {
+              # Remap for Colemak.
+              q = "q";
+              w = "w";
+              f = "e";
+              p = "r";
+              g = "t";
+              j = "y";
+              l = "u";
+              u = "i";
+              y = "o";
+              semicolon = "p";
+              leftSquareBracket = "leftSquareBracket";
+              rightSquareBracket = "rightSquareBracket";
+              backslash = "backslash";
+
+              a = "a";
+              r = "s";
+              s = "d";
+              t = "f";
+              d = "g";
+              h = "h";
+              n = "j";
+              e = "k";
+              i = "l";
+              o = "semicolon";
+              quote = "quote";
+
+              z = "z";
+              x = "x";
+              c = "c";
+              v = "v";
+              b = "b";
+              k = "n";
+              m = "m";
+              comma = "comma";
+              period = "period";
+              slash = "slash";
+            };
+          };
+
+          mode.main.binding = {
+            alt-h = "focus left";
+            alt-j = "focus down";
+            alt-k = "focus up";
+            alt-l = "focus right";
+
+            alt-shift-h = "move left";
+            alt-shift-j = "move down";
+            alt-shift-k = "move up";
+            alt-shift-l = "move right";
+
+            alt-minus = "resize smart -50";
+            alt-equal = "resize smart +50";
+
+            alt-shift-tab = "move-workspace-to-monitor --wrap-around next";
+
+            ctrl-shift-slash = "layout tiles horizontal vertical";
+            ctrl-shift-comma = "layout accordion horizontal vertical";
+
+            # Workspaces.
+            cmd-ctrl-alt-shift-1 = "workspace 1";
+            cmd-ctrl-alt-shift-2 = "workspace 2";
+            cmd-ctrl-alt-shift-3 = "workspace 3";
+            cmd-ctrl-alt-shift-4 = "workspace 4";
+            cmd-ctrl-alt-shift-5 = "workspace 5";
+            cmd-ctrl-alt-shift-a = "workspace Audio";
+            cmd-ctrl-alt-shift-s = "workspace Communications";
+            cmd-ctrl-alt-shift-m = "workspace Meeting";
+            cmd-ctrl-alt-shift-u = "workspace Utilities";
+
+            alt-shift-w = "mode workspace";
+            alt-shift-semicolon = "mode navigation";
+
+          };
+
+          mode.navigation.binding = {
+            esc = ["mode main"];
+
+            alt-shift-semicolon = "mode workspace";
+
+            h = "focus left";
+            j = "focus down";
+            k = "focus up";
+            l = "focus right";
+
+            shift-h = "move left";
+            shift-j = "move down";
+            shift-k = "move up";
+            shift-l = "move right";
+
+            alt-shift-h = [ "join-with left" "mode main" ];
+            alt-shift-j =[ "join-with up" "mode main" ];
+            alt-shift-k =[ "join-with down" "mode main" ];
+            alt-shift-l =[ "join-with right" "mode main" ];
+
+            minus = "resize smart -50";
+            equal = "resize smart +50";
+          };
+
+          mode.workspace.binding = {
+            esc = ["mode main"];
+
+            alt-shift-semicolon = "mode service";
+
+            "1" = [ "workspace 1" "mode main" ];
+            "2" = [ "workspace 2" "mode main" ];
+            "3" = [ "workspace 3" "mode main" ];
+            "4" = [ "workspace 4" "mode main" ];
+            "5" = [ "workspace 5" "mode main" ];
+            "a" = [ "workspace Audio" "mode main" ];
+            "s" = [ "workspace Communications" "mode main" ];
+            "m" = [ "workspace Meeting" "mode main" ];
+            "u" = [ "workspace Utilities" "mode main" ];
+
+            alt-1 =[ "move-node-to-workspace 1" "mode main"];
+            alt-2 =[ "move-node-to-workspace 2" "mode main"];
+            alt-3 =[ "move-node-to-workspace 3" "mode main"];
+            alt-4 =[ "move-node-to-workspace 4" "mode main"];
+            alt-5 =[ "move-node-to-workspace 5" "mode main"];
+            alt-a =[ "move-node-to-workspace Audio" "mode main"];
+            alt-c =[ "move-node-to-workspace Communications" "mode main"];
+            alt-m =[ "move-node-to-workspace Meeting" "mode main"];
+            alt-u =[ "move-node-to-workspace Utilities" "mode main"];
+
+            tab = [ "move-workspace-to-monitor --wrap-around next" "mode main" ];
+          };
+
+          mode.service.binding = {
+            esc = ["mode main"];
+            r = ["flatten-workspace-tree" "mode main"]; # reset layout
+            f = ["layout floating tiling" "mode main"]; # Toggle between floating and tiling layout
+
+            alt-h = [ "join-with left" "mode main" ];
+            alt-j =[ "join-with up" "mode main" ];
+            alt-k =[ "join-with down" "mode main" ];
+            alt-l =[ "join-with right" "mode main" ];
+
+            slash = "layout tiles horizontal vertical";
+            comma = "layout accordion horizontal vertical";
+          };
+
+          workspace-to-monitor-force-assignment = {
+            "1" = "main";
+            "2" = "main";
+            "Communications" = "built-in";
+            "Meeting" = "built-in";
+          };
+
+          on-window-detected = [
+            {
+              "if".app-id = "com.tinyspeck.slackmacap";
+              run = "move-node-to-workspace Communications";
+            }
+            {
+              "if".app-id = "com.microsoft.teams2";
+              run = "move-node-to-workspace Meeting";
+            }
+            {
+              "if".app-id = "io.pomerium.PomeriumDesktop";
+              run = "move-node-to-workspace Utilities";
+            }
+            {
+              "if".app-id = "com.apple.Music";
+              run = "move-node-to-workspace Audio";
+            }
+            {
+              "if".app-id = "com.apple.audio.AudioMIDISetup";
+              run = "move-node-to-workspace Audio";
+            }
+          ];
+        };
+      };
+
+      services.jankyborders = {
+        enable = true;
+        inactive_color = "0x00000000";
+        active_color = "0xFFFFB3C6";
+        width = 8.5;
+      };
+
+      services.yabai = {
+        enable = false;
         config = {
           window_placement = "second_child";
           window_border = "off";
@@ -88,7 +285,7 @@
             };
 
       services.skhd = {
-        enable = true;
+        enable = false;
         skhdConfig = ''
         # focus window
         hyper - left : yabai -m window --focus west
