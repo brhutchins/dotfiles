@@ -13,6 +13,14 @@
 
   outputs = inputs@{ self, nix-darwin, nixpkgs, home-manager, ... }:
   let
+    border-color = {
+      active = "0xffff70b3";
+      warning = "0xfffffd82";
+      warning-2 = "0xfff5f100";
+      warning-3 = "0xffB8B500";
+      inactive = "0x00000000";
+    };
+
     configuration = { pkgs, ... }: {
       nixpkgs.overlays = [
         (self: super: {
@@ -118,24 +126,6 @@
           };
 
           mode.main.binding = {
-            alt-h = "focus left";
-            alt-j = "focus down";
-            alt-k = "focus up";
-            alt-l = "focus right";
-
-            alt-shift-h = "move left";
-            alt-shift-j = "move down";
-            alt-shift-k = "move up";
-            alt-shift-l = "move right";
-
-            alt-minus = "resize smart -50";
-            alt-equal = "resize smart +50";
-
-            alt-shift-tab = "move-workspace-to-monitor --wrap-around next";
-
-            ctrl-shift-slash = "layout tiles horizontal vertical";
-            ctrl-shift-comma = "layout accordion horizontal vertical";
-
             # Workspaces.
             cmd-ctrl-alt-shift-1 = "workspace 1";
             cmd-ctrl-alt-shift-2 = "workspace 2";
@@ -146,16 +136,17 @@
             cmd-ctrl-alt-shift-s = "workspace Communications";
             cmd-ctrl-alt-shift-m = "workspace Meeting";
             cmd-ctrl-alt-shift-u = "workspace Utilities";
+            cmd-ctrl-alt-shift-h = "workspace Home";
 
             alt-shift-w = "mode workspace";
-            alt-shift-semicolon = "mode navigation";
+            cmd-ctrl-alt-shift-semicolon = [ "mode navigation" "exec-and-forget ${pkgs.jankyborders}/bin/borders active_color=${border-color.warning}" ];
 
           };
 
           mode.navigation.binding = {
-            esc = ["mode main"];
+            esc = ["mode main" "exec-and-forget ${pkgs.jankyborders}/bin/borders active_color=${border-color.active}" ];
 
-            alt-shift-semicolon = "mode workspace";
+            cmd-ctrl-alt-shift-semicolon =[ "mode workspace" "exec-and-forget ${pkgs.jankyborders}/bin/borders active_color=${border-color.warning-2}" ];
 
             h = "focus left";
             j = "focus down";
@@ -174,12 +165,14 @@
 
             minus = "resize smart -50";
             equal = "resize smart +50";
+
+            space = [ "fullscreen" "mode main" ];
           };
 
           mode.workspace.binding = {
-            esc = ["mode main"];
+            esc = ["mode main" "exec-and-forget ${pkgs.jankyborders}/bin/borders active_color=${border-color.active}" ];
 
-            alt-shift-semicolon = "mode service";
+            cmd-ctrl-alt-shift-semicolon =[ "mode service" "exec-and-forget ${pkgs.jankyborders}/bin/borders active_color=${border-color.warning-3}" ];
 
             "1" = [ "workspace 1" "mode main" ];
             "2" = [ "workspace 2" "mode main" ];
@@ -190,6 +183,7 @@
             "s" = [ "workspace Communications" "mode main" ];
             "m" = [ "workspace Meeting" "mode main" ];
             "u" = [ "workspace Utilities" "mode main" ];
+            "h" = [ "workspace Home" "mode main" ];
 
             alt-1 =[ "move-node-to-workspace 1" "mode main"];
             alt-2 =[ "move-node-to-workspace 2" "mode main"];
@@ -200,14 +194,16 @@
             alt-c =[ "move-node-to-workspace Communications" "mode main"];
             alt-m =[ "move-node-to-workspace Meeting" "mode main"];
             alt-u =[ "move-node-to-workspace Utilities" "mode main"];
+            alt-h =[ "move-node-to-workspace Home" "mode main"];
 
             tab = [ "move-workspace-to-monitor --wrap-around next" "mode main" ];
           };
 
           mode.service.binding = {
-            esc = ["mode main"];
+            esc = ["mode main" "exec-and-forget ${pkgs.jankyborders}/bin/borders active_color=${border-color.active}" ];
+
             r = ["flatten-workspace-tree" "mode main"]; # reset layout
-            f = ["layout floating tiling" "mode main"]; # Toggle between floating and tiling layout
+            space = ["layout floating tiling" "mode main"]; # Toggle between floating and tiling layout
 
             alt-h = [ "join-with left" "mode main" ];
             alt-j =[ "join-with up" "mode main" ];
@@ -252,8 +248,8 @@
 
       services.jankyborders = {
         enable = true;
-        inactive_color = "0x00000000";
-        active_color = "0xFFFFB3C6";
+        inactive_color = border-color.inactive;
+        active_color = border-color.active;
         width = 8.5;
       };
 
