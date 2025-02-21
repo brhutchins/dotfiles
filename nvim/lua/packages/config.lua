@@ -34,7 +34,7 @@ require('Comment').setup()
 -- copilot
 require("copilot").setup({
   suggestion = {
-    enabled = true,
+    enabled = false,
   }
 })
 require("blink-copilot")
