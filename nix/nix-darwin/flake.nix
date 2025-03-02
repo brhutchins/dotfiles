@@ -158,15 +158,15 @@
             shift-k = "move up";
             shift-l = "move right";
 
-            alt-shift-h = [ "join-with left" "mode main" ];
-            alt-shift-j =[ "join-with up" "mode main" ];
-            alt-shift-k =[ "join-with down" "mode main" ];
-            alt-shift-l =[ "join-with right" "mode main" ];
+            alt-shift-h = [ "join-with left" ];
+            alt-shift-j =[ "join-with up" ];
+            alt-shift-k =[ "join-with down" ];
+            alt-shift-l =[ "join-with right" ];
 
             minus = "resize smart -50";
             equal = "resize smart +50";
 
-            space = [ "fullscreen" "mode main" ];
+            space = [ "fullscreen" ];
           };
 
           mode.workspace.binding = {
@@ -174,41 +174,36 @@
 
             cmd-ctrl-alt-shift-semicolon =[ "mode service" "exec-and-forget ${pkgs.jankyborders}/bin/borders active_color=${border-color.warning-3}" ];
 
-            "1" = [ "workspace 1" "mode main" ];
-            "2" = [ "workspace 2" "mode main" ];
-            "3" = [ "workspace 3" "mode main" ];
-            "4" = [ "workspace 4" "mode main" ];
-            "5" = [ "workspace 5" "mode main" ];
-            "a" = [ "workspace Audio" "mode main" ];
-            "s" = [ "workspace Communications" "mode main" ];
-            "m" = [ "workspace Meeting" "mode main" ];
-            "u" = [ "workspace Utilities" "mode main" ];
-            "h" = [ "workspace Home" "mode main" ];
+            "1" = [ "workspace 1" "mode main" "exec-and-forget ${pkgs.jankyborders}/bin/borders active_color=${border-color.active}" ];
+            "2" = [ "workspace 2" "mode main" "exec-and-forget ${pkgs.jankyborders}/bin/borders active_color=${border-color.active}" ];
+            "3" = [ "workspace 3" "mode main" "exec-and-forget ${pkgs.jankyborders}/bin/borders active_color=${border-color.active}" ];
+            "4" = [ "workspace 4" "mode main" "exec-and-forget ${pkgs.jankyborders}/bin/borders active_color=${border-color.active}" ];
+            "5" = [ "workspace 5" "mode main" "exec-and-forget ${pkgs.jankyborders}/bin/borders active_color=${border-color.active}" ];
+            "a" = [ "workspace Audio" "mode main" "exec-and-forget ${pkgs.jankyborders}/bin/borders active_color=${border-color.active}" ];
+            "s" = [ "workspace Communications" "mode main" "exec-and-forget ${pkgs.jankyborders}/bin/borders active_color=${border-color.active}" ];
+            "m" = [ "workspace Meeting" "mode main" "exec-and-forget ${pkgs.jankyborders}/bin/borders active_color=${border-color.active}" ];
+            "u" = [ "workspace Utilities" "mode main" "exec-and-forget ${pkgs.jankyborders}/bin/borders active_color=${border-color.active}" ];
+            "h" = [ "workspace Home" "mode main" "exec-and-forget ${pkgs.jankyborders}/bin/borders active_color=${border-color.active}" ];
 
-            alt-1 =[ "move-node-to-workspace 1" "mode main"];
-            alt-2 =[ "move-node-to-workspace 2" "mode main"];
-            alt-3 =[ "move-node-to-workspace 3" "mode main"];
-            alt-4 =[ "move-node-to-workspace 4" "mode main"];
-            alt-5 =[ "move-node-to-workspace 5" "mode main"];
-            alt-a =[ "move-node-to-workspace Audio" "mode main"];
-            alt-c =[ "move-node-to-workspace Communications" "mode main"];
-            alt-m =[ "move-node-to-workspace Meeting" "mode main"];
-            alt-u =[ "move-node-to-workspace Utilities" "mode main"];
-            alt-h =[ "move-node-to-workspace Home" "mode main"];
+            alt-1 =[ "move-node-to-workspace 1" "mode main" "exec-and-forget ${pkgs.jankyborders}/bin/borders active_color=${border-color.active}" ];
+            alt-2 =[ "move-node-to-workspace 2" "mode main" "exec-and-forget ${pkgs.jankyborders}/bin/borders active_color=${border-color.active}" ];
+            alt-3 =[ "move-node-to-workspace 3" "mode main" "exec-and-forget ${pkgs.jankyborders}/bin/borders active_color=${border-color.active}" ];
+            alt-4 =[ "move-node-to-workspace 4" "mode main" "exec-and-forget ${pkgs.jankyborders}/bin/borders active_color=${border-color.active}" ];
+            alt-5 =[ "move-node-to-workspace 5" "mode main" "exec-and-forget ${pkgs.jankyborders}/bin/borders active_color=${border-color.active}" ];
+            alt-a =[ "move-node-to-workspace Audio" "mode main" "exec-and-forget ${pkgs.jankyborders}/bin/borders active_color=${border-color.active}" ];
+            alt-c =[ "move-node-to-workspace Communications" "mode main" "exec-and-forget ${pkgs.jankyborders}/bin/borders active_color=${border-color.active}" ];
+            alt-m =[ "move-node-to-workspace Meeting" "mode main" "exec-and-forget ${pkgs.jankyborders}/bin/borders active_color=${border-color.active}" ];
+            alt-u =[ "move-node-to-workspace Utilities" "mode main" "exec-and-forget ${pkgs.jankyborders}/bin/borders active_color=${border-color.active}" ];
+            alt-h =[ "move-node-to-workspace Home" "mode main" "exec-and-forget ${pkgs.jankyborders}/bin/borders active_color=${border-color.active}" ];
 
-            tab = [ "move-workspace-to-monitor --wrap-around next" "mode main" ];
+            tab = [ "move-workspace-to-monitor --wrap-around next" "mode main" "exec-and-forget ${pkgs.jankyborders}/bin/borders active_color=${border-color.active}" ];
           };
 
           mode.service.binding = {
             esc = ["mode main" "exec-and-forget ${pkgs.jankyborders}/bin/borders active_color=${border-color.active}" ];
 
-            r = ["flatten-workspace-tree" "mode main"]; # reset layout
-            space = ["layout floating tiling" "mode main"]; # Toggle between floating and tiling layout
-
-            alt-h = [ "join-with left" "mode main" ];
-            alt-j =[ "join-with up" "mode main" ];
-            alt-k =[ "join-with down" "mode main" ];
-            alt-l =[ "join-with right" "mode main" ];
+            r = ["flatten-workspace-tree" "mode main" "exec-and-forget ${pkgs.jankyborders}/bin/borders active_color=${border-color.active}" ]; # reset layout
+            space = ["layout floating tiling" "mode main" "exec-and-forget ${pkgs.jankyborders}/bin/borders active_color=${border-color.active}" ]; # Toggle between floating and tiling layout
 
             slash = "layout tiles horizontal vertical";
             comma = "layout accordion horizontal vertical";
