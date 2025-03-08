@@ -27,23 +27,23 @@ in
     };
 
     # Temporary workaround for https://github.com/NixOS/nixpkgs/issues/196651
-    home.packages = with pkgs; [
-      stackline
-    ];
+    # home.packages = with pkgs; [
+    #  stackline
+    # ];
 
     #####
     #
     # Hammerspoon
 
-    home.file.".hammerspoon/init.lua".source = "${cfg.dotfilesPath}/hammerspoon/init.lua";
-    home.file.".hammerspoon/stackline".source = stackline;
+    # home.file.".hammerspoon/init.lua".source = "${cfg.dotfilesPath}/hammerspoon/init.lua";
+    # home.file.".hammerspoon/stackline".source = stackline;
 
 
     #####
     #
     # skhd
 
-    home.file.".config/skhd".source = "${cfg.dotfilesPath}/skhd";
+    # home.file.".config/skhd".source = "${cfg.dotfilesPath}/skhd";
 
 
     #####
