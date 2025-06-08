@@ -51,7 +51,7 @@ let
       htop
       httpie
       jq
-      nodejs_23
+      nodejs_24
       neofetch
       pandoc
       procps
@@ -255,6 +255,8 @@ in
         simplified_ui = true;
         copy_on_select = true;
         theme = "night-owl";
+        enableBashIntegration = false;
+        enableZshIntegration = false;
         # themes.nord = {
         #   fg = [216 222 233]; #D8DEE9
         #   bg = [46 52 64]; #2E3440

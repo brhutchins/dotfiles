@@ -2,8 +2,8 @@
   description = "Darwin system flake";
 
   inputs = {
-    nixpkgs.url = "github:NixOS/nixpkgs/nixpkgs-unstable";
-    nix-darwin.url = "github:LnL7/nix-darwin";
+    nixpkgs.url = "github:NixOS/nixpkgs/25.05";
+    nix-darwin.url = "github:LnL7/nix-darwin/nix-darwin-25.05";
     nix-darwin.inputs.nixpkgs.follows = "nixpkgs";
     home-manager = {
       url = "github:nix-community/home-manager";
@@ -38,11 +38,15 @@
       # $ nix-env -qaP | grep wget
       environment.systemPackages =
         [ pkgs.vim
+          pkgs.xh
+          pkgs.hey
         ];
 
       environment.variables = {
         EDITOR = "nvim";
       };
+
+      system.primaryUser = "barnaby";
 
       system.defaults = {
         NSGlobalDomain = {
@@ -74,7 +78,7 @@
         settings = {
           default-root-container-layout = "tiles";
           default-root-container-orientation = "auto";
-          on-focused-monitor-changed = [ "move-mouse monitor-lazy-center" ];
+          # on-focused-monitor-changed = [ "move-mouse monitor-lazy-center" ];
           gaps = {
             outer.left = 10;
             outer.bottom = 10;
@@ -191,7 +195,7 @@
             alt-4 =[ "move-node-to-workspace 4" "mode main" "exec-and-forget ${pkgs.jankyborders}/bin/borders active_color=${border-color.active}" ];
             alt-5 =[ "move-node-to-workspace 5" "mode main" "exec-and-forget ${pkgs.jankyborders}/bin/borders active_color=${border-color.active}" ];
             alt-a =[ "move-node-to-workspace Audio" "mode main" "exec-and-forget ${pkgs.jankyborders}/bin/borders active_color=${border-color.active}" ];
-            alt-c =[ "move-node-to-workspace Communications" "mode main" "exec-and-forget ${pkgs.jankyborders}/bin/borders active_color=${border-color.active}" ];
+            alt-s =[ "move-node-to-workspace Communications" "mode main" "exec-and-forget ${pkgs.jankyborders}/bin/borders active_color=${border-color.active}" ];
             alt-m =[ "move-node-to-workspace Meeting" "mode main" "exec-and-forget ${pkgs.jankyborders}/bin/borders active_color=${border-color.active}" ];
             alt-u =[ "move-node-to-workspace Utilities" "mode main" "exec-and-forget ${pkgs.jankyborders}/bin/borders active_color=${border-color.active}" ];
             alt-h =[ "move-node-to-workspace Home" "mode main" "exec-and-forget ${pkgs.jankyborders}/bin/borders active_color=${border-color.active}" ];
@@ -210,8 +214,6 @@
           };
 
           workspace-to-monitor-force-assignment = {
-            "1" = "main";
-            "2" = "main";
             "Communications" = "built-in";
             "Meeting" = "built-in";
           };
@@ -413,7 +415,7 @@
       };
 
       # Auto upgrade nix package and the daemon service.
-      services.nix-daemon.enable = true;
+      # services.nix-daemon.enable = true;
       nix.package = pkgs.nix;
 
       # Necessary for using flakes on this system.
