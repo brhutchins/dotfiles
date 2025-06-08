@@ -1,4 +1,4 @@
-{ config, lib, pkgs, ... }:
+{ config, lib, pkgs, system, ... }:
 
 with lib;
 with pkgs;
@@ -6,8 +6,8 @@ with pkgs;
 let
   cfg = config.local.core;
   data = import ../data;
-  isLinux = lib.strings.hasSuffix "linux" builtins.currentSystem;
-  isDarwin = lib.strings.hasSuffix "darwin" builtins.currentSystem;
+  isLinux = lib.strings.hasSuffix "linux" system;
+  isDarwin = lib.strings.hasSuffix "darwin" system;
   gui-packages = {
     firefox = if isLinux then firefox-wayland else firefox;
     kitty = ../terminals/kitty;
@@ -44,10 +44,12 @@ let
   p = {
     utils = [
       bat
+      btop
       fd
       fzf
       git
       gnupg
+      hey
       htop
       httpie
       jq

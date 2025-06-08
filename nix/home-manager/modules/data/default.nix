@@ -7,6 +7,6 @@
       work = "barnaby@hubs.com";
     };
 
-    dotfilesPath = builtins.getEnv "HOME" + "/.dotfiles";
+    dotfilesPath = ../../../..; # builtins.getEnv "HOME" + "/.dotfiles";
 
 }

@@ -2,11 +2,11 @@
   description = "Darwin system flake";
 
   inputs = {
-    nixpkgs.url = "github:NixOS/nixpkgs/nixpkgs-unstable";
-    nix-darwin.url = "github:LnL7/nix-darwin/master";
+    nixpkgs.url = "github:NixOS/nixpkgs/25.05";
+    nix-darwin.url = "github:LnL7/nix-darwin/nix-darwin-25.05";
     nix-darwin.inputs.nixpkgs.follows = "nixpkgs";
     home-manager = {
-      url = "github:nix-community/home-manager";
+      url = "github:nix-community/home-manager/release-25.05";
       inputs.nixpkgs.follows = "nixpkgs";
     };
   };
@@ -20,6 +20,10 @@
       warning-3 = "0xffB8B500";
       inactive = "0x00000000";
     };
+
+    system = "aarch64-darwin";
+
+    lib = nixpkgs.lib;
 
     configuration = { pkgs, ... }: {
       nixpkgs.overlays = [
@@ -35,6 +39,12 @@
         })
       ];
 
+      nixpkgs.config.allowUnfreePredicate = pkg: builtins.elem (lib.getName pkg) [
+             "raycast"
+           ];
+
+      nix.enable = false;
+
       environment.systemPackages = with pkgs;
         [ neovim
           raycast
@@ -47,11 +57,13 @@
         EDITOR = "nvim";
       };
 
+      system.primaryUser = "barnaby";
+
       system.defaults = {
-        # NSGlobalDomain = {
-        #  _HIHideMenuBar = true;
-        #  "com.apple.mouse.tapBehavior" = 1;
-        # };
+        NSGlobalDomain = {
+          _HIHideMenuBar = true;
+          "com.apple.mouse.tapBehavior" = 1;
+        };
         dock = {
           appswitcher-all-displays = true;
           autohide = true;
@@ -194,7 +206,7 @@
             alt-4 =[ "move-node-to-workspace 4" "mode main" "exec-and-forget ${pkgs.jankyborders}/bin/borders active_color=${border-color.active}" ];
             alt-5 =[ "move-node-to-workspace 5" "mode main" "exec-and-forget ${pkgs.jankyborders}/bin/borders active_color=${border-color.active}" ];
             alt-a =[ "move-node-to-workspace Audio" "mode main" "exec-and-forget ${pkgs.jankyborders}/bin/borders active_color=${border-color.active}" ];
-            alt-c =[ "move-node-to-workspace Communications" "mode main" "exec-and-forget ${pkgs.jankyborders}/bin/borders active_color=${border-color.active}" ];
+            alt-s =[ "move-node-to-workspace Communications" "mode main" "exec-and-forget ${pkgs.jankyborders}/bin/borders active_color=${border-color.active}" ];
             alt-m =[ "move-node-to-workspace Meeting" "mode main" "exec-and-forget ${pkgs.jankyborders}/bin/borders active_color=${border-color.active}" ];
             alt-u =[ "move-node-to-workspace Utilities" "mode main" "exec-and-forget ${pkgs.jankyborders}/bin/borders active_color=${border-color.active}" ];
             alt-h =[ "move-node-to-workspace Home" "mode main" "exec-and-forget ${pkgs.jankyborders}/bin/borders active_color=${border-color.active}" ];
@@ -239,15 +251,20 @@
         width = 8.5;
       };
 
-      services.karabiner-elements.enable = true;
+      # services.karabiner-elements.enable = true;
 
-      services.tailscale.enable = true;
+      services.tailscale = {
+        enable = true;
+        # overrideLocalDns = true;
+      };
 
       homebrew = {
         enable = true;
         casks = [
           "ghostty"
           "raycast"
+          "bitwarden"
+          "karabiner-elements"
         ];
       };
 
@@ -272,13 +289,17 @@
   in
   {
     # Build darwin flake using:
-    # $ darwin-rebuild build --flake .#Barnabys-Mac-mini
-    darwinConfigurations."Barnabys-Mac-mini" = nix-darwin.lib.darwinSystem {
+    # $ darwin-rebuild build --flake .#MacMini
+    darwinConfigurations."MacMini" = nix-darwin.lib.darwinSystem {
       modules = [
         configuration
         home-manager.darwinModules.home-manager
+	{
+          home-manager.extraSpecialArgs = { inherit inputs system; };
+        }
         ../home-manager/machines/darwin-personal.nix
-    ];
+      ];
+      specialArgs = { inherit inputs system; };
     };
   };
 }
