@@ -127,6 +127,9 @@ in
       ++ mkGui p.fonts
       ++ mkGui p.gui;
 
+    home.shellAliases = {
+      vim = "nvim";
+    };
 
     #####
     #
