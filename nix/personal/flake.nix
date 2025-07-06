@@ -3,6 +3,7 @@
 
   inputs = {
     nixpkgs.url = "github:NixOS/nixpkgs/25.05";
+    nixpkgs-unstable.url = "github:NixOS/nixpkgs";
     nix-darwin.url = "github:LnL7/nix-darwin/nix-darwin-25.05";
     nix-darwin.inputs.nixpkgs.follows = "nixpkgs";
     home-manager = {
@@ -11,7 +12,7 @@
     };
   };
 
-  outputs = inputs@{ self, nix-darwin, nixpkgs, home-manager }:
+  outputs = inputs@{ self, nix-darwin, nixpkgs, nixpkgs-unstable, home-manager }:
   let
     border-color = {
       active = "0xffff70b3";
@@ -27,6 +28,9 @@
 
     configuration = { pkgs, ... }: {
       nixpkgs.overlays = [
+        (self: super: {
+          unstable = nixpkgs-unstable.legacyPackages.${system};
+        })
         (self: super: {
           karabiner-elements = super.karabiner-elements.overrideAttrs (old: {
             version = "14.13.0";
@@ -48,6 +52,8 @@
       environment.systemPackages = with pkgs;
         [ neovim
           raycast
+          zed-editor
+          unstable.gemini-cli
         ];
 
       # Necessary for using flakes on this system.
@@ -294,7 +300,7 @@
       modules = [
         configuration
         home-manager.darwinModules.home-manager
-	{
+        {
           home-manager.extraSpecialArgs = { inherit inputs system; };
         }
         ../home-manager/machines/darwin-personal.nix

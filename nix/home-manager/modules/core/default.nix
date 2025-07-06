@@ -150,7 +150,7 @@ in
         kill_bg = "kill $(jobs -l | sed -r 's/\[([0-9]+)\].+/%\1/')";
       };
 
-      initExtra = ''
+      initContent = ''
       # disable syntax highlighting on paste, to avoid speed issues
       zle_highlight+=(paste:none)
 
