@@ -3,16 +3,21 @@
 
   inputs = {
     nixpkgs.url = "github:NixOS/nixpkgs/25.05";
+    nixpkgs-unstable.url = "github:NixOS/nixpkgs";
     nix-darwin.url = "github:LnL7/nix-darwin/nix-darwin-25.05";
     nix-darwin.inputs.nixpkgs.follows = "nixpkgs";
     home-manager = {
-      url = "github:nix-community/home-manager";
+      url = "github:nix-community/home-manager/release-25.05";
       inputs.nixpkgs.follows = "nixpkgs";
     };
   };
 
-  outputs = inputs@{ self, nix-darwin, nixpkgs, home-manager, ... }:
+  outputs = inputs@{ self, nix-darwin, nixpkgs, nixpkgs-unstable, home-manager, ... }:
   let
+    system = "aarch64-darwin";
+
+    lib = nixpkgs.lib;
+
     border-color = {
       active = "0xffff70b3";
       warning = "0xfffffd82";
@@ -24,6 +29,13 @@
     configuration = { pkgs, ... }: {
       nixpkgs.overlays = [
         (self: super: {
+          unstable = import nixpkgs-unstable {
+            inherit (super) system;
+            config.allowUnfreePredicate = pkg: builtins.elem (lib.getName pkg) ["claude-code"];
+          };
+        })
+
+        (self: super: {
           karabiner-elements = super.karabiner-elements.overrideAttrs (old: {
             version = "14.13.0";
 
@@ -34,12 +46,21 @@
           });
         })
       ];
+
+      nixpkgs.config.allowUnfreePredicate = let
+          whitelist = map lib.getName [
+            pkgs.unstable.claude-code
+          ];
+        in
+        pkg: builtins.elem (lib.getName pkg) whitelist;
+
       # List packages installed in system profile. To search by name, run:
       # $ nix-env -qaP | grep wget
       environment.systemPackages =
         [ pkgs.vim
           pkgs.xh
           pkgs.hey
+          pkgs.unstable.claude-code
         ];
 
       environment.variables = {
@@ -454,9 +475,12 @@
         configuration
         work-config
         home-manager.darwinModules.home-manager
+        {
+          home-manager.extraSpecialArgs = { inherit inputs system; };
+        }
         ../home-manager/machines/darwin-hubs-2.nix
       ];
-      specialArgs = { inherit inputs; };
+      specialArgs = { inherit inputs system; };
     };
 
     # Expose the package set, including overlays, for convenience.
