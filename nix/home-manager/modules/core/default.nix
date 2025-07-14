@@ -48,6 +48,7 @@ let
       fd
       fzf
       git
+      git-filter-repo
       gnupg
       hey
       htop
@@ -62,6 +63,7 @@ let
       tailscale
       tldr
       unzip
+      xh
       zoxide
     ];
     languages = [
@@ -69,6 +71,7 @@ let
     ];
     languageServers = [
       nil
+      nixd
     ];
     nixSpecific = [
       nix-prefetch-scripts
