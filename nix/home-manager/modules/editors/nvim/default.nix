@@ -77,11 +77,11 @@ in
           luasnip
           neogit
           nvim-autopairs
-          # nvim-cmp
           nvim-lightbulb
           nvim-lspconfig
           nvim-rg
           nvim-web-devicons
+          opencode-nvim
           plenary-nvim
           popup-nvim
           telescope-file-browser-nvim

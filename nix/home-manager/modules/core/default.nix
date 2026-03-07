@@ -148,7 +148,7 @@ in
     programs.zsh = {
       enable = true;
       autocd = true;
-      dotDir = ".config/zsh";
+      dotDir = config.home.homeDirectory + "/.config/zsh";
       autosuggestion.enable = true;
       enableCompletion = true;
       syntaxHighlighting.enable = true;
@@ -289,9 +289,12 @@ in
 
     programs.git = {
       enable = true;
-      userName = "brhutchins";
-      userEmail = data.email.personal;
-      extraConfig = {
+      settings = {
+        user = {
+          name = "brhutchins";
+          email = data.email.personal;
+          signingkey = config.home.homeDirectory + "/.ssh/id_ed25519.pub";
+        };
         init.defaultBranch = "main";
         core = {
           editor = "nvim";
@@ -300,11 +303,12 @@ in
         commit.gpgsign = true;
         gpg.format = "ssh";
         gpg.ssh.allowedSignersFile = config.home.homeDirectory + "/.config/git/allowed_signers";
-        user.signingkey = config.home.homeDirectory + "/.ssh/id_ed25519.pub";
       };
-      diff-so-fancy = {
-        enable = true;
-      };
+    };
+
+    programs.diff-so-fancy = {
+      enable = true;
+      enableGitIntegration = true;
     };
 
     programs.gh = {

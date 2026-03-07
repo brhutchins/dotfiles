@@ -1,6 +1,7 @@
 {
   home-manager.useGlobalPkgs = true;
   home-manager.useUserPackages = true;
+  home-manager.backupFileExtension = "bak";
 
   home-manager.users.barnaby = { pkgs, ... }: {
     home = {

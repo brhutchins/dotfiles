@@ -2,12 +2,12 @@
   description = "Darwin system flake";
 
   inputs = {
-    nixpkgs.url = "github:NixOS/nixpkgs/25.05";
+    nixpkgs.url = "github:NixOS/nixpkgs/nixos-25.11";
     nixpkgs-unstable.url = "github:NixOS/nixpkgs";
-    nix-darwin.url = "github:LnL7/nix-darwin/nix-darwin-25.05";
+    nix-darwin.url = "github:LnL7/nix-darwin/nix-darwin-25.11";
     nix-darwin.inputs.nixpkgs.follows = "nixpkgs";
     home-manager = {
-      url = "github:nix-community/home-manager/release-25.05";
+      url = "github:nix-community/home-manager/release-25.11";
       inputs.nixpkgs.follows = "nixpkgs";
     };
   };
@@ -22,6 +22,8 @@
       inactive = "0x00000000";
     };
 
+    jankyborders = nixpkgs-unstable.legacyPackages.${system}.jankyborders;
+
     system = "aarch64-darwin";
 
     lib = nixpkgs.lib;
@@ -29,7 +31,15 @@
     configuration = { pkgs, ... }: {
       nixpkgs.overlays = [
         (self: super: {
-          unstable = nixpkgs-unstable.legacyPackages.${system};
+          unstable = import nixpkgs-unstable {
+            inherit system;
+            config.allowUnfreePredicate = pkg: builtins.elem (lib.getName pkg) [
+              "lmstudio"
+            ];
+          };
+        })
+        (self: super: {
+          claude-code-router = super.callPackage /Users/barnaby/.dotfiles/nix/packages/claude-code-router { };
         })
         (self: super: {
           karabiner-elements = super.karabiner-elements.overrideAttrs (old: {
@@ -44,16 +54,21 @@
       ];
 
       nixpkgs.config.allowUnfreePredicate = pkg: builtins.elem (lib.getName pkg) [
-             "raycast"
-           ];
+              "lmstudio"
+        "raycast"
+      ];
 
       nix.enable = false;
 
       environment.systemPackages = with pkgs;
         [ neovim
           raycast
-          zed-editor
+          unstable.zed-editor
           unstable.gemini-cli
+          ollama
+          claude-code-router
+          unstable.opencode
+          unstable.nixd
         ];
 
       # Necessary for using flakes on this system.
@@ -160,14 +175,14 @@
             cmd-ctrl-alt-shift-h = "workspace Home";
 
             alt-shift-w = "mode workspace";
-            cmd-ctrl-alt-shift-semicolon = [ "mode navigation" "exec-and-forget ${pkgs.jankyborders}/bin/borders active_color=${border-color.warning}" ];
+            cmd-ctrl-alt-shift-semicolon = [ "mode navigation" "exec-and-forget ${jankyborders}/bin/borders active_color=${border-color.warning}" ];
 
           };
 
           mode.navigation.binding = {
-            esc = ["mode main" "exec-and-forget ${pkgs.jankyborders}/bin/borders active_color=${border-color.active}" ];
+            esc = ["mode main" "exec-and-forget ${jankyborders}/bin/borders active_color=${border-color.active}" ];
 
-            cmd-ctrl-alt-shift-semicolon =[ "mode workspace" "exec-and-forget ${pkgs.jankyborders}/bin/borders active_color=${border-color.warning-2}" ];
+            cmd-ctrl-alt-shift-semicolon =[ "mode workspace" "exec-and-forget ${jankyborders}/bin/borders active_color=${border-color.warning-2}" ];
 
             h = "focus left";
             j = "focus down";
@@ -191,40 +206,40 @@
           };
 
           mode.workspace.binding = {
-            esc = ["mode main" "exec-and-forget ${pkgs.jankyborders}/bin/borders active_color=${border-color.active}" ];
+            esc = ["mode main" "exec-and-forget ${jankyborders}/bin/borders active_color=${border-color.active}" ];
 
-            cmd-ctrl-alt-shift-semicolon =[ "mode service" "exec-and-forget ${pkgs.jankyborders}/bin/borders active_color=${border-color.warning-3}" ];
+            cmd-ctrl-alt-shift-semicolon =[ "mode service" "exec-and-forget ${jankyborders}/bin/borders active_color=${border-color.warning-3}" ];
 
-            "1" = [ "workspace 1" "mode main" "exec-and-forget ${pkgs.jankyborders}/bin/borders active_color=${border-color.active}" ];
-            "2" = [ "workspace 2" "mode main" "exec-and-forget ${pkgs.jankyborders}/bin/borders active_color=${border-color.active}" ];
-            "3" = [ "workspace 3" "mode main" "exec-and-forget ${pkgs.jankyborders}/bin/borders active_color=${border-color.active}" ];
-            "4" = [ "workspace 4" "mode main" "exec-and-forget ${pkgs.jankyborders}/bin/borders active_color=${border-color.active}" ];
-            "5" = [ "workspace 5" "mode main" "exec-and-forget ${pkgs.jankyborders}/bin/borders active_color=${border-color.active}" ];
-            "a" = [ "workspace Audio" "mode main" "exec-and-forget ${pkgs.jankyborders}/bin/borders active_color=${border-color.active}" ];
-            "s" = [ "workspace Communications" "mode main" "exec-and-forget ${pkgs.jankyborders}/bin/borders active_color=${border-color.active}" ];
-            "m" = [ "workspace Meeting" "mode main" "exec-and-forget ${pkgs.jankyborders}/bin/borders active_color=${border-color.active}" ];
-            "u" = [ "workspace Utilities" "mode main" "exec-and-forget ${pkgs.jankyborders}/bin/borders active_color=${border-color.active}" ];
-            "h" = [ "workspace Home" "mode main" "exec-and-forget ${pkgs.jankyborders}/bin/borders active_color=${border-color.active}" ];
+            "1" = [ "workspace 1" "mode main" "exec-and-forget ${jankyborders}/bin/borders active_color=${border-color.active}" ];
+            "2" = [ "workspace 2" "mode main" "exec-and-forget ${jankyborders}/bin/borders active_color=${border-color.active}" ];
+            "3" = [ "workspace 3" "mode main" "exec-and-forget ${jankyborders}/bin/borders active_color=${border-color.active}" ];
+            "4" = [ "workspace 4" "mode main" "exec-and-forget ${jankyborders}/bin/borders active_color=${border-color.active}" ];
+            "5" = [ "workspace 5" "mode main" "exec-and-forget ${jankyborders}/bin/borders active_color=${border-color.active}" ];
+            "a" = [ "workspace Audio" "mode main" "exec-and-forget ${jankyborders}/bin/borders active_color=${border-color.active}" ];
+            "s" = [ "workspace Communications" "mode main" "exec-and-forget ${jankyborders}/bin/borders active_color=${border-color.active}" ];
+            "m" = [ "workspace Meeting" "mode main" "exec-and-forget ${jankyborders}/bin/borders active_color=${border-color.active}" ];
+            "u" = [ "workspace Utilities" "mode main" "exec-and-forget ${jankyborders}/bin/borders active_color=${border-color.active}" ];
+            "h" = [ "workspace Home" "mode main" "exec-and-forget ${jankyborders}/bin/borders active_color=${border-color.active}" ];
 
-            alt-1 =[ "move-node-to-workspace 1" "mode main" "exec-and-forget ${pkgs.jankyborders}/bin/borders active_color=${border-color.active}" ];
-            alt-2 =[ "move-node-to-workspace 2" "mode main" "exec-and-forget ${pkgs.jankyborders}/bin/borders active_color=${border-color.active}" ];
-            alt-3 =[ "move-node-to-workspace 3" "mode main" "exec-and-forget ${pkgs.jankyborders}/bin/borders active_color=${border-color.active}" ];
-            alt-4 =[ "move-node-to-workspace 4" "mode main" "exec-and-forget ${pkgs.jankyborders}/bin/borders active_color=${border-color.active}" ];
-            alt-5 =[ "move-node-to-workspace 5" "mode main" "exec-and-forget ${pkgs.jankyborders}/bin/borders active_color=${border-color.active}" ];
-            alt-a =[ "move-node-to-workspace Audio" "mode main" "exec-and-forget ${pkgs.jankyborders}/bin/borders active_color=${border-color.active}" ];
-            alt-s =[ "move-node-to-workspace Communications" "mode main" "exec-and-forget ${pkgs.jankyborders}/bin/borders active_color=${border-color.active}" ];
-            alt-m =[ "move-node-to-workspace Meeting" "mode main" "exec-and-forget ${pkgs.jankyborders}/bin/borders active_color=${border-color.active}" ];
-            alt-u =[ "move-node-to-workspace Utilities" "mode main" "exec-and-forget ${pkgs.jankyborders}/bin/borders active_color=${border-color.active}" ];
-            alt-h =[ "move-node-to-workspace Home" "mode main" "exec-and-forget ${pkgs.jankyborders}/bin/borders active_color=${border-color.active}" ];
+            alt-1 =[ "move-node-to-workspace 1" "mode main" "exec-and-forget ${jankyborders}/bin/borders active_color=${border-color.active}" ];
+            alt-2 =[ "move-node-to-workspace 2" "mode main" "exec-and-forget ${jankyborders}/bin/borders active_color=${border-color.active}" ];
+            alt-3 =[ "move-node-to-workspace 3" "mode main" "exec-and-forget ${jankyborders}/bin/borders active_color=${border-color.active}" ];
+            alt-4 =[ "move-node-to-workspace 4" "mode main" "exec-and-forget ${jankyborders}/bin/borders active_color=${border-color.active}" ];
+            alt-5 =[ "move-node-to-workspace 5" "mode main" "exec-and-forget ${jankyborders}/bin/borders active_color=${border-color.active}" ];
+            alt-a =[ "move-node-to-workspace Audio" "mode main" "exec-and-forget ${jankyborders}/bin/borders active_color=${border-color.active}" ];
+            alt-s =[ "move-node-to-workspace Communications" "mode main" "exec-and-forget ${jankyborders}/bin/borders active_color=${border-color.active}" ];
+            alt-m =[ "move-node-to-workspace Meeting" "mode main" "exec-and-forget ${jankyborders}/bin/borders active_color=${border-color.active}" ];
+            alt-u =[ "move-node-to-workspace Utilities" "mode main" "exec-and-forget ${jankyborders}/bin/borders active_color=${border-color.active}" ];
+            alt-h =[ "move-node-to-workspace Home" "mode main" "exec-and-forget ${jankyborders}/bin/borders active_color=${border-color.active}" ];
 
-            tab = [ "move-workspace-to-monitor --wrap-around next" "mode main" "exec-and-forget ${pkgs.jankyborders}/bin/borders active_color=${border-color.active}" ];
+            tab = [ "move-workspace-to-monitor --wrap-around next" "mode main" "exec-and-forget ${jankyborders}/bin/borders active_color=${border-color.active}" ];
           };
 
           mode.service.binding = {
-            esc = ["mode main" "exec-and-forget ${pkgs.jankyborders}/bin/borders active_color=${border-color.active}" ];
+            esc = ["mode main" "exec-and-forget ${jankyborders}/bin/borders active_color=${border-color.active}" ];
 
-            r = ["flatten-workspace-tree" "mode main" "exec-and-forget ${pkgs.jankyborders}/bin/borders active_color=${border-color.active}" ]; # reset layout
-            space = ["layout floating tiling" "mode main" "exec-and-forget ${pkgs.jankyborders}/bin/borders active_color=${border-color.active}" ]; # Toggle between floating and tiling layout
+            r = ["flatten-workspace-tree" "mode main" "exec-and-forget ${jankyborders}/bin/borders active_color=${border-color.active}" ]; # reset layout
+            space = ["layout floating tiling" "mode main" "exec-and-forget ${jankyborders}/bin/borders active_color=${border-color.active}" ]; # Toggle between floating and tiling layout
 
             slash = "layout tiles horizontal vertical";
             comma = "layout accordion horizontal vertical";
@@ -246,11 +261,24 @@
               "if".app-id = "com.apple.audio.AudioMIDISetup";
               run = "move-node-to-workspace Audio";
             }
+            {
+              "if".app-id = "net.whatsapp.WhatsApp";
+              run = "move-node-to-workspace Communications";
+            }
+            {
+              "if".app-id = "com.apple.MobileSMS";
+              run = "move-node-to-workspace Communications";
+            }
+            {
+              "if".app-id = "com.apple.mail";
+              run = "move-node-to-workspace Communications";
+            }
           ];
         };
       };
 
       services.jankyborders = {
+        package = jankyborders;
         enable = true;
         inactive_color = border-color.inactive;
         active_color = border-color.active;
@@ -265,7 +293,7 @@
       };
 
       homebrew = {
-        enable = true;
+        enable = false;
         casks = [
           "ghostty"
           "raycast"

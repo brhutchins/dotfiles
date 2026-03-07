@@ -50,7 +50,10 @@ in
     #
     # Karabiner Elements
 
-    home.file.".config/karabiner/karabiner.json".source = "${cfg.dotfilesPath}/karabiner/karabiner.json";
+    home.file.".config/karabiner/karabiner.json" = {
+      source = "${cfg.dotfilesPath}/karabiner/karabiner.json";
+      force = true;
+    };
 
   };
 }
