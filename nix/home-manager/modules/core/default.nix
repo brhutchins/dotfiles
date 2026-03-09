@@ -328,11 +328,10 @@ in
     programs.zellij = {
       enable = true;
       settings = {
-        borderless = true;
         pane_frames = false;
         simplified_ui = true;
         hide_frame_for_single_pane = true;
-        theme = "catppuccin_mocha";
+        theme = "oxocarbon";
         copy_on_select = true;
         scrollback = 10000;
         mouse_mode = true;
@@ -347,49 +346,155 @@ in
       };
       enableBashIntegration = false;
       enableZshIntegration = false;
-      # extraConfig = ''
-      #   themes {
-      #     catppuccin_mocha {
-      #       bg 1e1e2e
-      #       fg cdd6f4
-      #       red f38ba8
-      #       green a6e3a1
-      #       yellow f9e2af
-      #       blue 89b4fa
-      #       magenta f5c2e7
-      #       cyan 94e2d5
-      #       orange fab387
-      #       black 45475a
-      #       white f5e0dc
-      #     }
-      #   }
-      # '';
+      extraConfig = ''
+        themes {
+          oxocarbon {
+            // base00 = #161616, base01 = ~#262626, base02 = ~#393939, base03 = ~#525252
+            // base04 = ~#dde1e7, base09 = #78a9ff, base11 = #33b1ff
+            // base12 = #ff7eb6, base13 = #42be65, base14 = #be95ff, base15 = #82cfff
+            text_unselected {
+              base 221 225 231
+              background 22 22 22
+              emphasis_0 255 126 182
+              emphasis_1 130 207 255
+              emphasis_2 66 190 101
+              emphasis_3 190 149 255
+            }
+            text_selected {
+              base 221 225 231
+              background 57 57 57
+              emphasis_0 255 126 182
+              emphasis_1 130 207 255
+              emphasis_2 66 190 101
+              emphasis_3 190 149 255
+            }
+            ribbon_unselected {
+              base 22 22 22
+              background 82 82 82
+              emphasis_0 255 126 182
+              emphasis_1 221 225 231
+              emphasis_2 120 169 255
+              emphasis_3 190 149 255
+            }
+            ribbon_selected {
+              base 22 22 22
+              background 120 169 255
+              emphasis_0 255 126 182
+              emphasis_1 130 207 255
+              emphasis_2 190 149 255
+              emphasis_3 66 190 101
+            }
+            table_title {
+              base 66 190 101
+              background 0
+              emphasis_0 255 126 182
+              emphasis_1 130 207 255
+              emphasis_2 66 190 101
+              emphasis_3 190 149 255
+            }
+            table_cell_unselected {
+              base 221 225 231
+              background 22 22 22
+              emphasis_0 255 126 182
+              emphasis_1 130 207 255
+              emphasis_2 66 190 101
+              emphasis_3 190 149 255
+            }
+            table_cell_selected {
+              base 221 225 231
+              background 57 57 57
+              emphasis_0 255 126 182
+              emphasis_1 130 207 255
+              emphasis_2 66 190 101
+              emphasis_3 190 149 255
+            }
+            list_unselected {
+              base 221 225 231
+              background 22 22 22
+              emphasis_0 255 126 182
+              emphasis_1 130 207 255
+              emphasis_2 66 190 101
+              emphasis_3 190 149 255
+            }
+            list_selected {
+              base 221 225 231
+              background 57 57 57
+              emphasis_0 255 126 182
+              emphasis_1 130 207 255
+              emphasis_2 66 190 101
+              emphasis_3 190 149 255
+            }
+            // frame_unselected: base = divider line color (~base01), bg = terminal bg
+            // Using base01 (~#262626) as the line color gives a subtle separator
+            frame_unselected {
+              base 38 38 38
+              background 22 22 22
+              emphasis_0 82 82 82
+              emphasis_1 57 57 57
+              emphasis_2 57 57 57
+              emphasis_3 57 57 57
+            }
+            frame_selected {
+              base 120 169 255
+              background 0
+              emphasis_0 255 126 182
+              emphasis_1 130 207 255
+              emphasis_2 190 149 255
+              emphasis_3 0
+            }
+            frame_highlight {
+              base 255 126 182
+              background 0
+              emphasis_0 190 149 255
+              emphasis_1 255 126 182
+              emphasis_2 255 126 182
+              emphasis_3 255 126 182
+            }
+            exit_code_success {
+              base 66 190 101
+              background 0
+              emphasis_0 51 177 255
+              emphasis_1 22 22 22
+              emphasis_2 190 149 255
+              emphasis_3 120 169 255
+            }
+            exit_code_error {
+              base 255 126 182
+              background 0
+              emphasis_0 130 207 255
+              emphasis_1 0
+              emphasis_2 0
+              emphasis_3 0
+            }
+          }
+        }
+      '';
       layouts = {
         compact = ''
           layout {
               default_tab_template {
                   children
                   pane size=1 borderless=true {
-                          format_left   "{mode} #[fg=#89B4FA,bold]{session}"
                       plugin location="file:${zjstatus}" {
+                          format_left   "{mode} #[fg=#78a9ff,bold]{session}"
                           format_center "{tabs}"
                           format_right  "{command_git_branch} {datetime}"
                           format_space  ""
 
                           hide_frame_for_single_pane "true"
 
-                          mode_normal  "#[bg=blue] "
-                          mode_tmux    "#[bg=#ffc387] "
+                          mode_normal  "#[bg=#78a9ff] "
+                          mode_tmux    "#[bg=#ff7eb6] "
 
-                          tab_normal   "#[fg=#6C7086] {name} "
-                          tab_active   "#[fg=#9399B2,bold,italic] {name} "
+                          tab_normal   "#[fg=#525252] {name} "
+                          tab_active   "#[fg=#dde1e7,bold,italic] {name} "
 
                           command_git_branch_command     "git rev-parse --abbrev-ref HEAD"
-                          command_git_branch_format      "#[fg=blue] {stdout} "
+                          command_git_branch_format      "#[fg=#78a9ff] {stdout} "
                           command_git_branch_interval    "10"
                           command_git_branch_rendermode  "static"
 
-                          datetime        "#[fg=#6C7086,bold] {format} "
+                          datetime        "#[fg=#525252,bold] {format} "
                           datetime_format "%A, %d %b %Y %H:%M"
                           datetime_timezone "Europe/Berlin"
                       }
