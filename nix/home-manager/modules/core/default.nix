@@ -54,6 +54,7 @@ let
       htop
       httpie
       jq
+      nh
       nodejs_24
       neofetch
       pandoc
