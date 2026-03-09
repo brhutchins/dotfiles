@@ -4,7 +4,7 @@ with lib;
 
 let
   cfg = config.local.darwin.core;
-  stackline = pkgs.callPackage /Users/barnaby/.dotfiles/nix/packages/stackline {  };
+  stackline = pkgs.callPackage ../../../../packages/stackline {  };
 in
 {
   options.local.darwin.core = {

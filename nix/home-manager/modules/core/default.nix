@@ -255,33 +255,133 @@ in
       };
     };
 
-    programs.zellij = {
+    programs.tmux = {
       enable = true;
-      package = zellij-head;
-      settings = {
-        pane_frames = false;
-        simplified_ui = true;
-        copy_on_select = true;
-        theme = "night-owl";
-        enableBashIntegration = false;
-        enableZshIntegration = false;
-        # themes.nord = {
-        #   fg = [216 222 233]; #D8DEE9
-        #   bg = [46 52 64]; #2E3440
-        #   black = [59 66 82]; #3B4252
-        #   red = [191 97 106]; #BF616A
-        #   green = [163 190 140]; #A3BE8C
-        #   yellow = [235 203 139]; #EBCB8B
-        #   blue = [129 161 193]; #81A1C1
-        #   magenta = [180 142 173]; #B48EAD
-        #   cyan = [136 192 208]; #88C0D0
-        #   white = [229 233 240]; #E5E9F0
-        #   orange = [208 135 112]; #D08770
-        #   gray = [100 100 100];
-        # };
-      };
+      terminal = "tmux-256color";
+      prefix = "C-a";
+      sensibleOnTop = false;
+      historyLimit = 100000;
+      extraConfig = ''
+        set -ga terminal-overrides ",*:Tc"
+        set -g base-index 1
+        set -g pane-base-index 1
+        set -g renumber-windows on
+
+        set -g mouse on
+
+        bind | split-window -h -c "#{pane_current_path}"
+        bind - split-window -v -c "#{pane_current_path}"
+
+        bind -r C-h select-window -t :-
+        bind -r C-l select-window -t :+
+
+        bind -r h select-pane -L
+        bind -r j select-pane -D
+        bind -r k select-pane -U
+        bind -r l select-pane -R
+
+        set -g status-interval 1
+        set -g status-left-length 30
+        set -g status-right-length 50
+
+        set -g allow-rename off
+        set -g automatic-rename off
+      '';
+      plugins = with pkgs; [
+        tmuxPlugins.sensible
+        {
+          plugin = tmuxPlugins.catppuccin;
+          extraConfig = ''
+            set -g @catppuccin_flavour 'mocha'
+            set -g @catppuccin_window_tabs_enabled on
+          '';
+        }
+        tmuxPlugins.resurrect
+        {
+          plugin = tmuxPlugins.continuum;
+          extraConfig = ''
+            set -g @continuum-boot 'on'
+            set -g @continuum-restore 'on'
+          '';
+        }
+        tmuxPlugins.tmux-floax
+      ];
     };
 
+    programs.zellij = {
+      enable = true;
+      settings = {
+        borderless = true;
+        pane_frames = false;
+        simplified_ui = true;
+        hide_frame_for_single_pane = true;
+        theme = "catppuccin_mocha";
+        copy_on_select = true;
+        scrollback = 10000;
+        mouse_mode = true;
+        auto_layout = true;
+        attach_existing_session = true;
+        default_layout = "compact";
+        plugins = {
+          zjstatus = {
+            location = "https://github.com/dj95/zjstatus/releases/latest/download/zjstatus.wasm";
+          };
+        };
+      };
+      enableBashIntegration = false;
+      enableZshIntegration = false;
+      # extraConfig = ''
+      #   themes {
+      #     catppuccin_mocha {
+      #       bg 1e1e2e
+      #       fg cdd6f4
+      #       red f38ba8
+      #       green a6e3a1
+      #       yellow f9e2af
+      #       blue 89b4fa
+      #       magenta f5c2e7
+      #       cyan 94e2d5
+      #       orange fab387
+      #       black 45475a
+      #       white f5e0dc
+      #     }
+      #   }
+      # '';
+      layouts = {
+        compact = ''
+          layout {
+              default_tab_template {
+                  children
+                  pane size=1 borderless=true {
+                      plugin location="https://github.com/dj95/zjstatus/releases/latest/download/zjstatus.wasm" {
+                          format_left   "{mode} #[fg=#89B4FA,bold]{session}"
+                          format_center "{tabs}"
+                          format_right  "{command_git_branch} {datetime}"
+                          format_space  ""
+
+                          hide_frame_for_single_pane "true"
+
+                          mode_normal  "#[bg=blue] "
+                          mode_tmux    "#[bg=#ffc387] "
+
+                          tab_normal   "#[fg=#6C7086] {name} "
+                          tab_active   "#[fg=#9399B2,bold,italic] {name} "
+
+                          command_git_branch_command     "git rev-parse --abbrev-ref HEAD"
+                          command_git_branch_format      "#[fg=blue] {stdout} "
+                          command_git_branch_interval    "10"
+                          command_git_branch_rendermode  "static"
+
+                          datetime        "#[fg=#6C7086,bold] {format} "
+                          datetime_format "%A, %d %b %Y %H:%M"
+                          datetime_timezone "Europe/Berlin"
+                      }
+                  }
+              }
+          }
+        '';
+      };
+    };
 
     #####
     #

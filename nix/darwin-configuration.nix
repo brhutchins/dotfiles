@@ -111,8 +111,8 @@ let
     # '';
 
   };
-  hammerspoon = pkgs.callPackage /Users/barnaby/.dotfiles/nix/packages/hammerspoon {  };
-  bitwarden = pkgs.callPackage /Users/barnaby/.dotfiles/nix/packages/bitwarden {  };
+  hammerspoon = pkgs.callPackage ./packages/hammerspoon {  };
+  bitwarden = pkgs.callPackage ./packages/bitwarden {  };
   emacs-mac = ((pkgs.emacsPackagesFor pkgs.emacsNativeComp).emacsWithPackages (epkgs: [
         epkgs.vterm
   ])).overrideAttrs (super: {
