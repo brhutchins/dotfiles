@@ -2,16 +2,16 @@
   description = "Darwin system flake";
 
   inputs = {
-    nixpkgs.url = "github:NixOS/nixpkgs/b2a3852bd078e68dd2b3dfa8c00c67af1f0a7d20";
+    nixpkgs.url = "github:NixOS/nixpkgs/nixos-25.11";
     nixpkgs-unstable.url = "github:NixOS/nixpkgs";
-    nix-darwin.url = "github:LnL7/nix-darwin/nix-darwin-25.05";
+    nix-darwin.url = "github:LnL7/nix-darwin/nix-darwin-25.11";
     nix-darwin.inputs.nixpkgs.follows = "nixpkgs";
     home-manager = {
-      url = "github:nix-community/home-manager/release-25.05";
+      url = "github:nix-community/home-manager/release-25.11";
       inputs.nixpkgs.follows = "nixpkgs";
     };
     nixvim = {
-      url = "github:nix-community/nixvim/nixos-25.05";
+      url = "github:nix-community/nixvim/nixos-25.11";
       inputs.nixpkgs.follows = "nixpkgs";
     };
   };
@@ -35,7 +35,10 @@
         (self: super: {
           unstable = import nixpkgs-unstable {
             inherit (super) system;
-            config.allowUnfreePredicate = pkg: builtins.elem (lib.getName pkg) ["claude-code"];
+            config.allowUnfreePredicate = pkg: builtins.elem (lib.getName pkg) [
+              "claude-code"
+              "cursor-cli"
+            ];
           };
         })
 
@@ -54,6 +57,7 @@
       nixpkgs.config.allowUnfreePredicate = let
           whitelist = map lib.getName [
             pkgs.unstable.claude-code
+            pkgs.code-cursor
           ];
         in
         pkg: builtins.elem (lib.getName pkg) whitelist;
@@ -445,6 +449,76 @@
         ];
       };
 
+      # Build a CA bundle that includes the Zscaler root cert extracted from
+      # the macOS System Keychain. The cert is never stored in the repo; it is
+      # pulled live at activation time so it stays current if Zscaler rotates it.
+      system.activationScripts.zscalerCaBundle = {
+        # Run before the Nix daemon is restarted so the new bundle is in place.
+        text = ''
+          BUNDLE=/etc/ssl/certs/ca-bundle-with-zscaler.crt
+          echo "Setting up Zscaler CA bundle at $BUNDLE..."
+
+          # Start from the standard Mozilla bundle (provided by nixpkgs cacert).
+          cat ${pkgs.cacert}/etc/ssl/certs/ca-bundle.crt > "$BUNDLE"
+
+          # Append every cert from the System Keychain whose subject contains
+          # "Zscaler" (case-insensitive). Use Python to avoid awk/openssl piping
+          # complexity across macOS/Nix path differences.
+          /usr/bin/python3 - <<'PYEOF'
+import subprocess, sys
+
+result = subprocess.run(
+    ["security", "find-certificate", "-a", "-p", "/Library/Keychains/System.keychain"],
+    capture_output=True, text=True
+)
+
+certs = []
+current = []
+for line in result.stdout.splitlines():
+    if "-----BEGIN CERTIFICATE-----" in line:
+        current = [line]
+    elif "-----END CERTIFICATE-----" in line:
+        current.append(line)
+        certs.append("\n".join(current))
+        current = []
+    elif current:
+        current.append(line)
+
+zscaler_certs = []
+for cert in certs:
+    subj = subprocess.run(
+        ["openssl", "x509", "-noout", "-subject"],
+        input=cert, capture_output=True, text=True
+    )
+    if "zscaler" in subj.stdout.lower():
+        zscaler_certs.append(cert)
+
+# Write the named bundle (used by the Nix daemon via nix.settings.ssl-cert-file).
+bundle_path = "/etc/ssl/certs/ca-bundle-with-zscaler.crt"
+with open(bundle_path, "a") as f:
+    for cert in zscaler_certs:
+        f.write("\n# Zscaler Root CA (from macOS System Keychain)\n")
+        f.write(cert + "\n")
+
+# Also patch /etc/ssl/cert.pem - this is the fallback used by libcurl (and
+# therefore zellij's plugin downloader) when no SSL_CERT_FILE env var is set.
+# Only append if not already present (idempotent).
+cert_pem_path = "/etc/ssl/cert.pem"
+existing = open(cert_pem_path).read()
+appended = 0
+with open(cert_pem_path, "a") as f:
+    for cert in zscaler_certs:
+        # Use the first line of the cert as a fingerprint to avoid duplicates.
+        if cert.splitlines()[1] not in existing:
+            f.write("\n# Zscaler Root CA (from macOS System Keychain)\n")
+            f.write(cert + "\n")
+            appended += 1
+
+print(f"Added {len(zscaler_certs)} Zscaler cert(s) to {bundle_path}, {appended} new cert(s) appended to {cert_pem_path}", file=sys.stderr)
+PYEOF
+        '';
+      };
+
       # Auto upgrade nix package and the daemon service.
       # services.nix-daemon.enable = true;
       nix.package = pkgs.nix;
@@ -453,6 +527,10 @@
       nix.settings.experimental-features = "nix-command flakes";
 
       nix.settings.trusted-users = [ "barnaby" ];
+
+      # Point the Nix daemon at our combined bundle so it trusts Zscaler's
+      # TLS interception proxy when fetching from the internet.
+      nix.settings.ssl-cert-file = "/etc/ssl/certs/ca-bundle-with-zscaler.crt";
 
       # Create /etc/zshrc that loads the nix-darwin environment.
       programs.zsh.enable = true;  # default shell on catalina
