@@ -2,7 +2,7 @@
   description = "Darwin system flake";
 
   inputs = {
-    nixpkgs.url = "github:NixOS/nixpkgs/25.05";
+    nixpkgs.url = "github:NixOS/nixpkgs/b2a3852bd078e68dd2b3dfa8c00c67af1f0a7d20";
     nixpkgs-unstable.url = "github:NixOS/nixpkgs";
     nix-darwin.url = "github:LnL7/nix-darwin/nix-darwin-25.05";
     nix-darwin.inputs.nixpkgs.follows = "nixpkgs";
@@ -64,7 +64,13 @@
         [ pkgs.vim
           pkgs.xh
           pkgs.hey
+          pkgs.nodejs
+          pkgs.azure-cli
           pkgs.unstable.claude-code
+          pkgs.unstable.claude-monitor
+          pkgs.code-cursor
+          pkgs.unstable.cursor-cli
+          pkgs.unstable.opencode
         ];
 
       environment.variables = {
