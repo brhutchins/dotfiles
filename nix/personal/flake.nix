@@ -10,9 +10,13 @@
       url = "github:nix-community/home-manager/release-25.11";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+    nixvim = {
+      url = "github:nix-community/nixvim/nixos-25.11";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
   };
 
-  outputs = inputs@{ self, nix-darwin, nixpkgs, nixpkgs-unstable, home-manager }:
+  outputs = inputs@{ self, nix-darwin, nixpkgs, nixpkgs-unstable, home-manager, nixvim }:
   let
     border-color = {
       active = "0xffff70b3";
@@ -39,9 +43,6 @@
           };
         })
         (self: super: {
-          claude-code-router = super.callPackage /Users/barnaby/.dotfiles/nix/packages/claude-code-router { };
-        })
-        (self: super: {
           karabiner-elements = super.karabiner-elements.overrideAttrs (old: {
             version = "14.13.0";
 
@@ -66,7 +67,6 @@
           unstable.zed-editor
           unstable.gemini-cli
           ollama
-          claude-code-router
           unstable.opencode
           unstable.nixd
         ];
@@ -330,6 +330,7 @@
         home-manager.darwinModules.home-manager
         {
           home-manager.extraSpecialArgs = { inherit inputs system; };
+          home-manager.sharedModules = [ nixvim.homeModules.nixvim ];
         }
         ../home-manager/machines/darwin-personal.nix
       ];

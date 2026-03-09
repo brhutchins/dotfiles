@@ -10,9 +10,13 @@
       url = "github:nix-community/home-manager/release-25.05";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+    nixvim = {
+      url = "github:nix-community/nixvim/nixos-25.05";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
   };
 
-  outputs = inputs@{ self, nix-darwin, nixpkgs, nixpkgs-unstable, home-manager, ... }:
+  outputs = inputs@{ self, nix-darwin, nixpkgs, nixpkgs-unstable, home-manager, nixvim, ... }:
   let
     system = "aarch64-darwin";
 
@@ -477,6 +481,7 @@
         home-manager.darwinModules.home-manager
         {
           home-manager.extraSpecialArgs = { inherit inputs system; };
+          home-manager.sharedModules = [ nixvim.homeModules.nixvim ];
         }
         ../home-manager/machines/darwin-hubs-2.nix
       ];
