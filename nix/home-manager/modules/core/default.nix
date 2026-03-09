@@ -93,6 +93,21 @@ let
     MOZ_ENABLE_WAYLAND = 1;
     XDG_CURRENT_DESKTOP = "sway"; 
   };
+  # On Darwin with Zscaler, point SSL tooling at the combined CA bundle built
+  # by the nix-darwin activation script (includes the Zscaler root CA).
+  # The file check means this is a no-op on machines without Zscaler.
+  zscalerBundle = "/etc/ssl/certs/ca-bundle-with-zscaler.crt";
+  sessionVariablesForDarwin = lib.optionalAttrs (isDarwin && builtins.pathExists zscalerBundle) {
+    NIX_SSL_CERT_FILE = zscalerBundle;
+    SSL_CERT_FILE = zscalerBundle;
+  };
+
+  # Fetch zjstatus at build time via nix so zellij never needs to download it
+  # at runtime (which fails because zellij's rustls doesn't trust Zscaler's CA).
+  zjstatus = pkgs.fetchurl {
+    url = "https://github.com/dj95/zjstatus/releases/download/v0.22.0/zjstatus.wasm";
+    hash = "sha256-TeQm0gscv4YScuknrutbSdksF/Diu50XP4W/fwFU3VM=";
+  };
 in
 {
   imports = [
@@ -231,7 +246,8 @@ in
     home.sessionVariables = {
       EDITOR = "nvim";
     }
-    // sessionVariablesForLinux;
+    // sessionVariablesForLinux
+    // sessionVariablesForDarwin;
 
     programs.direnv = {
       enable = true;
@@ -325,7 +341,7 @@ in
         default_layout = "compact";
         plugins = {
           zjstatus = {
-            location = "https://github.com/dj95/zjstatus/releases/latest/download/zjstatus.wasm";
+            location = "file:${zjstatus}";
           };
         };
       };
@@ -354,8 +370,8 @@ in
               default_tab_template {
                   children
                   pane size=1 borderless=true {
-                      plugin location="https://github.com/dj95/zjstatus/releases/latest/download/zjstatus.wasm" {
                           format_left   "{mode} #[fg=#89B4FA,bold]{session}"
+                      plugin location="file:${zjstatus}" {
                           format_center "{tabs}"
                           format_right  "{command_git_branch} {datetime}"
                           format_space  ""
