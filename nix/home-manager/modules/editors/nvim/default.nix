@@ -203,6 +203,9 @@ in
                 score_offset = 100;
                 async = true;
               };
+              per_filetype = {
+                codecompanion = [ "codecompanion" ];
+              };
             };
             completion = {
               list.selection = { auto_insert = true; preselect = false; };
@@ -225,9 +228,6 @@ in
               "<S-Tab>" = [ "select_prev" "fallback" ];
             };
             signature = { enabled = true; window.border = "single"; };
-            per_filetype = {
-              codecompanion = [ "codecompanion" ];
-            };
           };
         };
 
