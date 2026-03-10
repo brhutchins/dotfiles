@@ -507,6 +507,20 @@ in
                       }
                   }
               }
+
+              // Floating layout: small centered pane (~60% width, ~70% height)
+              swap_floating_layout name="centered" {
+                  floating_panes {
+                      pane { x "20%"; y "15%"; width "60%"; height "70%"; }
+                  }
+              }
+
+              // Floating layout: near-fullscreen (~90% width, ~90% height)
+              swap_floating_layout name="fullscreen" {
+                  floating_panes {
+                      pane { x "5%"; y "5%"; width "90%"; height "90%"; }
+                  }
+              }
           }
         '';
       };
