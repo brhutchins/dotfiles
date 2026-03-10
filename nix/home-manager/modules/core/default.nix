@@ -283,6 +283,7 @@ in
         set -g base-index 1
         set -g pane-base-index 1
         set -g renumber-windows on
+        setw -g mode-keys vi
 
         set -g mouse on
 
@@ -322,6 +323,7 @@ in
           '';
         }
         tmuxPlugins.tmux-floax
+        tmuxPlugins.yank
       ];
     };
 
