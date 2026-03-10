@@ -322,7 +322,12 @@ in
             set -g @continuum-restore 'on'
           '';
         }
-        tmuxPlugins.tmux-floax
+        (tmuxPlugins.tmux-floax.overrideAttrs (old: {
+          postPatch = (old.postPatch or "") + ''
+            substituteInPlace scripts/utils.sh \
+              --replace-fail 'tmux bind -n c-M-b' 'tmux bind -n C-M-b'
+          '';
+        }))
         tmuxPlugins.yank
       ];
     };
