@@ -298,6 +298,8 @@ in
         bind -r k select-pane -U
         bind -r l select-pane -R
 
+        bind b set-option -g status
+
         set -g status-position top
         set -g status-interval 5
 
