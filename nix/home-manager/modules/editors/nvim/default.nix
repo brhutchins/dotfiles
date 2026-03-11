@@ -325,6 +325,10 @@ in
             file_types = [ "markdown" "codecompanion" ];
           };
         };
+
+        octo = {
+          enable = true;
+        };
       };
 
       extraPlugins = with pkgs.vimPlugins; [
