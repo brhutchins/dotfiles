@@ -4,6 +4,7 @@ with lib;
 
 let
   cfg = config.local.editors.nvim;
+  c = config.local.theme."rose-pine-slate".colors;
 
   nvim-oh-lucy-theme = with pkgs; vimUtils.buildVimPlugin {
     pname = "oh-lucy.nvim";
@@ -358,9 +359,9 @@ in
           variant = "main",
           palette = {
             main = {
-              base = "#16181d",
-              surface = "#1f222a",
-              overlay = "#2a2f3a",
+              base = "${c.base}",
+              surface = "${c.surface}",
+              overlay = "${c.overlay}",
             },
           },
         })

@@ -5,6 +5,8 @@ with pkgs;
 
 let
   cfg = config.local.core;
+  rosePineSlate = config.local.theme."rose-pine-slate";
+  c = rosePineSlate.colors;
   data = import ../data;
   isLinux = lib.strings.hasSuffix "linux" system;
   isDarwin = lib.strings.hasSuffix "darwin" system;
@@ -111,6 +113,7 @@ let
 in
 {
   imports = [
+    ./rose-pine-slate.nix
     ../darwin/core
     ../editors/doom
     ../editors/helix
@@ -236,6 +239,37 @@ in
       enable = true;
       enableZshIntegration = true;
       enableBashIntegration = true;
+      settings = {
+        palette = "rose_pine";
+        palettes.rose_pine = {
+          inherit (c)
+            base
+            surface
+            overlay
+            text
+            subtle
+            iris
+            pine
+            foam
+            rose
+            gold
+            love;
+        };
+
+        character = {
+          success_symbol = "[❯](foam)";
+          error_symbol = "[❯](love)";
+          vicmd_symbol = "[❮](iris)";
+        };
+
+        directory.style = "foam";
+        git_branch.style = "pine";
+        git_status.style = "rose";
+        cmd_duration.style = "gold";
+        username.style = "subtle";
+        hostname.style = "subtle";
+        nix_shell.style = "iris";
+      };
     };
 
 
@@ -307,13 +341,13 @@ in
         set -g status-left ""
         set -g status-right " #S "
 
-        set -g status-style "bg=#16181d,fg=#e0def4"
-        set -g window-status-style "bg=#1f222a,fg=#908caa"
-        set -g window-status-current-style "bg=#2a2f3a,fg=#e0def4,bold"
-        set -g pane-border-style "fg=#2a2f3a"
-        set -g pane-active-border-style "fg=#9ccfd8"
-        set -g message-style "bg=#2a2f3a,fg=#e0def4"
-        set -g message-command-style "bg=#2a2f3a,fg=#e0def4"
+        set -g status-style "bg=${c.base},fg=${c.text}"
+        set -g window-status-style "bg=${c.surface},fg=${c.subtle}"
+        set -g window-status-current-style "bg=${c.overlay},fg=${c.text},bold"
+        set -g pane-border-style "fg=${c.overlay}"
+        set -g pane-active-border-style "fg=${c.foam}"
+        set -g message-style "bg=${c.overlay},fg=${c.text}"
+        set -g message-command-style "bg=${c.overlay},fg=${c.text}"
 
         set -g allow-rename off
         set -g automatic-rename off
@@ -536,13 +570,13 @@ in
       theme = Rose Pine
 
       # Keep Rose Pine accents, but use the less-purple neutral base.
-      background = #16181d
-      foreground = #e0def4
-      cursor-color = #9ccfd8
-      selection-background = #2a2f3a
-      selection-foreground = #e0def4
-      palette = 0=#16181d
-      palette = 8=#2a2f3a
+      background = ${c.base}
+      foreground = ${c.text}
+      cursor-color = ${c.foam}
+      selection-background = ${c.overlay}
+      selection-foreground = ${c.text}
+      palette = 0=${c.base}
+      palette = 8=${c.overlay}
     '';
 
     #####
