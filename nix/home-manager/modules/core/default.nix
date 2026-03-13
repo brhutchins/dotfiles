@@ -302,27 +302,24 @@ in
 
         set -g status-position top
         set -g status-interval 5
+        set -g status-left-length 100
+        set -g status-right-length 100
+        set -g status-left ""
+        set -g status-right " #S "
+
+        set -g status-style "bg=#16181d,fg=#e0def4"
+        set -g window-status-style "bg=#1f222a,fg=#908caa"
+        set -g window-status-current-style "bg=#2a2f3a,fg=#e0def4,bold"
+        set -g pane-border-style "fg=#2a2f3a"
+        set -g pane-active-border-style "fg=#9ccfd8"
+        set -g message-style "bg=#2a2f3a,fg=#e0def4"
+        set -g message-command-style "bg=#2a2f3a,fg=#e0def4"
 
         set -g allow-rename off
         set -g automatic-rename off
       '';
       plugins = with pkgs; [
         tmuxPlugins.sensible
-        {
-          plugin = tmuxPlugins.catppuccin;
-          extraConfig = ''
-            set -g @catppuccin_flavor "mocha"
-            set -g @catppuccin_window_status_style "rounded"
-            set -g @catppuccin_window_text " #W"
-            set -g @catppuccin_window_current_text " #W"
-            set -g @catppuccin_window_flags "icon"
-
-            set -g status-left-length 100
-            set -g status-right-length 100
-            set -g status-left ""
-            set -ag status-right "#{E:@catppuccin_status_session}"
-          '';
-        }
         tmuxPlugins.resurrect
         {
           plugin = tmuxPlugins.continuum;
@@ -535,6 +532,19 @@ in
       };
     };
 
+    home.file.".config/ghostty/config".text = ''
+      theme = Rose Pine
+
+      # Keep Rose Pine accents, but use the less-purple neutral base.
+      background = #16181d
+      foreground = #e0def4
+      cursor-color = #9ccfd8
+      selection-background = #2a2f3a
+      selection-foreground = #e0def4
+      palette = 0=#16181d
+      palette = 8=#2a2f3a
+    '';
+
     #####
     #
     # Version control
@@ -609,5 +619,3 @@ in
 
   };
 }
-
-
