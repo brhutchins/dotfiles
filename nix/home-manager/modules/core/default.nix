@@ -266,7 +266,8 @@ in
         git_branch.style = "pine";
         git_status.style = "rose";
         cmd_duration.style = "gold";
-        username.style = "subtle";
+        username.style_user = "subtle";
+        username.style_root = "love";
         hostname.style = "subtle";
         nix_shell.style = "iris";
       };
