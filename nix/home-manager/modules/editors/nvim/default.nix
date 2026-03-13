@@ -340,6 +340,7 @@ in
         luasnip
         plenary-nvim
         popup-nvim
+        rose-pine
         vim-choosewin
         vim-lion
         vim-nix
@@ -353,6 +354,18 @@ in
       ];
 
       extraConfigLua = ''
+        require("rose-pine").setup({
+          variant = "main",
+          palette = {
+            main = {
+              base = "#16181d",
+              surface = "#1f222a",
+              overlay = "#2a2f3a",
+            },
+          },
+        })
+        vim.cmd("colorscheme rose-pine")
+
         -- Custom autopairs rules
         local npairs = require('nvim-autopairs')
         local Rule   = require('nvim-autopairs.rule')
