@@ -17,6 +17,7 @@
     imports = [ ../modules/core ];
     local = {
       core.gui.enable = true;
+      core.zscaler.enable = true;
     };
   };
 }

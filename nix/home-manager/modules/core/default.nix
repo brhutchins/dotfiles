@@ -91,18 +91,11 @@ let
     ];
   };
   mkGui = lists.optionals cfg.gui.enable;
-  sessionVariablesForLinux = mkIf isLinux {
-    MOZ_ENABLE_WAYLAND = 1;
-    XDG_CURRENT_DESKTOP = "sway"; 
-  };
   # On Darwin with Zscaler, point SSL tooling at the combined CA bundle built
   # by the nix-darwin activation script (includes the Zscaler root CA).
-  # The file check means this is a no-op on machines without Zscaler.
+  # This is controlled by config instead of `builtins.pathExists`, since flake
+  # evaluation is pure and would incorrectly treat this host path as missing.
   zscalerBundle = "/etc/ssl/certs/ca-bundle-with-zscaler.crt";
-  sessionVariablesForDarwin = lib.optionalAttrs (isDarwin && builtins.pathExists zscalerBundle) {
-    NIX_SSL_CERT_FILE = zscalerBundle;
-    SSL_CERT_FILE = zscalerBundle;
-  };
 
   # Fetch zjstatus at build time via nix so zellij never needs to download it
   # at runtime (which fails because zellij's rustls doesn't trust Zscaler's CA).
@@ -134,6 +127,12 @@ in
       type = types.bool;
       default = false;
       description = "If this is a work setup, we'll, e.g., use work email for Git.";
+    };
+
+    zscaler.enable = mkOption {
+      type = types.bool;
+      default = false;
+      description = "Whether to point SSL tooling at the Darwin Zscaler CA bundle.";
     };
   };
 
@@ -278,11 +277,20 @@ in
     #
     # Environments
 
-    home.sessionVariables = {
-      EDITOR = "nvim";
-    }
-    // sessionVariablesForLinux
-    // sessionVariablesForDarwin;
+    home.sessionVariables = mkMerge [
+      {
+        EDITOR = "nvim";
+      }
+      (mkIf isLinux {
+        MOZ_ENABLE_WAYLAND = 1;
+        XDG_CURRENT_DESKTOP = "sway";
+      })
+      (mkIf (isDarwin && cfg.zscaler.enable) {
+        CARGO_HTTP_CAINFO = zscalerBundle;
+        NIX_SSL_CERT_FILE = zscalerBundle;
+        SSL_CERT_FILE = zscalerBundle;
+      })
+    ];
 
     programs.direnv = {
       enable = true;
