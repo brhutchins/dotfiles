@@ -585,7 +585,7 @@ in
       selection-background = ${c.overlay}
       selection-foreground = ${c.text}
       palette = 0=${c.base}
-      palette = 8=${c.overlay}
+      palette = 8=${c.muted}
     '';
 
     #####

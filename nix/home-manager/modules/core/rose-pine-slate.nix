@@ -8,6 +8,7 @@ let
     surface = "#1f222a";
     overlay = "#2a2f3a";
     text = "#e0def4";
+    muted = "#6e6a86";
     subtle = "#908caa";
     iris = "#c4a7e7";
     pine = "#31748f";
