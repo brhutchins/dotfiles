@@ -163,6 +163,7 @@ in
             lua_ls.enable = true;
             nixd.enable = true;
             gopls.enable = true;
+            clangd.enable = true;
           };
           onAttach = ''
             vim.api.nvim_create_autocmd("CursorMoved", {
