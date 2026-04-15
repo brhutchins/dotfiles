@@ -96,6 +96,11 @@ let
   # This is controlled by config instead of `builtins.pathExists`, since flake
   # evaluation is pure and would incorrectly treat this host path as missing.
   zscalerBundle = "/etc/ssl/certs/ca-bundle-with-zscaler.crt";
+  gitEmail = if cfg.work.enable then data.email.work else data.email.personal;
+  gitUserName = if cfg.work.enable then data.git.userName.work else data.git.userName.personal;
+  gitSigningKeyPath = if cfg.work.enable
+    then config.home.homeDirectory + "/.ssh/id_ed25519_prlb.pub"
+    else config.home.homeDirectory + "/.ssh/id_ed25519.pub";
 
   # Fetch zjstatus at build time via nix so zellij never needs to download it
   # at runtime (which fails because zellij's rustls doesn't trust Zscaler's CA).
@@ -594,21 +599,26 @@ in
 
     programs.git = {
       enable = true;
-      settings = {
-        user = {
-          name = "brhutchins";
-          email = data.email.personal;
-          signingkey = config.home.homeDirectory + "/.ssh/id_ed25519.pub";
-        };
-        init.defaultBranch = "main";
-        core = {
-          editor = "nvim";
-        };
-        # Sign all commits using ssh key
-        commit.gpgsign = true;
-        gpg.format = "ssh";
-        gpg.ssh.allowedSignersFile = config.home.homeDirectory + "/.config/git/allowed_signers";
-      };
+      settings = mkMerge [
+        {
+          user = {
+            name = gitUserName;
+            email = gitEmail;
+            signingkey = gitSigningKeyPath;
+          };
+          init.defaultBranch = "main";
+          core = {
+            editor = "nvim";
+          };
+          # Sign all commits using ssh key
+          commit.gpgsign = true;
+          gpg.format = "ssh";
+          gpg.ssh.allowedSignersFile = config.home.homeDirectory + "/.config/git/allowed_signers";
+        }
+        (mkIf cfg.work.enable {
+          "url \"ssh://git@github.com/prlb-gts/\"".insteadOf = "https://github.com/prlb-gts/";
+        })
+      ];
     };
 
     programs.diff-so-fancy = {
@@ -622,7 +632,7 @@ in
     };
 
     home.file.".config/git/allowed_signers".text =
-      "${data.email.personal} ${builtins.readFile (config.home.homeDirectory + "/.ssh/id_ed25519.pub")}";
+      "${gitEmail} ${builtins.readFile gitSigningKeyPath}";
 
 
     #####

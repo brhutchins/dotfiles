@@ -18,6 +18,7 @@
     local = {
       core.gui.enable = true;
       core.zscaler.enable = true;
+      core.work.enable = true;
     };
   };
 }
