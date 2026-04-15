@@ -7,7 +7,7 @@
     home = {
       stateVersion = "23.05";
       packages = with pkgs; [
-        colima
+        unstable.colima
         docker
       ];
     };

@@ -46,11 +46,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1772633058,
-        "narHash": "sha256-SO7JapRy2HPhgmqiLbfnW1kMx5rakPMKZ9z3wtRLQjI=",
+        "lastModified": 1775425411,
+        "narHash": "sha256-KY6HsebJHEe5nHOWP7ur09mb0drGxYSzE3rQxy62rJo=",
         "owner": "nix-community",
         "repo": "home-manager",
-        "rev": "080657a04188aca25f8a6c70a0fb2ea7e37f1865",
+        "rev": "0d02ec1d0a05f88ef9e74b516842900c41f0f2fe",
         "type": "github"
       },
       "original": {
@@ -88,6 +88,26 @@
         "type": "github"
       }
     },
+    "mole-nix": {
+      "inputs": {
+        "nixpkgs": [
+          "nixpkgs"
+        ]
+      },
+      "locked": {
+        "lastModified": 1776152109,
+        "narHash": "sha256-nwRf9iJAnSEQC+HmrLQZjm1/kYuUsKW/jjoRjpjFIkY=",
+        "owner": "brhutchins",
+        "repo": "mole-nix",
+        "rev": "d0c03e887f69ef4f05cabe50aedf916287c6db5c",
+        "type": "github"
+      },
+      "original": {
+        "owner": "brhutchins",
+        "repo": "mole-nix",
+        "type": "github"
+      }
+    },
     "nix-darwin": {
       "inputs": {
         "nixpkgs": [
@@ -111,11 +131,11 @@
     },
     "nixpkgs": {
       "locked": {
-        "lastModified": 1772822230,
-        "narHash": "sha256-yf3iYLGbGVlIthlQIk5/4/EQDZNNEmuqKZkQssMljuw=",
+        "lastModified": 1776067740,
+        "narHash": "sha256-B35lpsqnSZwn1Lmz06BpwF7atPgFmUgw1l8KAV3zpVQ=",
         "owner": "NixOS",
         "repo": "nixpkgs",
-        "rev": "71caefce12ba78d84fe618cf61644dce01cf3a96",
+        "rev": "7e495b747b51f95ae15e74377c5ce1fe69c1765f",
         "type": "github"
       },
       "original": {
@@ -127,11 +147,11 @@
     },
     "nixpkgs-unstable": {
       "locked": {
-        "lastModified": 1772900914,
-        "narHash": "sha256-g2kLzmDQuVmADPUhJJ0jrdNIJOKDSHkyWTTpdAO4vUs=",
+        "lastModified": 1776199035,
+        "narHash": "sha256-jRS8kE0Du6o/3rI7TmKyrnhXDvWrphFvtMj/Q7szn6g=",
         "owner": "NixOS",
         "repo": "nixpkgs",
-        "rev": "dd41b8deb3a735d537115be454dba8b2eaeb20ba",
+        "rev": "ecf3afc2a4c1fbedbdf0270f05a6deecca9a663e",
         "type": "github"
       },
       "original": {
@@ -190,6 +210,7 @@
     "root": {
       "inputs": {
         "home-manager": "home-manager",
+        "mole-nix": "mole-nix",
         "nix-darwin": "nix-darwin",
         "nixpkgs": "nixpkgs",
         "nixpkgs-unstable": "nixpkgs-unstable",

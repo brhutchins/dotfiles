@@ -14,9 +14,13 @@
       url = "github:nix-community/nixvim/nixos-25.11";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+    mole-nix = {
+      url = "github:brhutchins/mole-nix";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
   };
 
-  outputs = inputs@{ self, nix-darwin, nixpkgs, nixpkgs-unstable, home-manager, nixvim }:
+  outputs = inputs@{ self, nix-darwin, nixpkgs, nixpkgs-unstable, home-manager, nixvim, mole-nix }:
   let
     border-color = {
       active = "0xffff70b3";
@@ -27,6 +31,8 @@
     };
 
     jankyborders = nixpkgs-unstable.legacyPackages.${system}.jankyborders;
+
+    mole = mole-nix.packages.${system}.default;
 
     system = "aarch64-darwin";
 
@@ -52,6 +58,9 @@
             };
           });
         })
+        (self: super: {
+          direnv = super.unstable.direnv;
+        })
       ];
 
       nixpkgs.config.allowUnfreePredicate = pkg: builtins.elem (lib.getName pkg) [
@@ -69,6 +78,7 @@
           ollama
           unstable.opencode
           unstable.nixd
+          mole
         ];
 
       # Necessary for using flakes on this system.
