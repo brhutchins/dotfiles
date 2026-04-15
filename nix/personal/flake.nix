@@ -302,6 +302,11 @@
         ];
       };
 
+      security.pam.services.sudo_local = {
+        touchIdAuth = true;
+        reattach = true;
+      };
+
 
       # Enable alternative shell support in nix-darwin.
       # programs.fish.enable = true;
