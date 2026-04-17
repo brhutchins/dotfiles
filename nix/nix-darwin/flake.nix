@@ -451,6 +451,11 @@
         ];
       };
 
+      security.pam.services.sudo_local = {
+        touchIdAuth = true;
+        reattach = true;
+      };
+
       # Build a CA bundle that includes the Zscaler root cert extracted from
       # the macOS System Keychain. The cert is never stored in the repo; it is
       # pulled live at activation time so it stays current if Zscaler rotates it.
