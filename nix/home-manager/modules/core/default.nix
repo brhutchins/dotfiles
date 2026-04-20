@@ -327,6 +327,8 @@ in
       sensibleOnTop = false;
       historyLimit = 100000;
       extraConfig = ''
+        set -s extended-keys on
+        set -g extended-keys-format csi-u
         set -ga terminal-overrides ",*:Tc"
         set -g base-index 1
         set -g pane-base-index 1

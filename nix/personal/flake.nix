@@ -61,6 +61,11 @@
         (self: super: {
           direnv = super.unstable.direnv;
         })
+        (self: super: {
+          zed-editor = super.unstable.zed-editor.overrideAttrs (old: {
+            dontBuildTests = true;
+          });
+        })
       ];
 
       nixpkgs.config.allowUnfreePredicate = pkg: builtins.elem (lib.getName pkg) [
@@ -73,6 +78,8 @@
       environment.systemPackages = with pkgs;
         [ neovim
           raycast
+          unstable.pi-coding-agent
+          unstable.mcporter
           unstable.zed-editor
           unstable.gemini-cli
           ollama

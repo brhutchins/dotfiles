@@ -64,18 +64,20 @@
 
       # List packages installed in system profile. To search by name, run:
       # $ nix-env -qaP | grep wget
-      environment.systemPackages =
-        [ pkgs.vim
-          pkgs.xh
-          pkgs.hey
-          pkgs.nodejs
-          pkgs.azure-cli
-          pkgs.unstable.claude-code
-          pkgs.unstable.claude-monitor
-          pkgs.code-cursor
-          pkgs.unstable.cursor-cli
-          pkgs.unstable.opencode
-        ];
+       environment.systemPackages =
+         [ pkgs.vim
+           pkgs.xh
+           pkgs.hey
+           pkgs.nodejs
+           pkgs.azure-cli
+           pkgs.unstable.claude-code
+           pkgs.unstable.claude-monitor
+           pkgs.code-cursor
+           pkgs.unstable.cursor-cli
+           pkgs.unstable.opencode
+           pkgs.unstable.pi-coding-agent
+           pkgs.unstable.mcporter
+         ];
 
       environment.variables = {
         EDITOR = "nvim";
