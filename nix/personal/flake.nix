@@ -18,9 +18,10 @@
       url = "github:brhutchins/mole-nix";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+    determinate.url = "https://flakehub.com/f/DeterminateSystems/determinate/3";
   };
 
-  outputs = inputs@{ self, nix-darwin, nixpkgs, nixpkgs-unstable, home-manager, nixvim, mole-nix }:
+  outputs = inputs@{ self, nix-darwin, nixpkgs, nixpkgs-unstable, home-manager, nixvim, mole-nix, determinate }:
   let
     border-color = {
       active = "0xffff70b3";
@@ -69,11 +70,16 @@
       ];
 
       nixpkgs.config.allowUnfreePredicate = pkg: builtins.elem (lib.getName pkg) [
-              "lmstudio"
+        "lmstudio"
         "raycast"
       ];
 
-      nix.enable = false;
+      determinateNix = {
+        enable = true;
+        customSettings = {
+          trusted-users = [ "barnaby" ];
+        };
+      };
 
       environment.systemPackages = with pkgs;
         [ neovim
@@ -82,14 +88,11 @@
           unstable.mcporter
           unstable.zed-editor
           unstable.gemini-cli
-          ollama
           unstable.opencode
           unstable.nixd
           mole
+          unstable.sesh
         ];
-
-      # Necessary for using flakes on this system.
-      nix.settings.experimental-features = "nix-command flakes";
 
       environment.variables = {
         EDITOR = "nvim";
@@ -306,7 +309,6 @@
 
       services.tailscale = {
         enable = true;
-        # overrideLocalDns = true;
       };
 
       homebrew = {
@@ -324,11 +326,6 @@
         reattach = true;
       };
 
-
-      # Enable alternative shell support in nix-darwin.
-      # programs.fish.enable = true;
-
-      nix.settings.trusted-users = [ "barnaby" ];
 
       # Set Git commit hash for darwin-version.
       system.configurationRevision = self.rev or self.dirtyRev or null;
@@ -348,6 +345,7 @@
     # $ darwin-rebuild build --flake .#MacMini
     darwinConfigurations."MacMini" = nix-darwin.lib.darwinSystem {
       modules = [
+        determinate.darwinModules.default
         configuration
         home-manager.darwinModules.home-manager
         {
