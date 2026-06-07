@@ -92,6 +92,8 @@
           unstable.nixd
           mole
           unstable.sesh
+          devenv
+          gitu
         ];
 
       environment.variables = {
