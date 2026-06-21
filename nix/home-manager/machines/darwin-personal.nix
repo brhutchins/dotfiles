@@ -8,7 +8,7 @@
       stateVersion = "23.05";
       packages = with pkgs; [
         unstable.colima
-        docker
+        docker_29
       ];
     };
 
