@@ -606,17 +606,20 @@ in
           user = {
             name = gitUserName;
             email = gitEmail;
-            signingkey = gitSigningKeyPath;
           };
           init.defaultBranch = "main";
-          core = {
-            editor = "nvim";
-          };
-          # Sign all commits using ssh key
+          core.editor = "nvim";
           commit.gpgsign = true;
+        }
+        (mkIf cfg.work.enable {
+          user.signingkey = gitSigningKeyPath;
           gpg.format = "ssh";
           gpg.ssh.allowedSignersFile = config.home.homeDirectory + "/.config/git/allowed_signers";
-        }
+        })
+        (mkIf (!cfg.work.enable) {
+          user.signingkey = "178AD48BC452AEB5";
+          gpg.format = "openpgp";
+        })
         (mkIf cfg.work.enable {
           "url \"ssh://git@github.com/prlb-gts/\"".insteadOf = "https://github.com/prlb-gts/";
         })
@@ -633,8 +636,9 @@ in
       settings.gitProtocol = "ssh";
     };
 
-    home.file.".config/git/allowed_signers".text =
-      "${gitEmail} ${builtins.readFile gitSigningKeyPath}";
+    home.file.".config/git/allowed_signers" = mkIf cfg.work.enable {
+      text = "${gitEmail} ${builtins.readFile gitSigningKeyPath}";
+    };
 
 
     #####
