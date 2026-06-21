@@ -19,9 +19,13 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
     determinate.url = "https://flakehub.com/f/DeterminateSystems/determinate/3";
+    lumen = {
+      url = "github:jnsahaj/lumen";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
   };
 
-  outputs = inputs@{ self, nix-darwin, nixpkgs, nixpkgs-unstable, home-manager, nixvim, mole-nix, determinate }:
+  outputs = inputs@{ self, nix-darwin, nixpkgs, nixpkgs-unstable, home-manager, nixvim, mole-nix, determinate, lumen }:
   let
     border-color = {
       active = "0xffff70b3";
@@ -92,8 +96,11 @@
           unstable.nixd
           mole
           unstable.sesh
+          unstable.tsshd
+          unstable.openlogi
           devenv
           gitu
+          lumen
         ];
 
       environment.variables = {
@@ -311,6 +318,27 @@
 
       services.tailscale = {
         enable = true;
+      };
+
+      launchd.agents.tsshd = {
+        command = "${pkgs.unstable.tsshd}/bin/tsshd serve";
+        serviceConfig = {
+          RunAtLoad = true;
+          KeepAlive = true;
+          StandardOutPath = "/Users/barnaby/.tsshd.log";
+          StandardErrorPath = "/Users/barnaby/.tsshd.log";
+        };
+      };
+
+      launchd.agents.openlogi = {
+        environment.HOME = "/Users/barnaby";
+        command = "${pkgs.unstable.openlogi}/Applications/OpenLogi.app/Contents/MacOS/openlogi-gui";
+        serviceConfig = {
+          RunAtLoad = true;
+          KeepAlive = true;
+          StandardOutPath = "/Users/barnaby/.openlogi.log";
+          StandardErrorPath = "/Users/barnaby/.openlogi.log";
+        };
       };
 
       homebrew = {
