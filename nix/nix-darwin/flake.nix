@@ -14,13 +14,24 @@
       url = "github:nix-community/nixvim/nixos-25.11";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+    mole-nix = {
+      url = "github:brhutchins/mole-nix";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+    maki-nix = {
+      url = "github:tontinton/maki/";
+      inputs.nixpkgs.follows = "nixpkgs-unstable";
+    };
   };
 
-  outputs = inputs@{ self, nix-darwin, nixpkgs, nixpkgs-unstable, home-manager, nixvim, ... }:
+  outputs = inputs@{ self, nix-darwin, nixpkgs, nixpkgs-unstable, home-manager, nixvim, mole-nix, maki-nix, ... }:
   let
     system = "aarch64-darwin";
 
     lib = nixpkgs.lib;
+
+    mole = mole-nix.packages.${system}.default;
+    maki = maki-nix.packages.${system}.default;
 
     border-color = {
       active = "0xffff70b3";
@@ -43,6 +54,12 @@
         })
 
         (self: super: {
+          direnv = super.direnv.overrideAttrs (_: {
+            doCheck = false;
+          });
+        })
+
+        (self: super: {
           karabiner-elements = super.karabiner-elements.overrideAttrs (old: {
             version = "14.13.0";
 
@@ -56,7 +73,7 @@
 
       nixpkgs.config.allowUnfreePredicate = let
           whitelist = map lib.getName [
-            pkgs.unstable.claude-code
+            pkgs.claude-code
             pkgs.code-cursor
           ];
         in
@@ -64,20 +81,24 @@
 
       # List packages installed in system profile. To search by name, run:
       # $ nix-env -qaP | grep wget
-       environment.systemPackages =
-         [ pkgs.vim
-           pkgs.xh
-           pkgs.hey
-           pkgs.nodejs
-           pkgs.azure-cli
-           pkgs.unstable.claude-code
-           pkgs.unstable.claude-monitor
-           pkgs.code-cursor
-           pkgs.unstable.cursor-cli
-           pkgs.unstable.opencode
-           pkgs.unstable.pi-coding-agent
-           pkgs.unstable.mcporter
-         ];
+        environment.systemPackages = [
+          pkgs.vim
+          pkgs.xh
+          pkgs.hey
+          pkgs.nodejs
+          pkgs.azure-cli
+          pkgs.claude-code
+          pkgs.code-cursor
+          pkgs.unstable.cursor-cli
+          pkgs.llama-cpp
+          pkgs.unstable.opencode
+          pkgs.unstable.pi-coding-agent
+          pkgs.unstable.mcporter
+          pkgs.nh
+          maki
+          mole
+          pkgs.unstable.gitu
+        ];
 
       environment.variables = {
         EDITOR = "nvim";
@@ -538,10 +559,31 @@ PYEOF
       # Point the Nix daemon at our combined bundle so it trusts Zscaler's
       # TLS interception proxy when fetching from the internet.
       nix.settings.ssl-cert-file = "/etc/ssl/certs/ca-bundle-with-zscaler.crt";
+      launchd.daemons.nix-daemon.serviceConfig.EnvironmentVariables = {
+        NIX_SSL_CERT_FILE = "/etc/ssl/certs/ca-bundle-with-zscaler.crt";
+        NIX_GIT_SSL_CAINFO = "/etc/ssl/certs/ca-bundle-with-zscaler.crt";
+      };
+      environment.variables.NIX_SSL_CERT_FILE = "/etc/ssl/certs/ca-bundle-with-zscaler.crt";
+      environment.variables.NIX_GIT_SSL_CAINFO = "/etc/ssl/certs/ca-bundle-with-zscaler.crt";
+      environment.variables.SSL_CERT_FILE = "/etc/ssl/certs/ca-bundle-with-zscaler.crt";
 
       # Create /etc/zshrc that loads the nix-darwin environment.
       programs.zsh.enable = true;  # default shell on catalina
+      programs.thaw.enable = true;
+      programs.thaw.launchAtLogin = true;
       # programs.fish.enable = true;
+
+      # Automated nix garbage collection — runs weekly on Sundays at 4:15 AM.
+      # `nh clean --keep 5` deletes garbage and keeps the 5 most recent generations for safety.
+      launchd.user.agents.nix-garbage-collector = {
+        command = "${pkgs.nh}/bin/nh clean --keep 5";
+        serviceConfig = {
+          RunAtLoad = false;
+          StartCalendarInterval = [
+            { Hour = 4; Minute = 15; Weekday = 7; }
+          ];
+        };
+      };
 
       # Set Git commit hash for darwin-version.
       system.configurationRevision = self.rev or self.dirtyRev or null;
@@ -561,6 +603,36 @@ PYEOF
         "1password-cli"
       ];
     };
+
+    thaw-module =
+      { config, lib, pkgs, ... }:
+      let
+        cfg = config.programs.thaw;
+        thawPkg = pkgs.callPackage ../packages/thaw/default.nix { };
+      in
+      {
+        options.programs.thaw = {
+          enable = lib.mkEnableOption "Thaw menu bar manager";
+          launchAtLogin = lib.mkOption {
+            type = lib.types.bool;
+            default = false;
+            description = "Whether to start Thaw automatically at user login.";
+          };
+        };
+
+        config = lib.mkIf cfg.enable {
+          environment.systemPackages = [ thawPkg ];
+
+          launchd.user.agents.thaw = lib.mkIf cfg.launchAtLogin {
+            serviceConfig = {
+              Label = "com.thaw.app";
+              ProgramArguments = [ "${thawPkg}/Applications/Thaw.app/Contents/MacOS/Thaw" ];
+              RunAtLoad = true;
+              KeepAlive = false;
+            };
+          };
+        };
+      };
   in
   {
     # Build darwin flake using:
@@ -569,6 +641,7 @@ PYEOF
       modules = [
         configuration
         work-config
+        thaw-module
         home-manager.darwinModules.home-manager
         {
           home-manager.extraSpecialArgs = { inherit inputs system; };

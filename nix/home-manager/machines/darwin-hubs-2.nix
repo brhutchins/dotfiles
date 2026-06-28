@@ -6,8 +6,8 @@
     home = {
       stateVersion = "23.05";
       packages = with pkgs; [
-        colima
-        docker
+        unstable.colima
+        docker_29
         docker-buildx
         pgcli
         zed-editor
